@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#1f7a4d" />
+    <title>Daily Game</title>
+    <meta name="description" content="Un défi par jour, en moins de 5 minutes. Sans compte, sans inscription." />
+    <meta property="og:title" content="Daily Game" />
+    <meta property="og:description" content="Un défi par jour, en moins de 5 minutes." />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <header class="topbar">
+      <button class="icon-btn" data-open="rules" type="button" aria-label="Règles">?</button>
+      <h1><span data-title>Daily Game</span> <small data-day></small></h1>
+      <button class="icon-btn" data-open="stats" type="button" aria-label="Statistiques">📊</button>
+    </header>
+
+    <main id="game" class="game" aria-live="polite"></main>
+
+    <dialog id="rules-modal" class="modal" aria-labelledby="rules-title">
+      <button class="modal-close" data-close type="button" aria-label="Fermer">×</button>
+      <div class="modal-body">
+        <h2 id="rules-title">Comment jouer</h2>
+        <p>Trouve le pays du jour en <strong>5 essais</strong> maximum.</p>
+        <ul>
+          <li>Tu commences avec un seul indice.</li>
+          <li>Chaque mauvaise réponse débloque un indice supplémentaire, de plus en plus révélateur.</li>
+          <li>« Indice suivant » passe ton tour et compte comme un essai.</li>
+          <li>Les accents et les majuscules n'ont pas d'importance.</li>
+        </ul>
+        <p>Un nouveau défi chaque jour à minuit. Partage ton score sans rien dévoiler :</p>
+        <p class="example">🟥🟥🟩⬜⬜</p>
+        <button class="btn primary block" data-close type="button">Jouer</button>
+      </div>
+    </dialog>
+
+    <dialog id="end-modal" class="modal" aria-label="Fin de partie">
+      <button class="modal-close" data-close type="button" aria-label="Fermer">×</button>
+      <div class="modal-body"></div>
+    </dialog>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <noscript>Ce jeu nécessite JavaScript.</noscript>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

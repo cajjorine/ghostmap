@@ -1,0 +1,104 @@
+[
+  {
+    "answer": "Japon",
+    "clues": [
+      "Ce pays compte plus de 14 000 îles selon le recensement officiel de 2023.",
+      "Son parlement s'appelle la Diète.",
+      "On y circule à gauche.",
+      "Sa monnaie est le yen.",
+      "Sa capitale est Tokyo."
+    ]
+  },
+  {
+    "answer": "Canada",
+    "clues": [
+      "C'est l'un des pays qui ont le plus long littoral au monde.",
+      "Il a deux langues officielles au niveau fédéral.",
+      "Le roi Charles III en est le chef d'État.",
+      "Une feuille d'érable figure sur son drapeau.",
+      "Sa capitale est Ottawa."
+    ]
+  },
+  {
+    "answer": "Égypte",
+    "aliases": ["Egypte"],
+    "clues": [
+      "Ce pays est à cheval sur deux continents.",
+      "Le canal qui le traverse relie la Méditerranée à la mer Rouge.",
+      "Son territoire est en très grande partie désertique.",
+      "Le plus long fleuve d'Afrique le traverse.",
+      "On y trouve les pyramides de Gizeh."
+    ]
+  },
+  {
+    "answer": "Brésil",
+    "aliases": ["Bresil"],
+    "clues": [
+      "C'est le pays lusophone le plus peuplé du monde.",
+      "Sa capitale a été construite de toutes pièces dans les années 1950.",
+      "Il partage une frontière avec presque tous les pays d'Amérique du Sud.",
+      "La plus grande partie de la forêt amazonienne se trouve sur son territoire.",
+      "On y célèbre le carnaval de Rio."
+    ]
+  },
+  {
+    "answer": "Australie",
+    "clues": [
+      "Ce pays est aussi un continent.",
+      "Sa capitale n'est pas sa plus grande ville.",
+      "Il abrite la plus grande barrière de corail du monde.",
+      "Le kangourou figure sur ses armoiries.",
+      "On y trouve l'opéra de Sydney."
+    ]
+  },
+  {
+    "answer": "Islande",
+    "clues": [
+      "Ce pays est traversé par la dorsale médio-atlantique.",
+      "Son parlement, l'Althing, est l'un des plus anciens du monde.",
+      "Il n'a pas d'armée permanente.",
+      "Les geysers tirent leur nom d'une source de ce pays.",
+      "Sa capitale est Reykjavik."
+    ]
+  },
+  {
+    "answer": "Mexique",
+    "clues": [
+      "C'est le pays hispanophone le plus peuplé du monde.",
+      "La vanille est originaire de ce pays.",
+      "Un aigle dévorant un serpent figure sur son drapeau.",
+      "On y trouve la pyramide de Chichén Itzá.",
+      "Sa capitale porte le même nom que le pays."
+    ]
+  },
+  {
+    "answer": "Italie",
+    "clues": [
+      "Ce pays entoure complètement deux États souverains.",
+      "On y trouve trois volcans actifs célèbres, dont l'Etna.",
+      "Il a été unifié au XIXe siècle.",
+      "Son territoire a la forme d'une botte.",
+      "Sa capitale est Rome."
+    ]
+  },
+  {
+    "answer": "Inde",
+    "clues": [
+      "C'est le pays le plus peuplé du monde.",
+      "Sa Constitution est l'une des plus longues du monde.",
+      "Une roue à 24 rayons figure au centre de son drapeau.",
+      "Le Taj Mahal s'y trouve.",
+      "Sa capitale est New Delhi."
+    ]
+  },
+  {
+    "answer": "Maroc",
+    "clues": [
+      "Ce pays est bordé à la fois par l'Atlantique et par la Méditerranée.",
+      "La chaîne de l'Atlas le traverse.",
+      "Une étoile verte à cinq branches figure sur son drapeau rouge.",
+      "Marrakech et Fès comptent parmi ses villes.",
+      "Sa capitale est Rabat."
+    ]
+  }
+]

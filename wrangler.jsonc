@@ -1,0 +1,11 @@
+{
+  // @routes (managed by new-game.sh / attach-domain.sh: do not remove this line)
+  "name": "daily-game-template",
+  "compatibility_date": "2026-11-20",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  },
+  "workers_dev": true,
+  "preview_urls": false
+}
