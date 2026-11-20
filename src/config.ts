@@ -1,8 +1,8 @@
 // Values rewritten by new-game.sh / attach-domain.sh (do not change the line format).
 export const CONFIG = {
-  gameId: 'daily-game-template',
-  title: 'Daily Game',
-  url: '',
-  launchDate: '2026-11-20',
+  gameId: 'ghostmap',
+  title: 'Ghostmap',
+  url: 'https://ghostmap.factory-worker.cajjorine.workers.dev.workers.dev',
+  launchDate: '2026-11-21',
   maxAttempts: 5,
 } as const;
