@@ -3329,5 +3329,1547 @@
         }
       ]
     }
+  },
+  {
+    "type": "points",
+    "title": "Les sept nouvelles merveilles du monde",
+    "points": [
+      {
+        "n": "Grande Muraille (Badaling)",
+        "en": "Great Wall (Badaling)",
+        "lat": 40.36,
+        "lng": 116.02
+      },
+      {
+        "n": "Pétra",
+        "en": "Petra",
+        "lat": 30.33,
+        "lng": 35.44
+      },
+      {
+        "n": "Christ Rédempteur",
+        "en": "Christ the Redeemer",
+        "lat": -22.95,
+        "lng": -43.21
+      },
+      {
+        "n": "Machu Picchu",
+        "lat": -13.16,
+        "lng": -72.55
+      },
+      {
+        "n": "Chichén Itzá",
+        "lat": 20.68,
+        "lng": -88.57
+      },
+      {
+        "n": "Colisée",
+        "en": "Colosseum",
+        "lat": 41.89,
+        "lng": 12.49
+      },
+      {
+        "n": "Taj Mahal",
+        "lat": 27.18,
+        "lng": 78.04
+      }
+    ],
+    "hints": [
+      "Un vote mondial les a désignées en 2007",
+      "Il y a un amphithéâtre romain et un mausolée",
+      "Dans la liste antique, une seule tient encore debout",
+      "Il y en a sept"
+    ],
+    "fact": "Elles ont été élues en 2007 lors d’un vote en ligne organisé par une fondation privée. La pyramide de Khéops, seule merveille antique encore debout, a reçu un titre honorifique à part.",
+    "answers": [
+      "merveille"
+    ],
+    "near": [
+      {
+        "rule": "sept/7",
+        "msg": "Brûlant ! Sept… quoi ?",
+        "hot": true
+      },
+      {
+        "rule": "monument/patrimoine/unesco/touris/celebre/archeolog/site",
+        "msg": "Brûlant ! Ce sont des monuments, mais pas n’importe lesquels.",
+        "hot": true
+      },
+      {
+        "rule": "ruine/antique/ancien/histoire/civilisation",
+        "msg": "Tu chauffes… mais le Christ de Rio date de 1931."
+      }
+    ],
+    "start": "20, 30",
+    "en": {
+      "title": "The New Seven Wonders of the World",
+      "hints": [
+        "A worldwide vote chose them in 2007",
+        "There is a Roman amphitheatre and a mausoleum",
+        "Only one of the ancient list is still standing",
+        "There are seven of them"
+      ],
+      "fact": "They were chosen in 2007 in an online vote run by a private foundation. The Great Pyramid of Giza, the only ancient wonder still standing, got a separate honorary title.",
+      "answers": [
+        "wonder"
+      ],
+      "near": [
+        {
+          "rule": "seven/7",
+          "msg": "Red hot! Seven… what?",
+          "hot": true
+        },
+        {
+          "rule": "monument/heritage/unesco/touris/famous/archaeolog/landmark/site",
+          "msg": "Red hot! They are monuments, but not just any.",
+          "hot": true
+        },
+        {
+          "rule": "ruin/ancient/history/civilisation/civilization",
+          "msg": "Getting warmer… but Rio’s Christ dates from 1931."
+        }
+      ]
+    }
+  },
+  {
+    "type": "points",
+    "title": "Des volcans célèbres",
+    "points": [
+      {
+        "n": "Vésuve",
+        "en": "Vesuvius",
+        "lat": 40.82,
+        "lng": 14.43
+      },
+      {
+        "n": "Etna",
+        "lat": 37.75,
+        "lng": 14.99
+      },
+      {
+        "n": "Krakatoa",
+        "lat": -6.1,
+        "lng": 105.42
+      },
+      {
+        "n": "Mont Fuji",
+        "en": "Mount Fuji",
+        "lat": 35.36,
+        "lng": 138.73
+      },
+      {
+        "n": "Mont Saint Helens",
+        "en": "Mount St. Helens",
+        "lat": 46.19,
+        "lng": -122.19
+      },
+      {
+        "n": "Kīlauea",
+        "lat": 19.41,
+        "lng": -155.29
+      },
+      {
+        "n": "Pinatubo",
+        "lat": 15.14,
+        "lng": 120.35
+      },
+      {
+        "n": "Eyjafjallajökull",
+        "lat": 63.63,
+        "lng": -19.62
+      },
+      {
+        "n": "Popocatépetl",
+        "lat": 19.02,
+        "lng": -98.62
+      },
+      {
+        "n": "Tambora",
+        "lat": -8.25,
+        "lng": 118.0
+      }
+    ],
+    "hints": [
+      "La Terre y gronde parfois",
+      "Pompéi en sait quelque chose",
+      "En 2010, l’un d’eux a cloué les avions européens au sol",
+      "Pense à la lave"
+    ],
+    "fact": "L’éruption du Tambora, en Indonésie, en 1815, est la plus puissante de l’histoire récente : 1816 est restée « l’année sans été » en Europe et en Amérique du Nord.",
+    "answers": [
+      "volcan/eruption/lave/magma"
+    ],
+    "near": [
+      {
+        "rule": "montagne/sommet/mont/pic",
+        "msg": "Ce sont bien des montagnes… mais elles ont un caractère explosif."
+      },
+      {
+        "rule": "seisme/tremblement/sism/plaque/faille",
+        "msg": "Tu chauffes ! Ça gronde… et ça crache aussi."
+      }
+    ],
+    "start": "20, 140",
+    "en": {
+      "title": "Famous volcanoes",
+      "hints": [
+        "The Earth sometimes rumbles there",
+        "Pompeii knows all about it",
+        "In 2010, one of them grounded Europe’s planes",
+        "Think about lava"
+      ],
+      "fact": "The 1815 eruption of Tambora in Indonesia was the most powerful in recorded history: 1816 became “the year without a summer” in Europe and North America.",
+      "answers": [
+        "volcan/eruption/lava/magma"
+      ],
+      "near": [
+        {
+          "rule": "mountain/summit/peak/mount",
+          "msg": "They are mountains… with an explosive temper."
+        },
+        {
+          "rule": "earthquake/quake/seism/tecton/plate/fault",
+          "msg": "Getting warmer! It rumbles… and it spits too."
+        }
+      ]
+    }
+  },
+  {
+    "type": "points",
+    "title": "Des capitales construites de toutes pièces",
+    "points": [
+      {
+        "n": "Brasília",
+        "lat": -15.79,
+        "lng": -47.88
+      },
+      {
+        "n": "Canberra",
+        "lat": -35.28,
+        "lng": 149.13
+      },
+      {
+        "n": "Abuja",
+        "lat": 9.08,
+        "lng": 7.4
+      },
+      {
+        "n": "Naypyidaw",
+        "lat": 19.76,
+        "lng": 96.13
+      },
+      {
+        "n": "Islamabad",
+        "lat": 33.69,
+        "lng": 73.05
+      },
+      {
+        "n": "Washington",
+        "lat": 38.9,
+        "lng": -77.04
+      }
+    ],
+    "hints": [
+      "Ce sont toutes des villes importantes pour leur pays",
+      "Aucune n’est la plus grande ville de son pays",
+      "Elles sont sorties de terre sur décision politique",
+      "Le gouvernement y siège"
+    ],
+    "fact": "Brasília a été inaugurée en 1960 après moins de quatre ans de travaux. Son plan, dessiné par Lúcio Costa, rappelle un avion vu du ciel.",
+    "answers": [
+      "capital + construi/cree/artificiel/nouvel/planifi/fond/bati/neuve/neuf/dessin/concu"
+    ],
+    "near": [
+      {
+        "rule": "capital",
+        "msg": "Brûlant ! Des capitales… mais pas comme les autres.",
+        "hot": true
+      },
+      {
+        "rule": "ville/cite/urbain",
+        "msg": "Tu chauffes… Quel rôle jouent ces villes ?"
+      }
+    ],
+    "en": {
+      "title": "Purpose-built capital cities",
+      "hints": [
+        "They all matter a lot to their country",
+        "None is its country’s largest city",
+        "They were built from scratch by political decision",
+        "The government sits there"
+      ],
+      "fact": "Brasília was inaugurated in 1960 after less than four years of building. Lúcio Costa’s plan looks like an aeroplane seen from above.",
+      "answers": [
+        "capital + built/planned/purpose/artificial/created/new/designed/founded/scratch"
+      ],
+      "near": [
+        {
+          "rule": "capital",
+          "msg": "Red hot! Capitals… but not like the others.",
+          "hot": true
+        },
+        {
+          "rule": "city/cities/town/urban",
+          "msg": "Getting warmer… What role do these cities play?"
+        }
+      ]
+    }
+  },
+  {
+    "type": "points",
+    "title": "Le plus haut sommet de chaque continent",
+    "points": [
+      {
+        "n": "Everest",
+        "lat": 27.99,
+        "lng": 86.93
+      },
+      {
+        "n": "Aconcagua",
+        "lat": -32.65,
+        "lng": -70.01
+      },
+      {
+        "n": "Denali",
+        "lat": 63.07,
+        "lng": -151.01
+      },
+      {
+        "n": "Kilimandjaro",
+        "en": "Kilimanjaro",
+        "lat": -3.07,
+        "lng": 37.35
+      },
+      {
+        "n": "Elbrouz",
+        "en": "Elbrus",
+        "lat": 43.35,
+        "lng": 42.44
+      },
+      {
+        "n": "Mont Vinson",
+        "en": "Mount Vinson",
+        "lat": -78.53,
+        "lng": -85.62
+      },
+      {
+        "n": "Puncak Jaya",
+        "lat": -4.08,
+        "lng": 137.16
+      }
+    ],
+    "hints": [
+      "On y a très froid",
+      "L’un d’eux est en Antarctique",
+      "Les alpinistes collectionnent cette liste",
+      "Un par continent"
+    ],
+    "fact": "Richard Bass a été le premier à gravir les sept, en 1985. L’Everest culmine à 8 849 m, le Puncak Jaya à 4 884 m.",
+    "answers": [
+      "sommet/montagne/mont/pic/culmin/haut/point + continent",
+      "sept/7 + sommet"
+    ],
+    "near": [
+      {
+        "rule": "sommet/montagne/mont/pic/culmin/haut/alpinis/escalad",
+        "msg": "Brûlant ! Les plus hauts… de quoi ?",
+        "hot": true
+      },
+      {
+        "rule": "froid/neige/glace",
+        "msg": "Tu chauffes… Lève les yeux."
+      }
+    ],
+    "start": "25, 40",
+    "en": {
+      "title": "The highest peak on each continent",
+      "hints": [
+        "It’s very cold up there",
+        "One of them is in Antarctica",
+        "Climbers collect this list",
+        "One per continent"
+      ],
+      "fact": "Richard Bass was the first to climb all seven, in 1985. Everest stands at 8,849 m, Puncak Jaya at 4,884 m.",
+      "answers": [
+        "summit/mountain/peak/highest/high/top + continent",
+        "seven/7 + summit"
+      ],
+      "near": [
+        {
+          "rule": "summit/mountain/peak/highest/climb/mount",
+          "msg": "Red hot! The highest… of what?",
+          "hot": true
+        },
+        {
+          "rule": "cold/snow/ice",
+          "msg": "Getting warmer… Look up."
+        }
+      ]
+    }
+  },
+  {
+    "type": "points",
+    "title": "Des détroits stratégiques",
+    "points": [
+      {
+        "n": "Gibraltar",
+        "lat": 35.97,
+        "lng": -5.5
+      },
+      {
+        "n": "Bosphore",
+        "en": "Bosphorus",
+        "lat": 41.12,
+        "lng": 29.07
+      },
+      {
+        "n": "Ormuz",
+        "en": "Hormuz",
+        "lat": 26.57,
+        "lng": 56.25
+      },
+      {
+        "n": "Malacca",
+        "lat": 2.5,
+        "lng": 101.4
+      },
+      {
+        "n": "Béring",
+        "en": "Bering",
+        "lat": 65.75,
+        "lng": -168.75
+      },
+      {
+        "n": "Pas de Calais",
+        "en": "Strait of Dover",
+        "lat": 51.0,
+        "lng": 1.45
+      },
+      {
+        "n": "Bab-el-Mandeb",
+        "lat": 12.58,
+        "lng": 43.33
+      },
+      {
+        "n": "Magellan",
+        "lat": -53.5,
+        "lng": -70.5
+      }
+    ],
+    "hints": [
+      "Les navires connaissent bien ces endroits",
+      "C’est toujours entre deux terres",
+      "Une bonne part du pétrole mondial passe par l’un d’eux",
+      "Un passage étroit entre deux mers"
+    ],
+    "fact": "Environ un cinquième du pétrole consommé dans le monde transite par le détroit d’Ormuz, large d’une quarantaine de kilomètres à son point le plus étroit.",
+    "answers": [
+      "detroit"
+    ],
+    "near": [
+      {
+        "rule": "passage/canal/goulet/bras de mer",
+        "msg": "Brûlant ! Un passage, oui, mais creusé par la nature.",
+        "hot": true
+      },
+      {
+        "rule": "mer/ocean/port/bateau/navire/maritim",
+        "msg": "Tu chauffes… Regarde la forme de la côte."
+      }
+    ],
+    "start": "30, 20",
+    "en": {
+      "title": "Strategic straits",
+      "hints": [
+        "Ships know these places well",
+        "It’s always between two landmasses",
+        "A big share of the world’s oil goes through one of them",
+        "A narrow passage between two seas"
+      ],
+      "fact": "About a fifth of the oil consumed worldwide passes through the Strait of Hormuz, around 40 km wide at its narrowest.",
+      "answers": [
+        "strait"
+      ],
+      "near": [
+        {
+          "rule": "passage/channel/canal/narrow",
+          "msg": "Red hot! A passage, yes, but carved by nature.",
+          "hot": true
+        },
+        {
+          "rule": "sea/ocean/port/ship/boat/maritime",
+          "msg": "Getting warmer… Look at the shape of the coast."
+        }
+      ]
+    }
+  },
+  {
+    "type": "points",
+    "title": "Les villes hôtes des Jeux olympiques d’hiver",
+    "points": [
+      {
+        "n": "Chamonix",
+        "lat": 45.92,
+        "lng": 6.87
+      },
+      {
+        "n": "Saint-Moritz",
+        "en": "St. Moritz",
+        "lat": 46.5,
+        "lng": 9.84
+      },
+      {
+        "n": "Lake Placid",
+        "lat": 44.28,
+        "lng": -73.98
+      },
+      {
+        "n": "Garmisch-Partenkirchen",
+        "lat": 47.49,
+        "lng": 11.1
+      },
+      {
+        "n": "Oslo",
+        "lat": 59.91,
+        "lng": 10.75
+      },
+      {
+        "n": "Cortina d’Ampezzo",
+        "lat": 46.54,
+        "lng": 12.14
+      },
+      {
+        "n": "Squaw Valley",
+        "lat": 39.2,
+        "lng": -120.24
+      },
+      {
+        "n": "Innsbruck",
+        "lat": 47.27,
+        "lng": 11.39
+      },
+      {
+        "n": "Grenoble",
+        "lat": 45.19,
+        "lng": 5.72
+      },
+      {
+        "n": "Sapporo",
+        "lat": 43.06,
+        "lng": 141.35
+      },
+      {
+        "n": "Sarajevo",
+        "lat": 43.86,
+        "lng": 18.41
+      },
+      {
+        "n": "Calgary",
+        "lat": 51.05,
+        "lng": -114.07
+      },
+      {
+        "n": "Albertville",
+        "lat": 45.68,
+        "lng": 6.39
+      },
+      {
+        "n": "Lillehammer",
+        "lat": 61.12,
+        "lng": 10.47
+      },
+      {
+        "n": "Nagano",
+        "lat": 36.65,
+        "lng": 138.19
+      },
+      {
+        "n": "Salt Lake City",
+        "lat": 40.76,
+        "lng": -111.89
+      },
+      {
+        "n": "Turin",
+        "lat": 45.07,
+        "lng": 7.69
+      },
+      {
+        "n": "Vancouver",
+        "lat": 49.28,
+        "lng": -123.12
+      },
+      {
+        "n": "Sotchi",
+        "en": "Sochi",
+        "lat": 43.6,
+        "lng": 39.73
+      },
+      {
+        "n": "PyeongChang",
+        "lat": 37.37,
+        "lng": 128.39
+      },
+      {
+        "n": "Pékin",
+        "en": "Beijing",
+        "lat": 39.9,
+        "lng": 116.4
+      },
+      {
+        "n": "Milan",
+        "lat": 45.46,
+        "lng": 9.19
+      }
+    ],
+    "hints": [
+      "Beaucoup sont dans les montagnes",
+      "Des médailles y ont été remises",
+      "Il y fait froid en février",
+      "Tous les quatre ans"
+    ],
+    "fact": "Chamonix a accueilli les premiers Jeux d’hiver en 1924. Pékin est la seule ville à avoir organisé les Jeux d’été (2008) et ceux d’hiver (2022).",
+    "answers": [
+      "hiver + jeux/jo/olympi"
+    ],
+    "near": [
+      {
+        "rule": "olympi/jo/jeux",
+        "msg": "Brûlant ! Mais en quelle saison ?",
+        "hot": true
+      },
+      {
+        "rule": "ski/neige/montagne/station/glace/patin",
+        "msg": "Tu chauffes… Des médailles y ont été remises."
+      }
+    ],
+    "start": "45, 10",
+    "en": {
+      "title": "Winter Olympics host cities",
+      "hints": [
+        "Many are in the mountains",
+        "Medals were handed out there",
+        "It’s cold there in February",
+        "Every four years"
+      ],
+      "fact": "Chamonix hosted the first Winter Games in 1924. Beijing is the only city to have hosted both the Summer (2008) and Winter (2022) Games.",
+      "answers": [
+        "winter + olympic/games"
+      ],
+      "near": [
+        {
+          "rule": "olympic/games",
+          "msg": "Red hot! But which season?",
+          "hot": true
+        },
+        {
+          "rule": "ski/snow/mountain/resort/ice/skat",
+          "msg": "Getting warmer… Medals were handed out there."
+        }
+      ]
+    }
+  },
+  {
+    "type": "points",
+    "title": "Les plus hauts gratte-ciel du monde",
+    "points": [
+      {
+        "n": "Burj Khalifa (Dubaï)",
+        "en": "Burj Khalifa (Dubai)",
+        "lat": 25.197,
+        "lng": 55.274
+      },
+      {
+        "n": "Merdeka 118 (Kuala Lumpur)",
+        "lat": 3.142,
+        "lng": 101.7
+      },
+      {
+        "n": "Shanghai Tower",
+        "lat": 31.236,
+        "lng": 121.501
+      },
+      {
+        "n": "Abraj Al-Bait (La Mecque)",
+        "en": "Abraj Al-Bait (Mecca)",
+        "lat": 21.419,
+        "lng": 39.826
+      },
+      {
+        "n": "Ping An (Shenzhen)",
+        "lat": 22.537,
+        "lng": 114.05
+      },
+      {
+        "n": "Lotte World Tower (Séoul)",
+        "en": "Lotte World Tower (Seoul)",
+        "lat": 37.513,
+        "lng": 127.103
+      },
+      {
+        "n": "One World Trade Center (New York)",
+        "lat": 40.713,
+        "lng": -74.013
+      }
+    ],
+    "hints": [
+      "Ce sont des constructions",
+      "Plusieurs sont en Asie",
+      "Le premier dépasse 800 mètres",
+      "Il faut un bon ascenseur"
+    ],
+    "fact": "La Burj Khalifa, à Dubaï, culmine à 828 m depuis 2010. Viennent ensuite la Merdeka 118 (679 m) et la Shanghai Tower (632 m).",
+    "answers": [
+      "gratte",
+      "tour/immeuble/building/edifice/batiment/construction + haut/grand/eleve"
+    ],
+    "near": [
+      {
+        "rule": "tour/immeuble/building/edifice/batiment/construction",
+        "msg": "Brûlant ! Qu’ont-ils de spécial ?",
+        "hot": true
+      },
+      {
+        "rule": "ville/metropol/urbain/business/affaires",
+        "msg": "Tu chauffes… Lève les yeux."
+      }
+    ],
+    "start": "25, 80",
+    "en": {
+      "title": "The world’s tallest skyscrapers",
+      "hints": [
+        "They are buildings",
+        "Several are in Asia",
+        "The first one is over 800 metres",
+        "You need a good lift"
+      ],
+      "fact": "Dubai’s Burj Khalifa has stood 828 m tall since 2010. Next come Merdeka 118 (679 m) and Shanghai Tower (632 m).",
+      "answers": [
+        "skyscraper",
+        "tower/building + tall/high/big/highest"
+      ],
+      "near": [
+        {
+          "rule": "tower/building/construction/edifice",
+          "msg": "Red hot! What’s special about them?",
+          "hot": true
+        },
+        {
+          "rule": "city/metropol/urban/business",
+          "msg": "Getting warmer… Look up."
+        }
+      ]
+    }
+  },
+  {
+    "type": "points",
+    "title": "Des bases de lancement spatial",
+    "points": [
+      {
+        "n": "Cap Canaveral",
+        "en": "Cape Canaveral",
+        "lat": 28.49,
+        "lng": -80.58
+      },
+      {
+        "n": "Baïkonour",
+        "en": "Baikonur",
+        "lat": 45.96,
+        "lng": 63.31
+      },
+      {
+        "n": "Kourou",
+        "lat": 5.24,
+        "lng": -52.77
+      },
+      {
+        "n": "Jiuquan",
+        "lat": 40.96,
+        "lng": 100.29
+      },
+      {
+        "n": "Tanegashima",
+        "lat": 30.4,
+        "lng": 130.97
+      },
+      {
+        "n": "Sriharikota",
+        "lat": 13.72,
+        "lng": 80.23
+      },
+      {
+        "n": "Vostotchny",
+        "en": "Vostochny",
+        "lat": 51.88,
+        "lng": 128.33
+      },
+      {
+        "n": "Wenchang",
+        "lat": 19.61,
+        "lng": 110.95
+      },
+      {
+        "n": "Plessetsk",
+        "en": "Plesetsk",
+        "lat": 62.93,
+        "lng": 40.58
+      },
+      {
+        "n": "Mahia",
+        "lat": -39.26,
+        "lng": 177.86
+      }
+    ],
+    "hints": [
+      "Ça fait beaucoup de bruit",
+      "Plusieurs sont près de l’équateur, et ce n’est pas un hasard",
+      "L’un est en Guyane",
+      "3, 2, 1…"
+    ],
+    "fact": "Plus un site est proche de l’équateur, plus la rotation de la Terre aide les fusées qui partent vers l’est. C’est pour ça que l’Europe lance depuis Kourou, en Guyane.",
+    "answers": [
+      "cosmodrome/spatioport",
+      "lancement",
+      "fusee/spatia/espace/satellit + base/site/centre/decoll/pas de tir/port"
+    ],
+    "near": [
+      {
+        "rule": "fusee/spatia/espace/satellit/astronaut/nasa/cosmos",
+        "msg": "Brûlant ! Mais que s’y passe-t-il ?",
+        "hot": true
+      },
+      {
+        "rule": "militaire/armee/missile",
+        "msg": "Tu chauffes… mais ça va bien plus haut."
+      }
+    ],
+    "start": "20, 60",
+    "en": {
+      "title": "Space launch sites",
+      "hints": [
+        "It gets very loud",
+        "Several are near the equator, and that’s no accident",
+        "One is in French Guiana",
+        "3, 2, 1…"
+      ],
+      "fact": "The closer a site is to the equator, the more the Earth’s spin helps rockets heading east. That’s why Europe launches from Kourou, in French Guiana.",
+      "answers": [
+        "spaceport/cosmodrome",
+        "launch",
+        "rocket/space/satellite + base/site/center/centre/port/pad"
+      ],
+      "near": [
+        {
+          "rule": "rocket/space/satellite/astronaut/nasa/cosmos",
+          "msg": "Red hot! But what happens there?",
+          "hot": true
+        },
+        {
+          "rule": "military/army/missile",
+          "msg": "Getting warmer… but it goes much higher."
+        }
+      ]
+    }
+  },
+  {
+    "type": "points",
+    "title": "De grands barrages",
+    "points": [
+      {
+        "n": "Trois-Gorges",
+        "en": "Three Gorges",
+        "lat": 30.82,
+        "lng": 111.0
+      },
+      {
+        "n": "Itaipu",
+        "lat": -25.41,
+        "lng": -54.59
+      },
+      {
+        "n": "Hoover",
+        "lat": 36.016,
+        "lng": -114.737
+      },
+      {
+        "n": "Assouan",
+        "en": "Aswan",
+        "lat": 23.97,
+        "lng": 32.88
+      },
+      {
+        "n": "Grand barrage de la Renaissance",
+        "en": "Grand Ethiopian Renaissance Dam",
+        "lat": 11.21,
+        "lng": 35.09
+      },
+      {
+        "n": "Kariba",
+        "lat": -16.52,
+        "lng": 28.76
+      },
+      {
+        "n": "Guri",
+        "lat": 7.76,
+        "lng": -62.99
+      },
+      {
+        "n": "Belo Monte",
+        "lat": -3.12,
+        "lng": -51.78
+      }
+    ],
+    "hints": [
+      "Ils sont tous sur des fleuves",
+      "Ils produisent de l’énergie",
+      "Le plus puissant est en Chine",
+      "Ils retiennent l’eau"
+    ],
+    "fact": "Le barrage des Trois-Gorges, sur le Yangzi, est la plus puissante centrale électrique du monde : 22 500 mégawatts.",
+    "answers": [
+      "barrage/hydro"
+    ],
+    "near": [
+      {
+        "rule": "centrale/electri/energie/turbine",
+        "msg": "Brûlant ! Mais d’où vient cette énergie ?",
+        "hot": true
+      },
+      {
+        "rule": "eau/fleuve/riviere/lac/lacs/reservoir",
+        "msg": "Tu chauffes… L’eau y est retenue."
+      }
+    ],
+    "start": "10, 20",
+    "en": {
+      "title": "Major dams",
+      "hints": [
+        "They are all on rivers",
+        "They produce energy",
+        "The most powerful is in China",
+        "They hold water back"
+      ],
+      "fact": "The Three Gorges Dam on the Yangtze is the most powerful power station in the world: 22,500 megawatts.",
+      "answers": [
+        "dam/dams/hydro"
+      ],
+      "near": [
+        {
+          "rule": "power/electric/energy/turbine",
+          "msg": "Red hot! But where does that energy come from?",
+          "hot": true
+        },
+        {
+          "rule": "water/river/lake/reservoir",
+          "msg": "Getting warmer… The water is held back there."
+        }
+      ]
+    }
+  },
+  {
+    "type": "points",
+    "title": "Les villes de la Coupe du monde 2026",
+    "points": [
+      {
+        "n": "New York / New Jersey",
+        "lat": 40.81,
+        "lng": -74.07
+      },
+      {
+        "n": "Los Angeles",
+        "lat": 33.95,
+        "lng": -118.34
+      },
+      {
+        "n": "Dallas",
+        "lat": 32.75,
+        "lng": -97.09
+      },
+      {
+        "n": "Atlanta",
+        "lat": 33.76,
+        "lng": -84.4
+      },
+      {
+        "n": "Miami",
+        "lat": 25.96,
+        "lng": -80.24
+      },
+      {
+        "n": "Seattle",
+        "lat": 47.6,
+        "lng": -122.33
+      },
+      {
+        "n": "San Francisco",
+        "lat": 37.4,
+        "lng": -121.97
+      },
+      {
+        "n": "Boston",
+        "lat": 42.09,
+        "lng": -71.26
+      },
+      {
+        "n": "Philadelphie",
+        "en": "Philadelphia",
+        "lat": 39.9,
+        "lng": -75.17
+      },
+      {
+        "n": "Houston",
+        "lat": 29.68,
+        "lng": -95.41
+      },
+      {
+        "n": "Kansas City",
+        "lat": 39.05,
+        "lng": -94.48
+      },
+      {
+        "n": "Toronto",
+        "lat": 43.63,
+        "lng": -79.42
+      },
+      {
+        "n": "Vancouver",
+        "lat": 49.28,
+        "lng": -123.11
+      },
+      {
+        "n": "Mexico",
+        "en": "Mexico City",
+        "lat": 19.3,
+        "lng": -99.15
+      },
+      {
+        "n": "Guadalajara",
+        "lat": 20.68,
+        "lng": -103.46
+      },
+      {
+        "n": "Monterrey",
+        "lat": 25.67,
+        "lng": -100.24
+      }
+    ],
+    "hints": [
+      "Trois pays se les partagent",
+      "Toutes sont en Amérique du Nord",
+      "Des stades géants",
+      "Été 2026"
+    ],
+    "fact": "La Coupe du monde 2026 est la première à 48 équipes et la première organisée par trois pays. Le stade Azteca, à Mexico, est le seul à avoir accueilli trois éditions (1970, 1986 et 2026).",
+    "answers": [
+      "coupe du monde/mondial/fifa/world cup"
+    ],
+    "near": [
+      {
+        "rule": "foot/soccer/stade/ballon/sport",
+        "msg": "Brûlant ! Quel événement ?",
+        "hot": true
+      },
+      {
+        "rule": "ville/metropol/amerique/etats unis/usa",
+        "msg": "Tu chauffes… Il s’y est joué quelque chose en 2026."
+      }
+    ],
+    "start": "35, -95",
+    "en": {
+      "title": "2026 World Cup host cities",
+      "hints": [
+        "Three countries share them",
+        "All are in North America",
+        "Huge stadiums",
+        "Summer 2026"
+      ],
+      "fact": "The 2026 World Cup was the first with 48 teams and the first hosted by three countries. Mexico City’s Estadio Azteca is the only stadium to have hosted three editions (1970, 1986 and 2026).",
+      "answers": [
+        "world cup/fifa/mondial"
+      ],
+      "near": [
+        {
+          "rule": "football/soccer/stadium/ball/sport",
+          "msg": "Red hot! Which event?",
+          "hot": true
+        },
+        {
+          "rule": "city/cities/america/usa/united states",
+          "msg": "Getting warmer… Something was played there in 2026."
+        }
+      ]
+    }
+  },
+  {
+    "type": "points",
+    "title": "Des cratères d’impact de météorites",
+    "points": [
+      {
+        "n": "Chicxulub",
+        "lat": 21.4,
+        "lng": -89.52
+      },
+      {
+        "n": "Meteor Crater",
+        "lat": 35.03,
+        "lng": -111.02
+      },
+      {
+        "n": "Vredefort",
+        "lat": -27.0,
+        "lng": 27.5
+      },
+      {
+        "n": "Sudbury",
+        "lat": 46.6,
+        "lng": -81.18
+      },
+      {
+        "n": "Popigaï",
+        "en": "Popigai",
+        "lat": 71.65,
+        "lng": 111.18
+      },
+      {
+        "n": "Manicouagan",
+        "lat": 51.38,
+        "lng": -68.7
+      },
+      {
+        "n": "Rochechouart",
+        "lat": 45.82,
+        "lng": 0.78
+      },
+      {
+        "n": "Ries (Nördlingen)",
+        "lat": 48.88,
+        "lng": 10.57
+      }
+    ],
+    "hints": [
+      "Ils sont tous très anciens",
+      "L’un a mis fin au règne des dinosaures",
+      "Ça vient d’en haut",
+      "Boum"
+    ],
+    "fact": "Le cratère de Chicxulub, au Mexique, mesure environ 180 km de diamètre. L’astéroïde qui l’a creusé, il y a 66 millions d’années, a fait disparaître les dinosaures non aviens.",
+    "answers": [
+      "meteor/asteroid/impact/cratere/comete/bolide"
+    ],
+    "near": [
+      {
+        "rule": "volcan/trou/espace/ciel/etoile",
+        "msg": "Tu chauffes… Ça vient du ciel."
+      },
+      {
+        "rule": "dinosaur/extinction",
+        "msg": "Bien vu pour l’un d’eux… Qu’est-ce qui les a tués ?"
+      }
+    ],
+    "start": "30, -60",
+    "en": {
+      "title": "Meteorite impact craters",
+      "hints": [
+        "They are all very old",
+        "One of them ended the reign of the dinosaurs",
+        "It came from above",
+        "Boom"
+      ],
+      "fact": "The Chicxulub crater in Mexico is about 180 km across. The asteroid that dug it, 66 million years ago, wiped out the non-avian dinosaurs.",
+      "answers": [
+        "meteor/asteroid/impact/crater/comet"
+      ],
+      "near": [
+        {
+          "rule": "volcan/hole/space/sky/star",
+          "msg": "Getting warmer… It came from the sky."
+        },
+        {
+          "rule": "dinosaur/extinction",
+          "msg": "Right for one of them… What killed them?"
+        }
+      ]
+    }
+  },
+  {
+    "type": "points",
+    "title": "Des canaux maritimes",
+    "points": [
+      {
+        "n": "Suez",
+        "lat": 30.58,
+        "lng": 32.27
+      },
+      {
+        "n": "Panama",
+        "lat": 9.08,
+        "lng": -79.68
+      },
+      {
+        "n": "Corinthe",
+        "en": "Corinth",
+        "lat": 37.93,
+        "lng": 22.99
+      },
+      {
+        "n": "Kiel",
+        "lat": 54.3,
+        "lng": 9.67
+      },
+      {
+        "n": "Volga-Don",
+        "lat": 48.52,
+        "lng": 44.55
+      }
+    ],
+    "hints": [
+      "Les bateaux y passent",
+      "L’un relie la Méditerranée à la mer Rouge",
+      "Ils ont été creusés par l’homme",
+      "Ils raccourcissent les voyages"
+    ],
+    "fact": "Le canal de Panama, ouvert en 1914, évite aux navires le tour de l’Amérique du Sud par le cap Horn. Celui de Suez, inauguré en 1869, leur évite le tour de l’Afrique.",
+    "answers": [
+      "canal/canaux"
+    ],
+    "near": [
+      {
+        "rule": "detroit/passage/goulet",
+        "msg": "Brûlant ! Un passage, oui, mais creusé par l’homme.",
+        "hot": true
+      },
+      {
+        "rule": "bateau/navire/port/mer/maritim/commerce",
+        "msg": "Tu chauffes… Par où passent ces bateaux ?"
+      }
+    ],
+    "start": "35, 20",
+    "en": {
+      "title": "Ship canals",
+      "hints": [
+        "Ships pass through them",
+        "One links the Mediterranean to the Red Sea",
+        "They were dug by people",
+        "They shorten journeys"
+      ],
+      "fact": "The Panama Canal, opened in 1914, spares ships the trip around South America via Cape Horn. Suez, opened in 1869, spares them the trip around Africa.",
+      "answers": [
+        "canal"
+      ],
+      "near": [
+        {
+          "rule": "strait/passage/channel",
+          "msg": "Red hot! A passage, yes, but dug by people.",
+          "hot": true
+        },
+        {
+          "rule": "ship/boat/port/sea/maritime/trade",
+          "msg": "Getting warmer… Where do those ships go through?"
+        }
+      ]
+    }
+  },
+  {
+    "type": "points",
+    "title": "De célèbres chutes d’eau",
+    "points": [
+      {
+        "n": "Niagara",
+        "lat": 43.08,
+        "lng": -79.07
+      },
+      {
+        "n": "Iguazú",
+        "lat": -25.69,
+        "lng": -54.44
+      },
+      {
+        "n": "Victoria",
+        "lat": -17.92,
+        "lng": 25.86
+      },
+      {
+        "n": "Salto Ángel",
+        "en": "Angel Falls",
+        "lat": 5.97,
+        "lng": -62.54
+      },
+      {
+        "n": "Kaieteur",
+        "lat": 5.18,
+        "lng": -59.48
+      },
+      {
+        "n": "Gullfoss",
+        "lat": 64.33,
+        "lng": -20.12
+      },
+      {
+        "n": "Chutes du Rhin",
+        "en": "Rhine Falls",
+        "lat": 47.68,
+        "lng": 8.62
+      }
+    ],
+    "hints": [
+      "On les entend de loin",
+      "De l’eau partout",
+      "L’une est à la frontière entre le Canada et les États-Unis",
+      "Ça tombe"
+    ],
+    "fact": "Le Salto Ángel, au Venezuela, est la plus haute chute d’eau du monde : 979 m, dont 807 m d’un seul jet.",
+    "answers": [
+      "chute/cascade"
+    ],
+    "near": [
+      {
+        "rule": "eau/fleuve/riviere/torrent",
+        "msg": "Tu chauffes… L’eau y tombe."
+      },
+      {
+        "rule": "barrage/barrages/lac/lacs",
+        "msg": "Presque… mais rien ne retient cette eau-là."
+      }
+    ],
+    "start": "10, -40",
+    "en": {
+      "title": "Famous waterfalls",
+      "hints": [
+        "You can hear them from far away",
+        "Water everywhere",
+        "One is on the border between Canada and the United States",
+        "It falls"
+      ],
+      "fact": "Venezuela’s Angel Falls is the world’s highest waterfall: 979 m, including an 807 m uninterrupted drop.",
+      "answers": [
+        "waterfall/falls/fall/cascade"
+      ],
+      "near": [
+        {
+          "rule": "water/river/stream",
+          "msg": "Getting warmer… The water drops there."
+        },
+        {
+          "rule": "dam/lake",
+          "msg": "Close… but nothing holds this water back."
+        }
+      ]
+    }
+  },
+  {
+    "type": "points",
+    "title": "Des villes de traités célèbres",
+    "points": [
+      {
+        "n": "Versailles",
+        "lat": 48.8,
+        "lng": 2.12
+      },
+      {
+        "n": "Münster (Westphalie)",
+        "en": "Münster (Westphalia)",
+        "lat": 51.96,
+        "lng": 7.63
+      },
+      {
+        "n": "Tordesillas",
+        "lat": 41.5,
+        "lng": -5.0
+      },
+      {
+        "n": "Maastricht",
+        "lat": 50.85,
+        "lng": 5.69
+      },
+      {
+        "n": "Rome",
+        "lat": 41.9,
+        "lng": 12.5
+      },
+      {
+        "n": "Vienne",
+        "en": "Vienna",
+        "lat": 48.21,
+        "lng": 16.37
+      },
+      {
+        "n": "Lisbonne",
+        "en": "Lisbon",
+        "lat": 38.72,
+        "lng": -9.14
+      },
+      {
+        "n": "Utrecht",
+        "lat": 52.09,
+        "lng": 5.12
+      }
+    ],
+    "hints": [
+      "Tout se passe en Europe",
+      "De l’histoire, beaucoup d’histoire",
+      "Le monde y a parfois été partagé",
+      "Une signature"
+    ],
+    "fact": "Le traité de Tordesillas, en 1494, partageait le monde extra-européen entre l’Espagne et le Portugal. C’est pour ça qu’on parle portugais au Brésil.",
+    "answers": [
+      "traite/accord/congres/pacte"
+    ],
+    "near": [
+      {
+        "rule": "signat/signe/diplomat/negoci",
+        "msg": "Brûlant ! Qu’y a-t-on signé ?",
+        "hot": true
+      },
+      {
+        "rule": "guerre/paix/histoire/bataille",
+        "msg": "Tu chauffes… Ça s’est réglé autour d’une table."
+      },
+      {
+        "rule": "europe/union/ue/ville/capital",
+        "msg": "Tu chauffes… pour certaines seulement."
+      }
+    ],
+    "start": "47, 5",
+    "en": {
+      "title": "Cities of famous treaties",
+      "hints": [
+        "It all happens in Europe",
+        "History, lots of history",
+        "The world was once divided up in one of them",
+        "A signature"
+      ],
+      "fact": "The 1494 Treaty of Tordesillas split the non-European world between Spain and Portugal. That’s why Brazil speaks Portuguese.",
+      "answers": [
+        "treaty/treaties/accord/agreement/congress/pact"
+      ],
+      "near": [
+        {
+          "rule": "sign/signed/diplomac/negotia",
+          "msg": "Red hot! What was signed there?",
+          "hot": true
+        },
+        {
+          "rule": "war/peace/history/battle",
+          "msg": "Getting warmer… It was settled around a table."
+        },
+        {
+          "rule": "europe/union/city/cities/capital",
+          "msg": "Getting warmer… for some of them only."
+        }
+      ]
+    }
+  },
+  {
+    "type": "points",
+    "title": "Des sièges d’organisations internationales",
+    "points": [
+      {
+        "n": "New York (ONU)",
+        "en": "New York (UN)",
+        "lat": 40.749,
+        "lng": -73.968
+      },
+      {
+        "n": "Genève",
+        "en": "Geneva",
+        "lat": 46.2,
+        "lng": 6.14
+      },
+      {
+        "n": "Bruxelles",
+        "en": "Brussels",
+        "lat": 50.85,
+        "lng": 4.35
+      },
+      {
+        "n": "Paris (UNESCO)",
+        "lat": 48.85,
+        "lng": 2.31
+      },
+      {
+        "n": "Vienne",
+        "en": "Vienna",
+        "lat": 48.23,
+        "lng": 16.42
+      },
+      {
+        "n": "Addis-Abeba",
+        "en": "Addis Ababa",
+        "lat": 9.03,
+        "lng": 38.74
+      },
+      {
+        "n": "Strasbourg",
+        "lat": 48.58,
+        "lng": 7.75
+      },
+      {
+        "n": "La Haye",
+        "en": "The Hague",
+        "lat": 52.08,
+        "lng": 4.31
+      },
+      {
+        "n": "Rome (FAO)",
+        "lat": 41.88,
+        "lng": 12.49
+      },
+      {
+        "n": "Washington (FMI)",
+        "en": "Washington (IMF)",
+        "lat": 38.9,
+        "lng": -77.04
+      },
+      {
+        "n": "Nairobi",
+        "lat": -1.23,
+        "lng": 36.81
+      }
+    ],
+    "hints": [
+      "Des diplomates y travaillent",
+      "Plusieurs sont des capitales, pas toutes",
+      "Les drapeaux y flottent par dizaines",
+      "Des sièges"
+    ],
+    "fact": "Le siège de l’ONU, à New York, est un territoire international : le terrain appartient à l’Organisation. Genève accueille à elle seule une quarantaine d’organisations internationales.",
+    "answers": [
+      "organisation/institution/agence/siege/onu/nations unies/diplomat"
+    ],
+    "near": [
+      {
+        "rule": "ville/capital",
+        "msg": "Tu chauffes… mais Genève et New York ne sont pas des capitales."
+      },
+      {
+        "rule": "politique/pays/gouvern/monde/international",
+        "msg": "Brûlant ! Des pays du monde entier s’y retrouvent.",
+        "hot": true
+      }
+    ],
+    "start": "40, 10",
+    "en": {
+      "title": "Headquarters of international organisations",
+      "hints": [
+        "Diplomats work there",
+        "Several are capitals, not all",
+        "Flags fly there by the dozen",
+        "Headquarters"
+      ],
+      "fact": "UN headquarters in New York is international territory: the land belongs to the Organization. Geneva alone hosts around forty international organisations.",
+      "answers": [
+        "organization/organisation/institution/agency/headquarter/united nations/diplomat"
+      ],
+      "near": [
+        {
+          "rule": "city/cities/capital",
+          "msg": "Getting warmer… but Geneva and New York aren’t capitals."
+        },
+        {
+          "rule": "politic/countries/government/world/international",
+          "msg": "Red hot! Countries from all over the world meet there.",
+          "hot": true
+        }
+      ]
+    }
   }
 ]

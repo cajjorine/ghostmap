@@ -88,9 +88,93 @@ Placées en tête du jour 2 (entrées 4 à 6), pour pouvoir les tester tout de s
 
 ---
 
+## Menu des modes de jeu
+
+- À l'ouverture, un menu propose trois modes, avec l'avancement du jour pour chacun (« 3 cartes », « 2/3 jouées »,
+  « ✓ 214/300 », « 🔒 Après le Classique »). Si une partie Classique est en cours, on la reprend directement.
+- Le bouton ☰ (en haut à gauche) ramène au menu. Il est désactivé pendant le spectacle de fin de carte.
+- **Seul le Classique** alimente les statistiques et le modal de fin du moteur (un seul résultat par jour).
+  Points et Retrouve-les ont leur propre sauvegarde du jour (clés `points` et `find`), leur record
+  (`bestPoints`, `bestFind`) et un bouton **Partager**.
+
+---
+
+## 1. Mode « Retrouve-les »
+
+### Déroulé
+- La réponse s'affiche, le globe est éteint. On le fait tourner et on **touche** les pays concernés.
+- **Bon pays** : il s'allume (onde, halo, note). **Mauvais pays** : il clignote en bleu pâle et coûte une erreur.
+  Le nom du pays touché s'affiche à chaque fois (« Pérou : non. »).
+- **5 erreurs** permises. **Objectif** : tous les pays, ou 12 si la liste est plus longue.
+- **Petites îles** : un toucher dans l'eau compte s'il tombe à moins de 3° (environ 300 km) d'une petite cible pas encore trouvée.
+  Sinon : « Dans l'eau ! », sans pénalité.
+- **« J'abandonne »** : fin de la carte.
+- **Fin** : les pays manquants s'allument en bleu pâle, la tournée de caméra montre les noms, puis le panneau donne
+  le score, les pays manquants (20 au plus) et l'anecdote.
+
+### Choix
+- Il reprend les **3 cartes Classique du jour** et ne se débloque qu'une fois le Classique terminé, pour ne rien
+  dévoiler. Le jeu démarrant le 21 novembre 2026, il n'y avait pas encore de cartes passées à rejouer.
+- **Score sur 100** : 100 × trouvés / objectif, moins 5 par erreur (minimum 0).
+- **Partage** :
+  ```
+  Ghostmap · Retrouve-les #1
+  🟩 8/8 · 1 ✗ · 95
+  🟥 5/12 · 5 ✗ · 17
+  🟩 6/6 · 0 ✗ · 100
+  Total : 212/300
+  https://ghostmap.cajjorine.workers.dev
+  ```
+
+### Technique
+- Un toucher compte s'il est bref (moins de 350 ms) et sans glisser (moins de 8 px) : faire tourner le globe ne touche rien.
+- Le pays touché est trouvé par un rayon lancé contre le maillage des terres (table « triangle → pays »), seulement
+  au moment du toucher. Un pays de la face cachée est ignoré.
+- L'allumage automatique des cibles est coupé dans ce mode.
+
+---
+
+## 2. Cartes de points (mode « Points »)
+
+### Déroulé
+- Même mécanique que le Classique (5 essais, indices, score sur 100, spectacle de fin), avec des **lieux** à la place
+  des pays : chacun a un halo et une **colonne de lumière** qui s'allume quand on tourne la Terre vers lui.
+- Les noms des lieux n'apparaissent qu'à la fin (tournée de caméra et liste dans le panneau).
+- 3 cartes par jour, file à part.
+
+### Format dans `puzzles.json`
+```json
+{
+  "type": "points",
+  "title": "Des capitales construites de toutes pièces",
+  "points": [
+    { "n": "Brasília", "lat": -15.79, "lng": -47.88 },
+    { "n": "Pékin", "en": "Beijing", "lat": 39.90, "lng": 116.40 }
+  ],
+  "hints": ["…"], "fact": "…", "answers": ["…"], "near": [],
+  "en": { "title": "…", "hints": [], "fact": "…", "answers": [], "near": [] }
+}
+```
+- `n` : nom français ; `en` : nom anglais s'il diffère.
+- Les cartes de points sont **ajoutées à la fin** du fichier. Le Classique les ignore : son ordre ne bouge pas.
+
+### Cartes écrites (15, soit 5 jours)
+- Jour 1 : les 7 nouvelles merveilles, des volcans célèbres, des capitales construites de toutes pièces.
+- Jour 2 : le plus haut sommet de chaque continent, des détroits, les villes des JO d'hiver.
+- Jour 3 : les plus hauts gratte-ciel, des bases de lancement spatial, de grands barrages.
+- Jour 4 : les villes de la Coupe du monde 2026, des cratères d'impact, des canaux maritimes.
+- Jour 5 : des chutes d'eau, des villes de traités, des sièges d'organisations internationales.
+
+Au-delà du jour 5, elles recommencent au début : **à compléter**.
+
+---
+
 ## Fichiers
-- `src/game/game.ts` : score, chronomètre, enchaînement de la fin de carte, cartes en dégradé (niveaux, légende, classement).
-- `src/game/globe.ts` : hauteurs et couleurs par niveau, couleur de défaite, tournée de la caméra, étiquettes, pulsation.
+- `src/game/game.ts` : menu des modes, Classique et Points, score, chronomètre, enchaînement de la fin de carte,
+  cartes en dégradé (niveaux, légende, classement).
+- `src/game/find.ts` : le mode Retrouve-les.
+- `src/game/globe.ts` : hauteurs et couleurs par niveau, couleur de défaite, tournée de la caméra, étiquettes, pulsation,
+  pays touché, clignotement d'erreur, pays manquants, colonnes de lumière des lieux.
 - `src/game/i18n.ts` : nouveaux textes FR/EN.
-- `src/data/puzzles.json` : 3 cartes en dégradé.
+- `src/data/puzzles.json` : 3 cartes en dégradé, 15 cartes de points.
 - `src/styles/main.css`, `index.html` (règles).

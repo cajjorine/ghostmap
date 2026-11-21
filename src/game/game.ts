@@ -1,17 +1,22 @@
 /**
  * Carte Fantôme : un globe 3D sans aucun nom, des pays qui s'allument quand on les découvre.
- * Le joueur devine ce qu'ils ont en commun en 5 essais. CARDS_PER_DAY cartes par jour, jouées à la suite :
- * le résultat de la journée n'est envoyé au moteur qu'après la dernière.
- * Chaque carte gagnée vaut un score sur 100 (essais, exploration, rapidité).
+ * Trois modes, choisis dans un menu :
+ * - Classique : deviner ce que les pays allumés ont en commun, en 5 essais. CARDS_PER_DAY cartes par jour ;
+ *   seul ce mode alimente le moteur (statistiques, modal de fin), une fois la dernière carte jouée.
+ * - Points : même mécanique avec des lieux (villes, sommets…) en colonnes de lumière. Sauvegarde propre.
+ * - Retrouve-les (find.ts) : la réponse est donnée, on touche les pays. Débloqué après le Classique.
+ * Chaque carte vaut un score sur 100.
  * Contrat : GameModule (src/engine/types.ts) et skill daily-game-conventions.
  */
 import { CONFIG } from '../config';
 import { loadPuzzles } from '../engine/puzzle';
+import { shareResult } from '../engine/share';
 import { load, save } from '../engine/storage';
 import type { GameContext, GameModule, GameResult } from '../engine/types';
 import countriesUrl from '../data/geo/countries.json?url';
 import landBinUrl from '../data/geo/land.bin?url';
 import landMetaUrl from '../data/geo/land.json?url';
+import { createFind } from './find';
 import { createWorld, webglAvailable, type Feature, type LandMeta, type LatLng, type World } from './globe';
 import { getLang, setLang, t, wrongMsg, type Lang } from './i18n';
 import { makeJudge, norm, type Judge, type NearRule } from './judge';
@@ -37,9 +42,22 @@ export interface PuzzleText {
   source?: string;
 }
 
+/** Lieu d'une carte de points : nom français (et anglais), position. */
+export interface PointDef {
+  n: string;
+  en?: string;
+  lat: number;
+  lng: number;
+}
+
 export interface Puzzle extends PuzzleText {
-  /** `gradient` : chaque pays a une valeur, il brille et monte d'autant plus qu'elle est grande. */
-  type?: 'gradient';
+  /**
+   * `gradient` : chaque pays a une valeur, il brille et monte d'autant plus qu'elle est grande.
+   * `points` : des lieux à la place des pays (mode Points, hors rotation du Classique).
+   */
+  type?: 'gradient' | 'points';
+  /** Carte de points : les lieux. */
+  points?: PointDef[];
   /** Noms français des pays allumés (variantes reconnues : voir src/data/geo/countries.json). */
   countries?: string[];
   /** Carte en dégradé : nom français du pays → valeur. */
@@ -81,6 +99,17 @@ export interface State {
   cards: CardState[];
 }
 
+type Mode = 'classic' | 'points' | 'find';
+type GuessKind2 = 'classic' | 'points';
+
+/** Cartes à deviner du jour (Classique ou Points), avec leur état. */
+interface Deck {
+  kind: GuessKind2;
+  puzzles: Puzzle[];
+  st: State;
+  finished: boolean;
+}
+
 export { norm as normalize };
 
 /** Zones disputées qui s'allument avec leur pays, sans compter dans le total. */
@@ -100,6 +129,7 @@ const SHELL = `
 <canvas class="gm-fx" data-fx></canvas>
 <div class="gm-flash" data-flash aria-hidden="true"></div>
 <button class="ib gm-sound" data-sound type="button"><svg viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path class="w" d="M15.5 9a4.5 4.5 0 0 1 0 6M18 6.5a8 8 0 0 1 0 11"/><path class="x" d="M16 9.5l5 5M21 9.5l-5 5"/></svg></button>
+<button class="ib gm-home" data-home type="button"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
 <div class="lang" data-lang-tab role="group"><button type="button" data-set-lang="fr">FR</button><button type="button" data-set-lang="en">EN</button></div>
 <div class="chip" data-chip aria-live="polite"><b data-found>0</b><span>/ <span data-total>0</span></span><span class="lbl" data-chip-lbl></span><i></i></div>
 <div class="legend" data-legend hidden aria-hidden="true"><span data-less></span><i></i><span data-more></span></div>
@@ -119,7 +149,12 @@ const SHELL = `
     <ul class="tried" data-tried></ul>
   </div>
   <div class="done" data-done hidden></div>
+  <div data-find hidden></div>
 </section>
+<div class="menu" data-menu hidden><div class="menu-in">
+  <p class="menu-sub" data-menu-sub></p>
+  <div class="modes" data-modes></div>
+</div></div>
 <div class="fps" data-fps aria-hidden="true"><b>--</b> i/s</div>
 <div class="loader" data-loader><div></div></div>`;
 
@@ -137,9 +172,13 @@ async function loadGeo(): Promise<[Feature[], LandMeta[], ArrayBuffer]> {
 
 const newCard = (): CardState => ({ guesses: [], found: [], allSeen: false, status: 'playing', ms: 0 });
 
-/** Cartes du jour : bloc de CARDS_PER_DAY entrées consécutives, sans chevauchement d'un jour à l'autre. */
-function dayCards(dayNumber: number): Puzzle[] {
-  const all = loadPuzzles<Puzzle>();
+/**
+ * Cartes du jour : bloc de CARDS_PER_DAY entrées consécutives, sans chevauchement d'un jour à l'autre.
+ * Les cartes de points forment une file à part : le Classique les ignore, son ordre ne bouge donc pas.
+ */
+function dayCards(dayNumber: number, kind: GuessKind2): Puzzle[] {
+  const all = loadPuzzles<Puzzle>().filter((p) => (p.type === 'points') === (kind === 'points'));
+  if (!all.length) return [];
   const base = CARDS_PER_DAY * Math.max(0, dayNumber - 1);
   return Array.from({ length: CARDS_PER_DAY }, (_, i) => all[(base + i) % all.length]);
 }
@@ -148,7 +187,7 @@ function dayCards(dayNumber: number): Puzzle[] {
  * Sauvegarde du jour, y compris l'ancien format à une carte (migré en carte 1).
  * Une carte gagnée avant l'arrivée du score reçoit le sien (exploration estimée, sans rapidité).
  */
-function restore(saved: unknown, ctx: GameContext<Puzzle, State>, puzzles: Puzzle[]): State {
+function restore(saved: unknown, status: CardStatus, puzzles: Puzzle[]): State {
   const s = saved as Partial<State> & Partial<CardState>;
   let st: State;
   if (s && Array.isArray(s.cards) && s.cards.length === CARDS_PER_DAY)
@@ -156,7 +195,7 @@ function restore(saved: unknown, ctx: GameContext<Puzzle, State>, puzzles: Puzzl
   else {
     const cards = Array.from({ length: CARDS_PER_DAY }, newCard);
     if (s && Array.isArray(s.guesses))
-      cards[0] = { guesses: s.guesses, found: s.found ?? [], allSeen: !!s.allSeen, status: ctx.status };
+      cards[0] = { guesses: s.guesses, found: s.found ?? [], allSeen: !!s.allSeen, status };
     st = { cur: 0, cards };
   }
   st.cards = st.cards.map((c, i) => {
@@ -167,8 +206,13 @@ function restore(saved: unknown, ctx: GameContext<Puzzle, State>, puzzles: Puzzl
   return st;
 }
 
-/** Pays d'une carte, en noms français tels qu'écrits dans puzzles.json. */
-const countriesOf = (p: Puzzle) => (p.type === 'gradient' ? Object.keys(p.values ?? {}) : (p.countries ?? []));
+/** Pays d'une carte, en noms français tels qu'écrits dans puzzles.json (identifiants `pt:i` pour les points). */
+const countriesOf = (p: Puzzle) =>
+  p.type === 'points'
+    ? (p.points ?? []).map((_, i) => `pt:${i}`)
+    : p.type === 'gradient'
+      ? Object.keys(p.values ?? {})
+      : (p.countries ?? []);
 
 /** 5 niveaux (0 à 4) : rang direct s'il y a 5 valeurs distinctes ou moins, sinon échelle linéaire ou log. */
 function levelsOf(vals: number[], log: boolean): number[] {
@@ -195,20 +239,40 @@ export const game: GameModule<Puzzle, State> = {
   mount(root, ctx: GameContext<Puzzle, State>, api) {
     const MAX = CONFIG.maxAttempts;
     const N = CARDS_PER_DAY;
-    const puzzles = dayCards(ctx.dayNumber);
-    let st: State = restore(ctx.saved, ctx, puzzles);
-    let dayFinished = ctx.status !== 'playing';
+
+    // ---------- les deux jeux de cartes à deviner ----------
+    const classicPuzzles = dayCards(ctx.dayNumber, 'classic');
+    const pointsPuzzles = dayCards(ctx.dayNumber, 'points');
+    const pointsSaved = load<{ day: string; st: State } | null>('points', null);
+    const pointsSt = restore(pointsSaved?.day === ctx.dateKey ? pointsSaved.st : null, 'playing', pointsPuzzles);
+    const decks: Record<GuessKind2, Deck> = {
+      classic: {
+        kind: 'classic',
+        puzzles: classicPuzzles,
+        st: restore(ctx.saved, ctx.status, classicPuzzles),
+        finished: ctx.status !== 'playing',
+      },
+      points: {
+        kind: 'points',
+        puzzles: pointsPuzzles,
+        st: pointsSt,
+        finished: pointsSt.cards.every((c) => c.status !== 'playing'),
+      },
+    };
+    let D: Deck = decks.classic;
+    let mode: Mode = 'classic';
+    let menuOpen = false;
+    /** Géographie chargée : les modes peuvent démarrer. */
+    let ready = false;
     /** Pendant le spectacle de fin : pas de nouvel affichage du panneau. */
     let touring = false;
 
-    const card = () => st.cards[st.cur];
-    const puzzle = () => puzzles[st.cur];
-    const text = (): PuzzleText => {
-      const p = puzzle();
-      return getLang() === 'en' && p.en ? p.en : p;
-    };
+    const card = () => D.st.cards[D.st.cur];
+    const puzzle = () => D.puzzles[D.st.cur];
+    const textOf = (p: Puzzle): PuzzleText => (getLang() === 'en' && p.en ? p.en : p);
+    const text = () => textOf(puzzle());
     const setCard = (patch: Partial<CardState>) => {
-      st = { ...st, cards: st.cards.map((c, i) => (i === st.cur ? { ...c, ...patch } : c)) };
+      D.st = { ...D.st, cards: D.st.cards.map((c, i) => (i === D.st.cur ? { ...c, ...patch } : c)) };
     };
 
     /** Réponses justes des deux langues ; réponses proches et messages dans la langue choisie. */
@@ -224,6 +288,7 @@ export const game: GameModule<Puzzle, State> = {
     const $ = <T extends HTMLElement = HTMLElement>(k: string) => root.querySelector<T>(`[data-${k}]`)!;
     const ui = {
       globe: $('globe'), fx: $<HTMLCanvasElement>('fx'), flash: $('flash'), sound: $('sound'), langTab: $('lang-tab'),
+      home: $('home'), menu: $('menu'), menuSub: $('menu-sub'), modes: $('modes'), find: $('find'),
       chip: $('chip'), chipLbl: $('chip-lbl'), found: $('found'), total: $('total'), drag: $('drag'),
       legend: $('legend'), less: $('less'), more: $('more'),
       dragLbl: $('drag-lbl'), panel: $('panel'), play: $('play'), done: $('done'), pips: $('pips'),
@@ -239,8 +304,14 @@ export const game: GameModule<Puzzle, State> = {
     let start: LatLng = { lat: 20, lng: 10 };
     let find: (raw: string) => Feature | null = () => null;
 
-    /** Nom affiché d'un pays (clé Natural Earth) dans la langue choisie. */
-    const displayName = (n: string) => (getLang() === 'fr' ? (featByName.get(n)?.fr ?? n) : n);
+    /** Nom affiché d'un pays (clé Natural Earth) ou d'un lieu (`pt:i`, carte en cours) dans la langue choisie. */
+    const displayName = (n: string) => {
+      if (n.startsWith('pt:')) {
+        const pt = puzzle().points?.[Number(n.slice(3))];
+        return pt ? (getLang() === 'en' && pt.en ? pt.en : pt.n) : n;
+      }
+      return getLang() === 'fr' ? (featByName.get(n)?.fr ?? n) : n;
+    };
     /** Nom affiché d'un pays écrit en français dans puzzles.json. */
     const displayRaw = (raw: string) => {
       const f = find(raw);
@@ -253,7 +324,8 @@ export const game: GameModule<Puzzle, State> = {
     const saveNow = () => {
       window.clearTimeout(saveTimer);
       saveTimer = undefined;
-      api.save(st);
+      if (D.kind === 'classic') api.save(D.st);
+      else save('points', { day: ctx.dateKey, st: D.st });
     };
     // les pays découverts arrivent en rafale quand on tourne le globe : une sauvegarde groupée suffit
     const saveSoon = () => {
@@ -262,6 +334,7 @@ export const game: GameModule<Puzzle, State> = {
     addEventListener('pagehide', () => { if (saveTimer !== undefined) saveNow(); });
 
     const wrongCount = () => card().guesses.filter((g) => g.k !== 'right').length;
+    const guessing = () => !menuOpen && mode !== 'find';
 
     // ---------- chronomètre : ne compte que le temps de jeu réel ----------
     const rulesOpen = () => (document.getElementById('rules-modal') as HTMLDialogElement | null)?.open ?? false;
@@ -271,6 +344,7 @@ export const game: GameModule<Puzzle, State> = {
       const now = performance.now();
       const dt = Math.min(2000, now - lastTick);
       lastTick = now;
+      if (!guessing() || !D.puzzles.length) return;
       const c = card();
       if (!world || touring || document.hidden || rulesOpen() || c.status !== 'playing' || c.ms === undefined) return;
       setCard({ ms: c.ms + dt });
@@ -281,7 +355,7 @@ export const game: GameModule<Puzzle, State> = {
     function applyStatic() {
       ui.globe.setAttribute('aria-label', t('globe'));
       ui.sound.setAttribute('aria-label', isMuted() ? t('soundOn') : t('soundOff'));
-      ui.chipLbl.textContent = t('chip');
+      ui.home.setAttribute('aria-label', t('home'));
       ui.dragLbl.textContent = t('drag');
       ui.less.textContent = t('less');
       ui.more.textContent = t('more');
@@ -302,7 +376,8 @@ export const game: GameModule<Puzzle, State> = {
       buildJudge();
       applyStatic();
       ui.fb.textContent = '';
-      if (!touring) render();
+      if (menuOpen) renderMenu();
+      else if (!touring) render();
     });
 
     // ---------- son ----------
@@ -328,7 +403,9 @@ export const game: GameModule<Puzzle, State> = {
         return `<span class="pip ${g ? g.k : cur && i === c.guesses.length ? 'cur' : ''}"></span>`;
       }).join('');
 
-    const cardLabel = () => (N > 1 ? `<span class="cardno">${t('card', { n: st.cur + 1, total: N })}</span> · ` : '');
+    const cardLabel = () =>
+      (D.kind === 'points' ? `<span class="cardno">${t('pointsTag')}</span> · ` : '') +
+      (N > 1 ? `<span class="cardno">${t('card', { n: D.st.cur + 1, total: N })}</span> · ` : '');
 
     function renderPlay() {
       const c = card();
@@ -341,7 +418,7 @@ export const game: GameModule<Puzzle, State> = {
       const shown = Math.min(w, tx.hints.length);
       ui.hints.innerHTML =
         shown === 0
-          ? `<li class="h0">${t('first')}</li>`
+          ? `<li class="h0">${D.kind === 'points' ? t('firstPoints') : t('first')}</li>`
           : tx.hints
               .slice(0, shown)
               .map((h, i) => `<li class="${i === shown - 1 ? 'new' : ''}"><span>${t('hint', { n: i + 1 })}</span>${esc(h)}</li>`)
@@ -353,7 +430,8 @@ export const game: GameModule<Puzzle, State> = {
         .join('');
     }
 
-    const dayTotal = () => st.cards.reduce((a, c) => a + (c.score?.total ?? 0), 0);
+    const dayTotal = () => D.st.cards.reduce((a, c) => a + (c.score?.total ?? 0), 0);
+    const bestKey = () => (D.kind === 'classic' ? 'bestDay' : 'bestPoints');
 
     function scoreHtml(c: CardState) {
       if (c.status !== 'won' || !c.score) return `<div class="score lost"><b>X</b><span>/100</span></div>`;
@@ -381,6 +459,12 @@ export const game: GameModule<Puzzle, State> = {
       }</div>`;
     }
 
+    const placesHtml = () => {
+      const p = puzzle();
+      if (p.type !== 'points' || !p.points) return '';
+      return `<p class="places">${esc(t('places', { list: p.points.map((_, i) => displayName(`pt:${i}`)).join(' · ') }))}</p>`;
+    };
+
     /** `fresh` : la carte vient de se terminer, le score défile de 0 à sa valeur. */
     function renderDone(fresh = false) {
       const c = card();
@@ -388,15 +472,17 @@ export const game: GameModule<Puzzle, State> = {
       const won = c.status === 'won';
       const k = c.guesses.length;
       const head = won ? (k === 1 ? t('headFirst') : t('headWon', { n: k })) : t('headLost');
-      const last = st.cur === N - 1;
-      const wins = st.cards.filter((x) => x.status === 'won').length;
-      const best = load<number>('bestDay', 0);
+      const last = D.st.cur === N - 1;
+      const wins = D.st.cards.filter((x) => x.status === 'won').length;
+      const best = load<number>(bestKey(), 0);
+      const classic = D.kind === 'classic';
       ui.play.hidden = true;
       ui.done.hidden = false;
       ui.done.innerHTML = `
-        <p class="kicker ${won ? 'ok' : 'ko'}">${N > 1 ? cardLabel() : ''}${head}</p>
+        <p class="kicker ${won ? 'ok' : 'ko'}">${cardLabel()}${head}</p>
         <h2>${esc(tx.title)}</h2>
         ${scoreHtml(c)}
+        ${placesHtml()}
         ${tx.fact ? `<p class="fact">${esc(tx.fact)}</p>` : ''}
         ${rankingHtml()}
         <div class="sumrow"><div class="pips">${pipsHtml(c, false)}</div></div>
@@ -409,12 +495,15 @@ export const game: GameModule<Puzzle, State> = {
         }
         <div class="acts">${
           last
-            ? `<button class="gbtn primary" data-stats type="button">${t('stats')}</button>`
-            : `<button class="gbtn primary" data-next type="button">${t('next', { n: st.cur + 2, total: N })}</button>`
+            ? `<button class="gbtn primary" data-stats type="button">${classic ? t('stats') : t('share')}</button>
+               <button class="gbtn ghost" data-tomenu type="button">${t('otherModes')}</button>`
+            : `<button class="gbtn primary" data-next type="button">${t('next', { n: D.st.cur + 2, total: N })}</button>`
         }</div>`;
-      ui.done
-        .querySelector('[data-stats]')
-        ?.addEventListener('click', () => document.querySelector<HTMLElement>('[data-open="stats"]')?.click());
+      ui.done.querySelector('[data-stats]')?.addEventListener('click', () => {
+        if (classic) document.querySelector<HTMLElement>('[data-open="stats"]')?.click();
+        else sharePoints();
+      });
+      ui.done.querySelector('[data-tomenu]')?.addEventListener('click', openMenu);
       ui.done.querySelector('[data-next]')?.addEventListener('click', nextCard);
       const sc = ui.done.querySelector<HTMLElement>('[data-score]');
       if (fresh && sc && c.score && !reduced) countUp(sc, c.score.total);
@@ -440,23 +529,32 @@ export const game: GameModule<Puzzle, State> = {
     }
 
     const render = () => {
-      ui.legend.hidden = puzzle().type !== 'gradient';
+      ui.legend.hidden = !guessing() || puzzle()?.type !== 'gradient';
+      ui.chipLbl.textContent = mode === 'find' ? t('chipFind') : D.kind === 'points' ? t('chipPoints') : t('chip');
+      if (mode === 'find') {
+        findMode.render();
+        return;
+      }
+      ui.find.hidden = true;
       if (card().status === 'playing') renderPlay();
       else renderDone();
     };
 
-    // ---------- compteur de pays ----------
-    function updateChip(bump: boolean) {
-      const n = world ? world.litCount() : 0;
+    // ---------- compteur ----------
+    function drawChip(n: number, total: number, bump: boolean) {
       ui.found.textContent = String(n);
-      ui.total.textContent = String(targets.length);
-      chipBar.style.setProperty('--p', (targets.length ? (n / targets.length) * 100 : 0).toFixed(1) + '%');
-      ui.chip.classList.toggle('full', n === targets.length && n > 0);
+      ui.total.textContent = String(total);
+      chipBar.style.setProperty('--p', (total ? (n / total) * 100 : 0).toFixed(1) + '%');
+      ui.chip.classList.toggle('full', n === total && n > 0);
       if (bump) {
         ui.chip.classList.remove('bump');
         void ui.chip.offsetWidth;
         ui.chip.classList.add('bump');
       }
+    }
+    function updateChip(bump: boolean) {
+      const n = world ? world.litCount() : 0;
+      drawChip(n, targets.length, bump);
       if (bump && n === targets.length && card().status === 'playing' && !card().allSeen) {
         setCard({ allSeen: true });
         saveNow();
@@ -465,39 +563,63 @@ export const game: GameModule<Puzzle, State> = {
     }
 
     // ---------- fin de carte, fin de journée ----------
-    function dayResult(): GameResult {
-      const wins = st.cards.filter((c) => c.status === 'won').length;
-      const used = st.cards.map((c) => (c.status === 'won' ? c.guesses.length : MAX));
-      const titles = puzzles.map((p) => (getLang() === 'en' && p.en ? p.en.title : p.title));
-      const lines = st.cards.map(
+    const gridLines = (d: Deck) =>
+      d.st.cards.map(
         (c) =>
           Array.from({ length: MAX }, (_, i) => (c.guesses[i] ? SQ[c.guesses[i].k] : '⬛')).join('') +
           ' ' +
           (c.score ? c.score.total : 'X'),
       );
+    const deckTotal = (d: Deck) => d.st.cards.reduce((a, c) => a + (c.score?.total ?? 0), 0);
+
+    function dayResult(): GameResult {
+      const d = decks.classic;
+      const wins = d.st.cards.filter((c) => c.status === 'won').length;
+      const used = d.st.cards.map((c) => (c.status === 'won' ? c.guesses.length : MAX));
+      const titles = d.puzzles.map((p) => textOf(p).title);
       return {
         won: wins >= Math.ceil((2 * N) / 3),
         attempts: Math.max(1, Math.min(MAX, Math.round(used.reduce((a, b) => a + b, 0) / N))),
         maxAttempts: MAX,
-        grid: [...lines, t('scTotal', { n: dayTotal(), max: N * 100 })].join('\n'),
+        grid: [...gridLines(d), t('scTotal', { n: deckTotal(d), max: N * 100 })].join('\n'),
         summary: t('summary', { list: titles.join(' · ') }),
       };
     }
 
-    /** Toutes les cartes terminées : record du jour, puis résultat envoyé au moteur (une seule fois). */
+    async function sharePoints() {
+      const d = decks.points;
+      const text = [
+        `${CONFIG.title} · ${t('pointsTag')} #${ctx.dayNumber}`,
+        ...gridLines(d),
+        t('scTotal', { n: deckTotal(d), max: N * 100 }),
+        CONFIG.url,
+      ].join('\n');
+      const r = await shareResult(text);
+      if (r === 'copied') api.toast(t('copied'));
+      else if (r === 'failed') api.toast(t('shareFail'));
+    }
+
+    /** Toutes les cartes du jeu en cours terminées : record, puis (Classique) résultat envoyé au moteur, une seule fois. */
     function finalizeDay() {
-      if (dayFinished || st.cards.some((c) => c.status === 'playing')) return;
-      dayFinished = true;
+      if (D.finished || !D.puzzles.length || D.st.cards.some((c) => c.status === 'playing')) return;
+      D.finished = true;
       const total = dayTotal();
-      if (total > load<number>('bestDay', 0)) save('bestDay', total);
-      api.finish(dayResult());
-      if (card().status !== 'playing' && !touring) renderDone();
+      if (total > load<number>(bestKey(), 0)) save(bestKey(), total);
+      if (D.kind === 'classic') api.finish(dayResult());
+      if (guessing() && card().status !== 'playing' && !touring) renderDone();
     }
 
     function flash() {
       ui.flash.classList.remove('on');
       void ui.flash.offsetWidth;
       ui.flash.classList.add('on');
+    }
+
+    function setTouring(on: boolean) {
+      touring = on;
+      if (on) setTimeout(() => touring && ui.panel.classList.add('touring'), 350);
+      else ui.panel.classList.remove('touring');
+      ui.home.toggleAttribute('disabled', on);
     }
 
     function finishCard(won: boolean) {
@@ -509,8 +631,7 @@ export const game: GameModule<Puzzle, State> = {
       ui.drag.classList.add('gone');
       if (won) feedback(t('bravo'), 'ok');
       const after = () => {
-        touring = false;
-        ui.panel.classList.remove('touring');
+        setTouring(false);
         if (won) {
           chime();
           confetti();
@@ -524,10 +645,9 @@ export const game: GameModule<Puzzle, State> = {
         setTimeout(after, 500);
         return;
       }
-      touring = true;
+      setTouring(true);
       flash();
       if (!won) sadTone();
-      setTimeout(() => ui.panel.classList.add('touring'), 350);
       const tour = world.tour({
         won,
         name: displayName,
@@ -542,8 +662,8 @@ export const game: GameModule<Puzzle, State> = {
     }
 
     function nextCard() {
-      if (st.cur >= N - 1) return;
-      st = { ...st, cur: st.cur + 1 };
+      if (D.st.cur >= N - 1) return;
+      D.st = { ...D.st, cur: D.st.cur + 1 };
       saveNow();
       buildJudge();
       ui.fb.textContent = '';
@@ -555,7 +675,7 @@ export const game: GameModule<Puzzle, State> = {
     // ---------- saisie ----------
     ui.form.addEventListener('submit', (e) => {
       e.preventDefault();
-      if (card().status !== 'playing') return;
+      if (!guessing() || card().status !== 'playing') return;
       const guess = ui.input.value.trim();
       if (norm(guess).length < 2) {
         ui.input.focus();
@@ -646,39 +766,51 @@ export const game: GameModule<Puzzle, State> = {
     }
 
     // ---------- carte sur le globe ----------
-    /** Pose les pays de la carte courante sur le globe et cadre la vue. */
-    function showCard(animated: boolean) {
-      const p = puzzle();
-      const unknown: string[] = [];
+    /** Cibles d'une carte : pays (ou lieux), zones rattachées, niveaux d'une carte en dégradé, point de départ. */
+    function resolveCard(p: Puzzle) {
       const names: string[] = [];
       const levels = new Map<string, number>();
-      const raws = countriesOf(p);
-      const lv = p.type === 'gradient' ? levelsOf(raws.map((r) => p.values![r]), p.scale === 'log') : [];
-      raws.forEach((raw, i) => {
-        const f = find(raw);
-        if (!f) unknown.push(raw);
-        else if (!names.includes(f.n)) {
-          names.push(f.n);
-          if (p.type === 'gradient') levels.set(f.n, lv[i]);
-        }
-      });
-      if (unknown.length) console.warn(`[ghostmap] pays inconnus dans « ${p.title} » :`, unknown.join(', '));
-      targets = names.map((n) => featByName.get(n)!);
+      let tg: Feature[];
+      if (p.type === 'points') {
+        tg = (p.points ?? []).map((pt, i) => ({ n: `pt:${i}`, fr: pt.n, k: [], a: 0.05, c: [pt.lng, pt.lat], pt: true }));
+      } else {
+        const unknown: string[] = [];
+        const raws = countriesOf(p);
+        const lv = p.type === 'gradient' ? levelsOf(raws.map((r) => p.values![r]), p.scale === 'log') : [];
+        raws.forEach((raw, i) => {
+          const f = find(raw);
+          if (!f) unknown.push(raw);
+          else if (!names.includes(f.n)) {
+            names.push(f.n);
+            if (p.type === 'gradient') levels.set(f.n, lv[i]);
+          }
+        });
+        if (unknown.length && ready) console.warn(`[ghostmap] pays inconnus dans « ${p.title} » :`, unknown.join(', '));
+        tg = names.map((n) => featByName.get(n)!);
+      }
       const companions = new Map(Object.entries(COMPANIONS).filter(([, owner]) => names.includes(owner)));
-
-      start = (() => {
+      const st: LatLng = (() => {
         if (p.start) {
           const nums = p.start.split(',').map(Number);
           if (nums.length === 2 && nums.every(Number.isFinite)) return { lat: nums[0], lng: nums[1] };
           const f = find(p.start);
           if (f) return { lat: f.c[1], lng: f.c[0] };
         }
-        const big = targets.slice().sort((a, b) => b.a - a.a)[0];
+        const big = p.type === 'points' ? tg[0] : tg.slice().sort((a, b) => b.a - a.a)[0];
         return big ? { lat: Math.max(-45, Math.min(55, big.c[1])), lng: big.c[0] } : { lat: 20, lng: 10 };
       })();
+      return { targets: tg, companions, levels, start: st };
+    }
 
+    /** Pose les cibles de la carte courante sur le globe et cadre la vue. */
+    function showCard(animated: boolean) {
+      const p = puzzle();
+      const r = resolveCard(p);
+      targets = r.targets;
+      start = r.start;
       if (!world) return;
-      world.setTargets(targets, companions, p.type === 'gradient' ? levels : undefined);
+      world.setIdle(false);
+      world.setTargets(targets, r.companions, p.type === 'gradient' ? r.levels : undefined);
       updateChip(false);
       if (card().status === 'playing') {
         card().found.forEach((n) => world!.ignite(n, { silent: true }));
@@ -697,6 +829,124 @@ export const game: GameModule<Puzzle, State> = {
       }
     }
 
+    // ---------- Retrouve-les ----------
+    const findMode = createFind({
+      el: ui.find,
+      dateKey: ctx.dateKey,
+      dayNumber: ctx.dayNumber,
+      count: classicPuzzles.length ? N : 0,
+      world: () => world,
+      resolve: (i) => resolveCard(classicPuzzles[i]),
+      title: (i) => textOf(classicPuzzles[i]).title,
+      fact: (i) => textOf(classicPuzzles[i]).fact,
+      name: (n) => (getLang() === 'fr' ? (featByName.get(n)?.fr ?? n) : n),
+      chip: drawChip,
+      toast: api.toast,
+      menu: () => openMenu(),
+      setTouring,
+      flash,
+      confetti,
+    });
+
+    // un toucher bref, sans glisser, sur le globe : en mode Retrouve-les, il désigne un pays
+    let down: { x: number; y: number; t: number; id: number } | null = null;
+    ui.globe.addEventListener('pointerdown', (e) => {
+      down = e.isPrimary ? { x: e.clientX, y: e.clientY, t: performance.now(), id: e.pointerId } : null;
+    });
+    ui.globe.addEventListener('pointerup', (e) => {
+      const d = down;
+      down = null;
+      if (!d || d.id !== e.pointerId || mode !== 'find' || menuOpen || touring) return;
+      if (Math.hypot(e.clientX - d.x, e.clientY - d.y) > 8 || performance.now() - d.t > 350) return;
+      findMode.tap(e.clientX, e.clientY);
+    });
+
+    // ---------- menu ----------
+    const ICONS: Record<Mode, string> = {
+      classic: '<svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="15" fill="#0c2c4c" stroke="#3c5f86"/><path d="M12 18c5 2 8-3 12 0s2 6 7 7" stroke="#ff6a3d" stroke-width="3" fill="none" stroke-linecap="round"/><text x="22" y="27" text-anchor="middle" font-size="15" font-weight="800" fill="#eef3f9">?</text></svg>',
+      find: '<svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="15" fill="#0c2c4c" stroke="#3c5f86"/><circle cx="20" cy="20" r="5" fill="#ff6a3d"/><path d="M24 24l8 9" stroke="#eef3f9" stroke-width="3" stroke-linecap="round"/></svg>',
+      points: '<svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="15" fill="#0c2c4c" stroke="#3c5f86"/><g stroke="#ff8f62" stroke-width="3" stroke-linecap="round"><path d="M15 26v-8"/><path d="M23 30v-14"/><path d="M30 24v-6"/></g></svg>',
+    };
+
+    function modeStatus(m: Mode): { txt: string; locked: boolean; done: boolean } {
+      if (m === 'find') {
+        if (!decks.classic.finished) return { txt: t('stLocked'), locked: true, done: false };
+        if (ready && !world) return { txt: t('stNo3d'), locked: true, done: false };
+        const p = findMode.progress();
+        if (p.finished) return { txt: t('stDone', { n: p.score, max: N * 100 }), locked: false, done: true };
+        return { txt: p.done ? t('stProgress', { n: p.done, total: N }) : t('stNew', { n: N }), locked: false, done: false };
+      }
+      const d = decks[m];
+      if (!d.puzzles.length) return { txt: '—', locked: true, done: false };
+      if (d.finished) return { txt: t('stDone', { n: deckTotal(d), max: N * 100 }), locked: false, done: true };
+      const n = d.st.cards.filter((c) => c.status !== 'playing').length;
+      return { txt: n ? t('stProgress', { n, total: N }) : t('stNew', { n: N }), locked: false, done: false };
+    }
+
+    function renderMenu() {
+      ui.menuSub.textContent = t('menuSub');
+      const modes: Mode[] = ['classic', 'find', 'points'];
+      const key = { classic: 'mClassic', find: 'mFind', points: 'mPoints' } as const;
+      ui.modes.innerHTML = modes
+        .map((m) => {
+          const s = modeStatus(m);
+          return `<button class="mode${s.done ? ' done' : ''}" type="button" data-mode="${m}" ${s.locked || !ready ? 'disabled' : ''}>
+            <span class="mode-ic" aria-hidden="true">${ICONS[m]}</span>
+            <span class="mode-txt"><b>${t(key[m])}</b><small>${t((key[m] + 'D') as 'mClassicD')}</small></span>
+            <span class="mode-st">${s.locked ? '🔒 ' : ''}${esc(s.txt)}</span>
+          </button>`;
+        })
+        .join('');
+    }
+    ui.modes.addEventListener('click', (e) => {
+      const b = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-mode]');
+      if (b && !b.disabled) enter(b.dataset.mode as Mode);
+    });
+    ui.home.addEventListener('click', () => {
+      if (!touring) openMenu();
+    });
+
+    function openMenu() {
+      if (touring) return;
+      if (saveTimer !== undefined) saveNow();
+      menuOpen = true;
+      root.classList.add('menu-open');
+      ui.menu.hidden = false;
+      ui.drag.classList.add('gone');
+      ui.legend.hidden = true;
+      ui.input.blur();
+      renderMenu();
+      if (world) {
+        world.setTargets([], new Map());
+        world.setScan(false);
+        world.setIdle(true);
+      }
+    }
+
+    function enter(m: Mode) {
+      menuOpen = false;
+      root.classList.remove('menu-open');
+      ui.menu.hidden = true;
+      mode = m;
+      root.dataset.mode = m;
+      ui.fb.textContent = '';
+      ui.input.value = '';
+      if (m === 'find') {
+        ui.play.hidden = true;
+        ui.done.hidden = true;
+        ui.find.hidden = false;
+        ui.chipLbl.textContent = t('chipFind');
+        ui.legend.hidden = true;
+        findMode.show();
+        return;
+      }
+      ui.find.hidden = true;
+      D = decks[m];
+      buildJudge();
+      render();
+      showCard(false);
+    }
+
     // ---------- démarrage ----------
     const noGL = (msg: string) => {
       ui.globe.innerHTML = `<div class="nogl"><b>${t('noGlTitle')}</b><span>${esc(msg)}</span></div>`;
@@ -704,11 +954,17 @@ export const game: GameModule<Puzzle, State> = {
       ui.drag.classList.add('gone');
     };
 
+    /** On arrive sur le menu, sauf si une partie Classique est en cours (on la reprend directement). */
+    const classicInProgress =
+      !decks.classic.finished && decks.classic.st.cards.some((c) => c.guesses.length > 0 || c.status !== 'playing');
+
     applyStatic();
+    root.dataset.mode = 'classic';
     render();
-    if (card().status !== 'playing' || st.cur > 0) ui.drag.classList.add('gone');
+    if (card().status !== 'playing' || D.st.cur > 0) ui.drag.classList.add('gone');
     // journée terminée mais résultat pas encore envoyé (page fermée pendant le spectacle de fin)
     finalizeDay();
+    if (!classicInProgress) openMenu();
 
     loadGeo()
       .then(([feats, landMeta, landBin]) => {
@@ -720,11 +976,15 @@ export const game: GameModule<Puzzle, State> = {
           const k = norm(raw);
           return idx.get(k) ?? idx.get(k.replace(/^(le|la|les|l)\s+/, '')) ?? null;
         };
-        showCard(false);
-        if (card().status !== 'playing') render();
+        ready = true;
+        if (!menuOpen) {
+          showCard(false);
+          if (card().status !== 'playing') render();
+        }
 
         if (!webglAvailable()) {
           noGL(t('noGlBrowser'));
+          if (menuOpen) renderMenu();
           return;
         }
         try {
@@ -733,6 +993,7 @@ export const game: GameModule<Puzzle, State> = {
             dragHint: ui.drag,
             fps: ui.fps,
             onIgnite(name, silent, combo) {
+              if (!guessing()) return;
               const c = card();
               if (!c.found.includes(name)) {
                 setCard({ found: [...c.found, name] });
@@ -745,10 +1006,16 @@ export const game: GameModule<Puzzle, State> = {
         } catch (err) {
           console.error(err);
           noGL(t('noGlError'));
+          if (menuOpen) renderMenu();
           return;
         }
         ui.loader.classList.add('gone');
-        showCard(false);
+        if (menuOpen) {
+          world.setScan(false);
+          world.lookAt(start, 2800);
+          world.setIdle(true);
+          renderMenu();
+        } else showCard(false);
       })
       .catch((err) => {
         console.error(err);

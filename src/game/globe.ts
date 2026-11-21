@@ -18,6 +18,8 @@ export interface Feature {
   a: number;
   /** Centroïde [lng, lat]. */
   c: [number, number];
+  /** Point lumineux (ville, sommet…) : pas de pays dessous, une colonne de lumière à la place. */
+  pt?: boolean;
 }
 
 export interface LandMeta {
@@ -57,6 +59,16 @@ export interface World {
   intro(start: LatLng, ms?: number): void;
   lookAt(start: LatLng, ms: number): void;
   litCount(): number;
+  /** Allumage automatique des cibles quand elles entrent dans le champ (coupé en mode Retrouve-les). */
+  setScan(on: boolean): void;
+  /** Rotation lente (menu). */
+  setIdle(on: boolean): void;
+  /** Pays sous un point de l'écran (null : océan) et position touchée. null si le toucher rate la Terre. */
+  pick(x: number, y: number): { name: string | null; lat: number; lng: number } | null;
+  /** Mauvais pays touché : il clignote en bleu pâle. */
+  flashMiss(name: string): void;
+  /** Pays manquants : ils s'allument en bleu pâle, les autres gardent leur couleur. */
+  markMissing(names: string[]): void;
 }
 
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -370,6 +382,7 @@ export function createWorld(
   let companions = new Map<string, string>();
   let levels = new Map<string, number>();
   const litSet = new Set<string>();
+  const missSet = new Set<string>();
   let solved = false;
   let won = true;
   let scanOn = false;
@@ -382,13 +395,19 @@ export function createWorld(
     root: null as THREE.Group | null,
     geo: new Map<string, { cap: THREE.BufferGeometry; side: THREE.BufferGeometry; line: THREE.BufferGeometry }>(),
     raised: new Map<string, Raised>(),
+    /** Maillage de base des terres et fin (exclue) des triangles de chaque pays, pour savoir lequel est touché. */
+    capMesh: null as THREE.Mesh | null,
+    capEnds: [] as { end: number; n: string }[],
   };
 
   // ---------- pays ----------
   function buildLand(scene: THREE.Scene) {
     const parts = landParts(landMeta, landBin);
     const all = { cap: [] as Part[], side: [] as Part[], line: [] as Part[] };
+    let tris = 0;
     for (const [n, p] of parts) {
+      tris += p.cap.idx.length / 3;
+      land.capEnds.push({ end: tris, n });
       land.geo.set(n, {
         cap: geom(p.cap.pos, p.cap.idx, p.cap.nrm),
         side: geom(p.side.pos, p.side.idx),
@@ -403,7 +422,8 @@ export function createWorld(
     const line = joinParts(all.line);
     const root = new THREE.Group();
     const base = new THREE.Group();
-    base.add(new THREE.Mesh(geom(cap.pos, cap.idx, cap.nrm), landMat), new THREE.Mesh(geom(side.pos, side.idx), sideMat));
+    land.capMesh = new THREE.Mesh(geom(cap.pos, cap.idx, cap.nrm), landMat);
+    base.add(land.capMesh, new THREE.Mesh(geom(side.pos, side.idx), sideMat));
     const bl = new THREE.LineSegments(geom(line.pos, line.idx), strokeMat);
     bl.scale.setScalar(1.0001);
     base.add(bl);
@@ -467,6 +487,7 @@ export function createWorld(
   }
 
   function kindOf(n: string): Kind {
+    if (missSet.has(n) || missSet.has(companions.get(n) ?? '')) return 'miss';
     const lv = levels.get(n) ?? levels.get(companions.get(n) ?? '');
     if (lv !== undefined) return `g${lv}` as Kind;
     return solved ? (won ? 'win' : 'miss') : 'lit';
@@ -478,6 +499,7 @@ export function createWorld(
     litSet.forEach((n) => want.set(n, kindOf(n)));
     for (const n of land.raised.keys()) if (!want.has(n)) raise(n, 'base');
     for (const [n, k] of want) raise(n, k);
+    if (targets.some((t) => t.pt)) world.pointsData(targets.filter((t) => t.pt && litSet.has(t.n)));
   }
 
   const glowOf = (f: Feature, born: number): Glow => ({
@@ -798,6 +820,20 @@ export function createWorld(
       const g = d as Glow;
       Object.assign(obj.position, world.getCoords(g.lat, g.lng, 0.05));
     })
+    .pointLat((d: object) => (d as Feature).c[1])
+    .pointLng((d: object) => (d as Feature).c[0])
+    .pointColor((d: object) => {
+      const k = kindOf((d as Feature).n);
+      return k === 'miss' ? COL.miss : k === 'win' ? '#ffb08f' : COL.lit;
+    })
+    .pointAltitude((d: object) => {
+      const k = kindOf((d as Feature).n);
+      return k === 'win' ? 0.11 : k === 'miss' ? 0.06 : 0.08;
+    })
+    .pointRadius(0.45)
+    .pointResolution(8)
+    .pointsMerge(false)
+    .pointsTransitionDuration(TRANS)
     .htmlLat('lat')
     .htmlLng('lng')
     .htmlAltitude(0.07)
@@ -954,6 +990,7 @@ export function createWorld(
   });
   new ResizeObserver(() => measure()).observe(hooks.panel);
 
+  const pickRay = new THREE.Raycaster();
   let lastScan = 0;
   let prev = performance.now();
   const fps = { n: 0, t0: prev, pr0: adapt.pr };
@@ -1013,6 +1050,9 @@ export function createWorld(
       targets = t;
       companions = comps;
       levels = lv ?? new Map();
+      for (const f of t) if (f.pt) byName.set(f.n, f);
+      missSet.clear();
+      world.pointsData([]);
       won = true;
       world.htmlElementsData([]);
       litSet.clear();
@@ -1104,5 +1144,52 @@ export function createWorld(
       return { done, skip: end };
     },
     litCount: () => targets.filter((t) => litSet.has(t.n)).length,
+    setScan(on) {
+      scanOn = on;
+      if (!on) queue.length = 0;
+    },
+    setIdle(on) {
+      ctr.autoRotate = on && !reduced;
+    },
+    pick(x, y) {
+      const r = rr.domElement.getBoundingClientRect();
+      pickRay.setFromCamera(new THREE.Vector2(((x - r.left) / r.width) * 2 - 1, -((y - r.top) / r.height) * 2 + 1), cam);
+      const sp = pickRay.ray.intersectSphere(new THREE.Sphere(new THREE.Vector3(), R), new THREE.Vector3());
+      if (!sp) return null;
+      const dSea = sp.distanceTo(pickRay.ray.origin);
+      let name: string | null = null;
+      const hit = land.capMesh ? pickRay.intersectObject(land.capMesh, false)[0] : undefined;
+      // un pays de la face cachée est plus loin que la mer : ignoré
+      if (hit && hit.faceIndex != null && hit.distance < dSea + 2) {
+        const e = land.capEnds;
+        let lo = 0;
+        let hi = e.length - 1;
+        while (lo < hi) {
+          const mid = (lo + hi) >> 1;
+          if (e[mid].end > hit.faceIndex) hi = mid;
+          else lo = mid + 1;
+        }
+        name = e[lo]?.n ?? null;
+      }
+      const g = world.toGeoCoords({ x: sp.x, y: sp.y, z: sp.z });
+      return { name, lat: g.lat, lng: g.lng };
+    },
+    flashMiss(name) {
+      if (litSet.has(name)) return;
+      raise(name, 'miss');
+      const r = land.raised.get(name);
+      if (r) r.bump0 = performance.now();
+      setTimeout(() => {
+        if (!litSet.has(name)) raise(name, 'base');
+      }, 700);
+    },
+    markMissing(names) {
+      names.forEach((n) => missSet.add(n));
+      for (const n of names) {
+        const f = byName.get(n);
+        if (f) ignite(f, { silent: true });
+      }
+      refreshPolys();
+    },
   };
 }
