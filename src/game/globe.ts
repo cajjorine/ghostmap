@@ -900,9 +900,18 @@ export function createWorld(
   requestAnimationFrame(loop);
 
   return {
+    // Nouvelle carte : tout s'éteint (pays, halos, file d'allumage) avant de poser les nouvelles cibles.
     setTargets(t, comps) {
       targets = t;
       companions = comps;
+      litSet.clear();
+      queue.length = 0;
+      glows.length = 0;
+      world.customLayerData([]);
+      solved = false;
+      combo = 0;
+      ctr.autoRotate = false;
+      refreshPolys();
     },
     ignite(name, { silent = false } = {}) {
       const f = byName.get(name);

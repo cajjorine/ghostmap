@@ -715,6 +715,9 @@ h2 {
     content: 'repérés';
     font-size: 13px;
   }
+  html[lang='en'] .chip::after {
+    content: 'spotted';
+  }
   .panel {
     padding: 14px 12px 12px;
   }
@@ -972,6 +975,57 @@ h2 {
     opacity: 0;
     transform: translateY(10px) scale(0.98);
   }
+}
+
+/* langue */
+.lang {
+  position: fixed;
+  z-index: 11;
+  top: calc(62px + env(safe-area-inset-top));
+  right: max(14px, env(safe-area-inset-right));
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(10, 18, 34, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.lang button {
+  min-width: 44px;
+  height: 38px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.lang button[aria-pressed='true'] {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--text);
+}
+
+html:not([lang='en']) [data-lang='en'],
+html[lang='en'] [data-lang='fr'] {
+  display: none;
+}
+
+/* plusieurs cartes par jour */
+.cardno {
+  color: var(--coral2);
+  font-weight: 700;
+}
+
+.daydone {
+  margin: 0 0 12px;
+  font-weight: 700;
 }
 
 @media (prefers-reduced-motion: reduce) {

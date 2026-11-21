@@ -1,47 +1,70 @@
 /**
  * Carte Fantôme : un globe 3D sans aucun nom, des pays qui s'allument quand on les découvre.
- * Le joueur devine ce qu'ils ont en commun en 5 essais.
+ * Le joueur devine ce qu'ils ont en commun en 5 essais. CARDS_PER_DAY cartes par jour, jouées à la suite :
+ * le résultat de la journée n'est envoyé au moteur qu'après la dernière.
  * Contrat : GameModule (src/engine/types.ts) et skill daily-game-conventions.
  */
 import { CONFIG } from '../config';
+import { loadPuzzles } from '../engine/puzzle';
 import type { GameContext, GameModule, GameResult } from '../engine/types';
 import countriesUrl from '../data/geo/countries.json?url';
 import landBinUrl from '../data/geo/land.bin?url';
 import landMetaUrl from '../data/geo/land.json?url';
 import { createWorld, webglAvailable, type Feature, type LandMeta, type LatLng, type World } from './globe';
-import { makeJudge, norm, type NearRule } from './judge';
+import { getLang, setLang, t, wrongMsg, type Lang } from './i18n';
+import { makeJudge, norm, type Judge, type NearRule } from './judge';
 import { buzz, chime, isMuted, ping, sadTone, thud, toggleMute, tone } from './sound';
 
-export interface Puzzle {
-  /** La réponse, affichée en fin de partie. */
+/** Nombre de cartes par jour (mettre 1 pour revenir à une carte par jour). */
+const CARDS_PER_DAY = 3;
+
+export interface PuzzleText {
+  /** La réponse, affichée en fin de carte. */
   title: string;
-  /** Noms français des pays allumés (variantes reconnues : voir src/data/geo/countries.json). */
-  countries: string[];
   /** 4 indices au plus, débloqués un par un après chaque erreur. */
   hints: string[];
-  /** Anecdote affichée en fin de partie. */
+  /** Anecdote affichée en fin de carte. */
   fact: string;
-  /** Où le globe se tourne au début : « lat, lng » ou un nom de pays. */
-  start?: string;
   /** Façons de trouver : `+` = et, `/` = ou, `sauf` = mots interdits. */
   answers: string[];
   /** Réponses proches, dans l'ordre (la première qui correspond gagne). `hot` : essai non décompté. */
   near: NearRule[];
 }
 
-export type GuessKind = 'wrong' | 'near' | 'right';
+export interface Puzzle extends PuzzleText {
+  /** Noms français des pays allumés (variantes reconnues : voir src/data/geo/countries.json). */
+  countries: string[];
+  /** Où le globe se tourne au début : « lat, lng » ou un nom de pays. */
+  start?: string;
+  /** Version anglaise. Ses réponses sont acceptées dans les deux langues. */
+  en?: PuzzleText;
+}
 
-export interface State {
+export type GuessKind = 'wrong' | 'near' | 'right';
+export type CardStatus = 'playing' | 'won' | 'lost';
+
+export interface CardState {
   guesses: { t: string; k: GuessKind }[];
   /** Pays déjà découverts (noms Natural Earth). */
   found: string[];
   allSeen: boolean;
+  status: CardStatus;
+}
+
+export interface State {
+  /** Carte affichée (0-based). */
+  cur: number;
+  cards: CardState[];
 }
 
 export { norm as normalize };
 
 /** Zones disputées qui s'allument avec leur pays, sans compter dans le total. */
-const COMPANIONS: Record<string, string> = { 'Siachen Glacier': 'India', 'N. Cyprus': 'Cyprus' };
+const COMPANIONS: Record<string, string> = {
+  'Siachen Glacier': 'India',
+  'N. Cyprus': 'Cyprus',
+  Somaliland: 'Somalia',
+};
 const SQ: Record<GuessKind, string> = { wrong: '🟥', near: '🟧', right: '🟩' };
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -49,24 +72,25 @@ const esc = (s: string) =>
   String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
 
 const SHELL = `
-<div class="gm-globe" data-globe aria-label="Globe terrestre : glisse pour le faire tourner, pince ou molette pour zoomer"></div>
+<div class="gm-globe" data-globe></div>
 <canvas class="gm-fx" data-fx></canvas>
-<button class="ib gm-sound" data-sound type="button" aria-label="Couper le son"><svg viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path class="w" d="M15.5 9a4.5 4.5 0 0 1 0 6M18 6.5a8 8 0 0 1 0 11"/><path class="x" d="M16 9.5l5 5M21 9.5l-5 5"/></svg></button>
-<div class="chip" data-chip aria-live="polite"><b data-found>0</b><span>/ <span data-total>0</span></span><span class="lbl">pays allumés repérés</span><i></i></div>
+<button class="ib gm-sound" data-sound type="button"><svg viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path class="w" d="M15.5 9a4.5 4.5 0 0 1 0 6M18 6.5a8 8 0 0 1 0 11"/><path class="x" d="M16 9.5l5 5M21 9.5l-5 5"/></svg></button>
+<div class="lang" data-lang-tab role="group"><button type="button" data-set-lang="fr">FR</button><button type="button" data-set-lang="en">EN</button></div>
+<div class="chip" data-chip aria-live="polite"><b data-found>0</b><span>/ <span data-total>0</span></span><span class="lbl" data-chip-lbl></span><i></i></div>
 <div class="drag" data-drag aria-hidden="true">
   <svg viewBox="0 0 120 44"><path d="M14 30c28-16 64-16 92 0" opacity=".45"/><path d="M98 22l8 8-10 4" opacity=".45"/><g class="hand"><circle cx="60" cy="20" r="9" fill="rgba(255,255,255,.18)"/><circle cx="60" cy="20" r="4" fill="#fff" stroke="none"/></g></svg>
-  <span>Fais tourner la Terre</span>
+  <span data-drag-lbl></span>
 </div>
-<section class="panel" data-panel aria-label="Partie du jour">
+<section class="panel" data-panel>
   <div data-play>
     <div class="prow"><div class="pips" data-pips aria-hidden="true"></div><span class="tries" data-tries></span></div>
     <ol class="hints" data-hints></ol>
     <p class="fb" data-fb role="status" aria-live="polite"></p>
     <form class="gform" data-form autocomplete="off">
-      <input data-input maxlength="80" placeholder="Ces pays ont en commun…" aria-label="Ta réponse" enterkeyhint="send" autocapitalize="off" spellcheck="false">
-      <button class="gbtn primary" type="submit">Deviner</button>
+      <input data-input maxlength="80" enterkeyhint="send" autocapitalize="off" spellcheck="false">
+      <button class="gbtn primary" type="submit" data-submit></button>
     </form>
-    <ul class="tried" data-tried aria-label="Réponses déjà proposées"></ul>
+    <ul class="tried" data-tried></ul>
   </div>
   <div class="done" data-done hidden></div>
 </section>
@@ -85,30 +109,69 @@ async function loadGeo(): Promise<[Feature[], LandMeta[], ArrayBuffer]> {
   ]);
 }
 
+const newCard = (): CardState => ({ guesses: [], found: [], allSeen: false, status: 'playing' });
+
+/** Cartes du jour : bloc de CARDS_PER_DAY entrées consécutives, sans chevauchement d'un jour à l'autre. */
+function dayCards(dayNumber: number): Puzzle[] {
+  const all = loadPuzzles<Puzzle>();
+  const base = CARDS_PER_DAY * Math.max(0, dayNumber - 1);
+  return Array.from({ length: CARDS_PER_DAY }, (_, i) => all[(base + i) % all.length]);
+}
+
+/** Sauvegarde du jour, y compris l'ancien format à une carte (migré en carte 1). */
+function restore(saved: unknown, ctx: GameContext<Puzzle, State>): State {
+  const s = saved as Partial<State> & Partial<CardState>;
+  if (s && Array.isArray(s.cards) && s.cards.length === CARDS_PER_DAY)
+    return { cur: Math.min(CARDS_PER_DAY - 1, Math.max(0, s.cur ?? 0)), cards: s.cards };
+  const cards = Array.from({ length: CARDS_PER_DAY }, newCard);
+  if (s && Array.isArray(s.guesses))
+    cards[0] = { guesses: s.guesses, found: s.found ?? [], allSeen: !!s.allSeen, status: ctx.status };
+  return { cur: 0, cards };
+}
+
 export const game: GameModule<Puzzle, State> = {
   mount(root, ctx: GameContext<Puzzle, State>, api) {
-    const { puzzle } = ctx;
     const MAX = CONFIG.maxAttempts;
-    const judge = makeJudge(puzzle.answers, puzzle.near);
-    let st: State = ctx.saved ?? { guesses: [], found: [], allSeen: false };
-    let status = ctx.status;
-    let result = ctx.result;
+    const N = CARDS_PER_DAY;
+    const puzzles = dayCards(ctx.dayNumber);
+    let st: State = restore(ctx.saved, ctx);
+    let dayFinished = ctx.status !== 'playing';
+
+    const card = () => st.cards[st.cur];
+    const puzzle = () => puzzles[st.cur];
+    const text = (): PuzzleText => {
+      const p = puzzle();
+      return getLang() === 'en' && p.en ? p.en : p;
+    };
+    const setCard = (patch: Partial<CardState>) => {
+      st = { ...st, cards: st.cards.map((c, i) => (i === st.cur ? { ...c, ...patch } : c)) };
+    };
+
+    /** Réponses justes des deux langues ; réponses proches et messages dans la langue choisie. */
+    let judge: Judge;
+    const buildJudge = () => {
+      const p = puzzle();
+      judge = makeJudge([...p.answers, ...(p.en?.answers ?? [])], text().near);
+    };
+    buildJudge();
 
     root.classList.add('gm');
     root.innerHTML = SHELL;
     const $ = <T extends HTMLElement = HTMLElement>(k: string) => root.querySelector<T>(`[data-${k}]`)!;
     const ui = {
-      globe: $('globe'), fx: $<HTMLCanvasElement>('fx'), sound: $('sound'),
-      chip: $('chip'), found: $('found'), total: $('total'), drag: $('drag'),
-      panel: $('panel'), play: $('play'), done: $('done'), pips: $('pips'), tries: $('tries'),
-      hints: $('hints'), fb: $('fb'), form: $<HTMLFormElement>('form'), input: $<HTMLInputElement>('input'),
-      tried: $('tried'), fps: $('fps'), loader: $('loader'),
+      globe: $('globe'), fx: $<HTMLCanvasElement>('fx'), sound: $('sound'), langTab: $('lang-tab'),
+      chip: $('chip'), chipLbl: $('chip-lbl'), found: $('found'), total: $('total'), drag: $('drag'),
+      dragLbl: $('drag-lbl'), panel: $('panel'), play: $('play'), done: $('done'), pips: $('pips'),
+      tries: $('tries'), hints: $('hints'), fb: $('fb'), form: $<HTMLFormElement>('form'),
+      input: $<HTMLInputElement>('input'), submit: $('submit'), tried: $('tried'), fps: $('fps'), loader: $('loader'),
     };
     const chipBar = ui.chip.querySelector('i')!;
 
     let world: World | null = null;
+    let features: Feature[] = [];
     let targets: Feature[] = [];
     let start: LatLng = { lat: 20, lng: 10 };
+    let find: (raw: string) => Feature | null = () => null;
 
     // ---------- sauvegarde ----------
     let saveTimer: number | undefined;
@@ -123,18 +186,41 @@ export const game: GameModule<Puzzle, State> = {
     };
     addEventListener('pagehide', () => { if (saveTimer !== undefined) saveNow(); });
 
-    const wrongCount = () => st.guesses.filter((g) => g.k !== 'right').length;
+    const wrongCount = () => card().guesses.filter((g) => g.k !== 'right').length;
+
+    // ---------- textes fixes et langue ----------
+    function applyStatic() {
+      ui.globe.setAttribute('aria-label', t('globe'));
+      ui.sound.setAttribute('aria-label', isMuted() ? t('soundOn') : t('soundOff'));
+      ui.chipLbl.textContent = t('chip');
+      ui.dragLbl.textContent = t('drag');
+      ui.panel.setAttribute('aria-label', t('panel'));
+      ui.input.placeholder = t('placeholder');
+      ui.input.setAttribute('aria-label', t('input'));
+      ui.submit.textContent = t('submit');
+      ui.tried.setAttribute('aria-label', t('tried'));
+      ui.langTab.setAttribute('aria-label', t('langGroup'));
+      ui.langTab.querySelectorAll<HTMLButtonElement>('[data-set-lang]').forEach((b) => {
+        b.setAttribute('aria-pressed', String(b.dataset.setLang === getLang()));
+      });
+    }
+    ui.langTab.addEventListener('click', (e) => {
+      const l = (e.target as HTMLElement).closest<HTMLElement>('[data-set-lang]')?.dataset.setLang as Lang | undefined;
+      if (!l || l === getLang()) return;
+      setLang(l);
+      buildJudge();
+      applyStatic();
+      ui.fb.textContent = '';
+      render();
+    });
 
     // ---------- son ----------
-    const setSound = () => {
-      ui.sound.classList.toggle('off', isMuted());
-      ui.sound.setAttribute('aria-label', isMuted() ? 'Activer le son' : 'Couper le son');
-    };
     ui.sound.addEventListener('click', () => {
       toggleMute();
-      setSound();
+      ui.sound.classList.toggle('off', isMuted());
+      applyStatic();
     });
-    setSound();
+    ui.sound.classList.toggle('off', isMuted());
 
     // ---------- panneau ----------
     function feedback(msg: string, kind: string) {
@@ -145,49 +231,65 @@ export const game: GameModule<Puzzle, State> = {
       ui.fb.style.animation = '';
     }
 
-    const pipsHtml = (cur: boolean) =>
+    const pipsHtml = (c: CardState, cur: boolean) =>
       Array.from({ length: MAX }, (_, i) => {
-        const g = st.guesses[i];
-        return `<span class="pip ${g ? g.k : cur && i === st.guesses.length ? 'cur' : ''}"></span>`;
+        const g = c.guesses[i];
+        return `<span class="pip ${g ? g.k : cur && i === c.guesses.length ? 'cur' : ''}"></span>`;
       }).join('');
 
+    const cardLabel = () => (N > 1 ? `<span class="cardno">${t('card', { n: st.cur + 1, total: N })}</span> · ` : '');
+
     function renderPlay() {
+      const c = card();
+      const tx = text();
       const w = wrongCount();
-      const used = st.guesses.length;
-      ui.pips.innerHTML = pipsHtml(status === 'playing');
-      ui.tries.textContent = status === 'playing' ? `Essai ${used + 1} sur ${MAX}` : '';
-      const shown = Math.min(w, puzzle.hints.length);
+      ui.play.hidden = false;
+      ui.done.hidden = true;
+      ui.pips.innerHTML = pipsHtml(c, c.status === 'playing');
+      ui.tries.innerHTML = c.status === 'playing' ? cardLabel() + t('tries', { n: c.guesses.length + 1, max: MAX }) : '';
+      const shown = Math.min(w, tx.hints.length);
       ui.hints.innerHTML =
         shown === 0
-          ? `<li class="h0"><b>Essai 1 : la carte seule.</b> Qu’ont en commun tous les pays allumés ?</li>`
-          : puzzle.hints
+          ? `<li class="h0">${t('first')}</li>`
+          : tx.hints
               .slice(0, shown)
-              .map((h, i) => `<li class="${i === shown - 1 ? 'new' : ''}"><span>Indice ${i + 1}</span>${esc(h)}</li>`)
+              .map((h, i) => `<li class="${i === shown - 1 ? 'new' : ''}"><span>${t('hint', { n: i + 1 })}</span>${esc(h)}</li>`)
               .reverse()
               .join('');
-      ui.tried.innerHTML = st.guesses
+      ui.tried.innerHTML = c.guesses
         .filter((g) => g.k !== 'right')
         .map((g) => `<li class="${g.k}">${esc(g.t)}</li>`)
         .join('');
     }
 
-    // Panneau de fin : réponse et anecdote. Stats, série, partage et compte à rebours sont dans le modal du moteur.
     function renderDone() {
-      const won = status === 'won';
-      const k = st.guesses.length;
-      const head = won ? (k === 1 ? 'Du premier coup !' : `Trouvé en ${k} essais`) : 'Raté pour cette carte';
+      const c = card();
+      const tx = text();
+      const won = c.status === 'won';
+      const k = c.guesses.length;
+      const head = won ? (k === 1 ? t('headFirst') : t('headWon', { n: k })) : t('headLost');
+      const last = st.cur === N - 1;
+      const wins = st.cards.filter((x) => x.status === 'won').length;
       ui.play.hidden = true;
       ui.done.hidden = false;
       ui.done.innerHTML = `
-        <p class="kicker ${won ? 'ok' : 'ko'}">${head}</p>
-        <h2>${esc(puzzle.title)}</h2>
-        ${puzzle.fact ? `<p class="fact">${esc(puzzle.fact)}</p>` : ''}
-        <div class="sumrow"><div class="pips">${pipsHtml(false)}</div></div>
-        <div class="acts"><button class="gbtn primary" data-stats type="button">Statistiques et partage</button></div>`;
+        <p class="kicker ${won ? 'ok' : 'ko'}">${N > 1 ? cardLabel() : ''}${head}</p>
+        <h2>${esc(tx.title)}</h2>
+        ${tx.fact ? `<p class="fact">${esc(tx.fact)}</p>` : ''}
+        <div class="sumrow"><div class="pips">${pipsHtml(c, false)}</div></div>
+        ${last && N > 1 ? `<p class="daydone">${t('dayDone', { w: wins, total: N })}</p>` : ''}
+        <div class="acts">${
+          last
+            ? `<button class="gbtn primary" data-stats type="button">${t('stats')}</button>`
+            : `<button class="gbtn primary" data-next type="button">${t('next', { n: st.cur + 2, total: N })}</button>`
+        }</div>`;
       ui.done
-        .querySelector('[data-stats]')!
-        .addEventListener('click', () => document.querySelector<HTMLElement>('[data-open="stats"]')?.click());
+        .querySelector('[data-stats]')
+        ?.addEventListener('click', () => document.querySelector<HTMLElement>('[data-open="stats"]')?.click());
+      ui.done.querySelector('[data-next]')?.addEventListener('click', nextCard);
     }
+
+    const render = () => (card().status === 'playing' ? renderPlay() : renderDone());
 
     // ---------- compteur de pays ----------
     function updateChip(bump: boolean) {
@@ -201,27 +303,36 @@ export const game: GameModule<Puzzle, State> = {
         void ui.chip.offsetWidth;
         ui.chip.classList.add('bump');
       }
-      if (bump && n === targets.length && status === 'playing' && !st.allSeen) {
-        st = { ...st, allSeen: true };
+      if (bump && n === targets.length && card().status === 'playing' && !card().allSeen) {
+        setCard({ allSeen: true });
         saveNow();
-        setTimeout(() => api.toast(`Les ${targets.length} lumières sont repérées. À toi de deviner !`), 500);
+        setTimeout(() => api.toast(t('allSeen', { n: targets.length })), 500);
       }
     }
 
-    // ---------- fin de partie ----------
-    const buildResult = (won: boolean): GameResult => ({
-      won,
-      attempts: st.guesses.length,
-      maxAttempts: MAX,
-      grid: Array.from({ length: MAX }, (_, i) => (st.guesses[i] ? SQ[st.guesses[i].k] : '⬛')).join(''),
-      summary: `La réponse était : ${puzzle.title}`,
-    });
+    // ---------- fin de carte, fin de journée ----------
+    function dayResult(): GameResult {
+      const wins = st.cards.filter((c) => c.status === 'won').length;
+      const used = st.cards.map((c) => (c.status === 'won' ? c.guesses.length : MAX));
+      const titles = puzzles.map((p) => (getLang() === 'en' && p.en ? p.en.title : p.title));
+      return {
+        won: wins >= Math.ceil((2 * N) / 3),
+        attempts: Math.max(1, Math.min(MAX, Math.round(used.reduce((a, b) => a + b, 0) / N))),
+        maxAttempts: MAX,
+        grid: st.cards
+          .map((c) => Array.from({ length: MAX }, (_, i) => (c.guesses[i] ? SQ[c.guesses[i].k] : '⬛')).join(''))
+          .join('\n'),
+        summary: t('summary', { list: titles.join(' · ') }),
+      };
+    }
 
-    function finish(won: boolean) {
-      status = won ? 'won' : 'lost';
-      result = buildResult(won);
+    function finishCard(won: boolean) {
+      setCard({ status: won ? 'won' : 'lost' });
       saveNow();
-      api.finish(result);
+      if (!dayFinished && st.cards.every((c) => c.status !== 'playing')) {
+        dayFinished = true;
+        api.finish(dayResult());
+      }
       renderPlay();
       ui.input.blur();
       ui.drag.classList.add('gone');
@@ -229,57 +340,67 @@ export const game: GameModule<Puzzle, State> = {
       if (won) {
         chime();
         confetti();
-        feedback('Bravo !', 'ok');
+        feedback(t('bravo'), 'ok');
       } else sadTone();
       setTimeout(renderDone, won ? 1100 : 700);
+    }
+
+    function nextCard() {
+      if (st.cur >= N - 1) return;
+      st = { ...st, cur: st.cur + 1 };
+      saveNow();
+      buildJudge();
+      ui.fb.textContent = '';
+      ui.input.value = '';
+      renderPlay();
+      showCard(true);
     }
 
     // ---------- saisie ----------
     ui.form.addEventListener('submit', (e) => {
       e.preventDefault();
-      if (status !== 'playing') return;
-      const text = ui.input.value.trim();
-      if (norm(text).length < 2) {
+      if (card().status !== 'playing') return;
+      const guess = ui.input.value.trim();
+      if (norm(guess).length < 2) {
         ui.input.focus();
         return;
       }
-      if (st.guesses.some((g) => norm(g.t) === norm(text))) {
-        feedback('Déjà proposé.', 'info');
+      if (card().guesses.some((g) => norm(g.t) === norm(guess))) {
+        feedback(t('already'), 'info');
         return;
       }
-      const r = judge(text, wrongCount());
+      const r = judge(guess);
       if (r.k === 'empty') return;
       if (r.k === 'right') {
-        st = { ...st, guesses: [...st.guesses, { t: text, k: 'right' }] };
+        setCard({ guesses: [...card().guesses, { t: guess, k: 'right' }] });
         ui.input.value = '';
-        finish(true);
+        finishCard(true);
         return;
       }
       if (r.k === 'hot') {
-        feedback(r.msg + ' (essai non décompté)', 'hot');
+        feedback(`${r.msg || t('hot')} ${t('notCounted')}`, 'hot');
         tone(660, 0.18, 'triangle', 0.04);
         ui.form.classList.remove('warm');
         void ui.form.offsetWidth;
         ui.form.classList.add('warm');
         return;
       }
-      st = { ...st, guesses: [...st.guesses, { t: text, k: r.k }] };
+      const nth = wrongCount();
+      setCard({ guesses: [...card().guesses, { t: guess, k: r.k }] });
       ui.input.value = '';
       ui.form.classList.remove('shake');
       void ui.form.offsetWidth;
       ui.form.classList.add('shake');
       thud();
       buzz();
-      if (st.guesses.length >= MAX) {
-        finish(false);
+      if (card().guesses.length >= MAX) {
+        finishCard(false);
         return;
       }
       saveNow();
       renderPlay();
-      feedback(
-        `${r.msg} ${puzzle.hints.length >= wrongCount() ? 'Nouvel indice débloqué.' : ''}`.trim(),
-        r.k === 'near' ? 'warm' : 'cold',
-      );
+      const msg = r.k === 'near' ? r.msg || t('near') : wrongMsg(nth);
+      feedback(`${msg} ${text().hints.length >= wrongCount() ? t('newHint') : ''}`.trim(), r.k === 'near' ? 'warm' : 'cold');
     });
 
     // ---------- confettis ----------
@@ -328,53 +449,77 @@ export const game: GameModule<Puzzle, State> = {
       requestAnimationFrame(step);
     }
 
+    // ---------- carte sur le globe ----------
+    /** Pose les pays de la carte courante sur le globe et cadre la vue. */
+    function showCard(animated: boolean) {
+      const p = puzzle();
+      const byName = new Map(features.map((f) => [f.n, f]));
+      const unknown: string[] = [];
+      const names: string[] = [];
+      for (const raw of p.countries) {
+        const f = find(raw);
+        if (!f) unknown.push(raw);
+        else if (!names.includes(f.n)) names.push(f.n);
+      }
+      if (unknown.length) console.warn(`[ghostmap] pays inconnus dans « ${p.title} » :`, unknown.join(', '));
+      targets = names.map((n) => byName.get(n)!);
+      const companions = new Map(Object.entries(COMPANIONS).filter(([, owner]) => names.includes(owner)));
+
+      start = (() => {
+        if (p.start) {
+          const nums = p.start.split(',').map(Number);
+          if (nums.length === 2 && nums.every(Number.isFinite)) return { lat: nums[0], lng: nums[1] };
+          const f = find(p.start);
+          if (f) return { lat: f.c[1], lng: f.c[0] };
+        }
+        const big = targets.slice().sort((a, b) => b.a - a.a)[0];
+        return big ? { lat: Math.max(-45, Math.min(55, big.c[1])), lng: big.c[0] } : { lat: 20, lng: 10 };
+      })();
+
+      if (!world) return;
+      world.setTargets(targets, companions);
+      updateChip(false);
+      if (card().status === 'playing') {
+        card().found.forEach((n) => world!.ignite(n, { silent: true }));
+        updateChip(false);
+        if (animated) world.intro(start);
+        else {
+          // à la première visite, la Terre arrive en tournant une fois les règles fermées
+          const rules = document.getElementById('rules-modal');
+          if (rules instanceof HTMLDialogElement && rules.open)
+            rules.addEventListener('close', () => world!.intro(start), { once: true });
+          else world.intro(start);
+        }
+      } else {
+        world.lookAt(start, 2000);
+        setTimeout(() => world!.reveal(true), reduced ? 0 : 500);
+      }
+    }
+
     // ---------- démarrage ----------
     const noGL = (msg: string) => {
-      ui.globe.innerHTML = `<div class="nogl"><b>Le globe 3D ne peut pas s’afficher.</b><span>${esc(msg)}</span></div>`;
+      ui.globe.innerHTML = `<div class="nogl"><b>${t('noGlTitle')}</b><span>${esc(msg)}</span></div>`;
       ui.loader.classList.add('gone');
       ui.drag.classList.add('gone');
     };
 
-    if (status === 'playing') renderPlay();
-    else {
-      ui.drag.classList.add('gone');
-      renderDone();
-    }
+    applyStatic();
+    render();
+    if (card().status !== 'playing' || st.cur > 0) ui.drag.classList.add('gone');
 
     loadGeo()
-      .then(([features, landMeta, landBin]) => {
-        const byName = new Map(features.map((f) => [f.n, f]));
+      .then(([feats, landMeta, landBin]) => {
+        features = feats;
         const idx = new Map<string, Feature>();
         for (const f of features) for (const k of f.k) if (!idx.has(k)) idx.set(k, f);
-        const find = (raw: string) => {
+        find = (raw) => {
           const k = norm(raw);
           return idx.get(k) ?? idx.get(k.replace(/^(le|la|les|l)\s+/, '')) ?? null;
         };
-
-        const unknown: string[] = [];
-        const names: string[] = [];
-        for (const raw of puzzle.countries) {
-          const f = find(raw);
-          if (!f) unknown.push(raw);
-          else if (!names.includes(f.n)) names.push(f.n);
-        }
-        if (unknown.length) console.warn(`[ghostmap] pays inconnus dans « ${puzzle.title} » :`, unknown.join(', '));
-        targets = names.map((n) => byName.get(n)!);
-        const companions = new Map(Object.entries(COMPANIONS).filter(([, owner]) => names.includes(owner)));
-
-        start = (() => {
-          if (puzzle.start) {
-            const nums = puzzle.start.split(',').map(Number);
-            if (nums.length === 2 && nums.every(Number.isFinite)) return { lat: nums[0], lng: nums[1] };
-            const f = find(puzzle.start);
-            if (f) return { lat: f.c[1], lng: f.c[0] };
-          }
-          const big = targets.slice().sort((a, b) => b.a - a.a)[0];
-          return big ? { lat: Math.max(-45, Math.min(55, big.c[1])), lng: big.c[0] } : { lat: 20, lng: 10 };
-        })();
+        showCard(false);
 
         if (!webglAvailable()) {
-          noGL('Ton navigateur ne gère pas WebGL. Essaie avec Chrome, Safari ou Firefox à jour.');
+          noGL(t('noGlBrowser'));
           return;
         }
         try {
@@ -383,9 +528,10 @@ export const game: GameModule<Puzzle, State> = {
             dragHint: ui.drag,
             fps: ui.fps,
             onIgnite(name, silent, combo) {
-              if (!st.found.includes(name)) {
-                st = { ...st, found: [...st.found, name] };
-                if (status === 'playing') saveSoon();
+              const c = card();
+              if (!c.found.includes(name)) {
+                setCard({ found: [...c.found, name] });
+                if (c.status === 'playing') saveSoon();
               }
               if (!silent) ping(combo);
               updateChip(true);
@@ -393,29 +539,15 @@ export const game: GameModule<Puzzle, State> = {
           });
         } catch (err) {
           console.error(err);
-          noGL('Une erreur est survenue en préparant la 3D.');
+          noGL(t('noGlError'));
           return;
         }
-        world.setTargets(targets, companions);
         ui.loader.classList.add('gone');
-        updateChip(false);
-
-        if (status === 'playing') {
-          st.found.forEach((n) => world!.ignite(n, { silent: true }));
-          updateChip(false);
-          // à la première visite, la Terre arrive en tournant une fois les règles fermées
-          const rules = document.getElementById('rules-modal');
-          if (rules instanceof HTMLDialogElement && rules.open)
-            rules.addEventListener('close', () => world!.intro(start), { once: true });
-          else world.intro(start);
-        } else {
-          world.lookAt(start, 2000);
-          setTimeout(() => world!.reveal(true), reduced ? 0 : 500);
-        }
+        showCard(false);
       })
       .catch((err) => {
         console.error(err);
-        noGL('Impossible de charger la carte. Recharge la page.');
+        noGL(t('noGlLoad'));
       });
   },
 };

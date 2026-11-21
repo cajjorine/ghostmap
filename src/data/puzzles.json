@@ -119,7 +119,53 @@
         "rule": "the/cricket/rugby/sport",
         "msg": "Bien vu pour certains… mais le Japon et l’Indonésie ne collent pas."
       }
-    ]
+    ],
+    "en": {
+      "title": "Countries that drive on the left",
+      "hints": [
+        "It affects almost everyone’s daily life",
+        "Many of them have historical ties to the British Empire… but not Japan",
+        "You can see it in the street",
+        "Think about cars"
+      ],
+      "fact": "About 35% of humanity drives on the left. Sweden switched to the right overnight on 3 September 1967 (“Dagen H”), and Samoa did the opposite in 2009.",
+      "answers": [
+        "left + driv/road/traffic/side/car/cars/wheel/hand/lane/steer"
+      ],
+      "near": [
+        {
+          "rule": "right + driv/road/traffic/side/car/cars",
+          "msg": "Exactly the opposite… Look closely: France is dark.",
+          "hot": true
+        },
+        {
+          "rule": "left",
+          "msg": "Red hot! But left… of what?",
+          "hot": true
+        },
+        {
+          "rule": "car/cars/road/driv/traffic/wheel/street/licen",
+          "msg": "Red hot! What’s special about their roads?",
+          "hot": true
+        },
+        {
+          "rule": "commonwealth/british/britain/english/england/colon/empire/queen/king/monarch",
+          "msg": "Getting warmer… but Japan was never British."
+        },
+        {
+          "rule": "plug/socket/electric/voltage",
+          "msg": "Not the plugs. But it is an everyday detail too."
+        },
+        {
+          "rule": "island/sea/ocean/coast",
+          "msg": "Many are islands… but not Nepal or Botswana."
+        },
+        {
+          "rule": "tea/cricket/rugby/sport",
+          "msg": "True for some… but Japan and Indonesia don’t fit."
+        }
+      ]
+    }
   },
   {
     "title": "Les pays sans accès à la mer",
@@ -202,7 +248,40 @@
         "rule": "petit/taille/superficie",
         "msg": "Pas la taille : le Kazakhstan est immense."
       }
-    ]
+    ],
+    "en": {
+      "title": "Landlocked countries",
+      "hints": [
+        "Nothing to do with history: it’s pure geography",
+        "Look at their borders… and what’s never around them",
+        "To get to the beach, you have to cross a border",
+        "Think about the sea"
+      ],
+      "fact": "Liechtenstein and Uzbekistan are “doubly landlocked”: you have to cross at least two borders to reach the sea.",
+      "answers": [
+        "landlock/land lock",
+        "no/without/lack/zero/never/far + sea/ocean/coast/beach/port/seaside/coastline"
+      ],
+      "near": [
+        {
+          "rule": "sea/ocean/coast/beach/port/maritime",
+          "msg": "Red hot! But what about the sea?",
+          "hot": true
+        },
+        {
+          "rule": "mountain/altitude/peak/alps/himalaya",
+          "msg": "Some are, yes… but not Chad or Paraguay."
+        },
+        {
+          "rule": "poor/develop/rich",
+          "msg": "No: Switzerland and Luxembourg are lit."
+        },
+        {
+          "rule": "small/size/area",
+          "msg": "Not size: Kazakhstan is huge."
+        }
+      ]
+    }
   },
   {
     "title": "Les pays champions du monde de football",
@@ -247,7 +326,41 @@
         "msg": "Tu chauffes ! Quel sport, quelle compétition ?",
         "hot": true
       }
-    ]
+    ],
+    "en": {
+      "title": "World Cup–winning countries",
+      "hints": [
+        "It comes around every four years",
+        "Brazil has five, and Spain has just won its second",
+        "Eleven against eleven",
+        "Think football"
+      ],
+      "fact": "In July 2026, Spain beat Argentina 1–0 after extra time, joining France and Uruguay on two titles. England, champions in 1966, lights up the whole United Kingdom.",
+      "answers": [
+        "world cup/world champion sauf rugby/cricket",
+        "football/soccer + win/won/winner/champion/title/cup sauf rugby"
+      ],
+      "near": [
+        {
+          "rule": "rugby",
+          "msg": "Not rugby: Uruguay and Spain have never won it."
+        },
+        {
+          "rule": "football/soccer/ball/cup",
+          "msg": "Red hot! But what did they win?",
+          "hot": true
+        },
+        {
+          "rule": "olymp",
+          "msg": "It’s sport… but Uruguay has never hosted the Olympics."
+        },
+        {
+          "rule": "sport/champion/win/won/winner",
+          "msg": "Getting warmer! Which sport, which competition?",
+          "hot": true
+        }
+      ]
+    }
   },
   {
     "title": "Les pays où l’espagnol est langue officielle",
@@ -307,7 +420,43 @@
         "rule": "catholi/relig/chretien",
         "msg": "Pas la religion : la Pologne serait allumée."
       }
-    ]
+    ],
+    "en": {
+      "title": "Countries where Spanish is an official language",
+      "hints": [
+        "You hear it before you see it",
+        "Equatorial Guinea is the only one in Africa",
+        "Often the second language learned at school",
+        "¡Hola!"
+      ],
+      "fact": "Mexico has more than twice as many Spanish speakers as Spain.",
+      "answers": [
+        "spanish/hispan/castilian/espanol"
+      ],
+      "near": [
+        {
+          "rule": "portugu",
+          "msg": "Brazil is dark, though…"
+        },
+        {
+          "rule": "language/speak/spoken/tongue/dialect",
+          "msg": "Red hot! But which one?",
+          "hot": true
+        },
+        {
+          "rule": "latin/america",
+          "msg": "Look: Brazil is dark and Spain is lit."
+        },
+        {
+          "rule": "colon/conquist/empire",
+          "msg": "Getting warmer! What links them, you can hear it."
+        },
+        {
+          "rule": "catholic/religion/christian",
+          "msg": "Not religion: Poland would be lit."
+        }
+      ]
+    }
   },
   {
     "title": "Les pays traversés par l’équateur",
@@ -348,7 +497,32 @@
         "rule": "tropi/chaud/chaleur/jungle/foret/amazon/pluie/soleil",
         "msg": "Il y fait chaud, oui… mais sois plus précis."
       }
-    ]
+    ],
+    "en": {
+      "title": "Countries on the equator",
+      "hints": [
+        "It’s hot there almost all year round",
+        "Draw a line between them",
+        "Day and night last almost exactly 12 hours there",
+        "Latitude 0°"
+      ],
+      "fact": "Because of the Earth’s bulge, the summit of Chimborazo in Ecuador is the point farthest from the planet’s centre, even further than Everest.",
+      "answers": [
+        "equat",
+        "latitude + 0/zero"
+      ],
+      "near": [
+        {
+          "rule": "line/middle/centre/center/hemisph/latitude",
+          "msg": "Red hot! Which line?",
+          "hot": true
+        },
+        {
+          "rule": "tropic/hot/heat/jungle/forest/amazon/rain/sun",
+          "msg": "It’s hot there, yes… but be more specific."
+        }
+      ]
+    }
   },
   {
     "title": "Les pays qui ont accueilli les JO d’été",
@@ -403,7 +577,40 @@
         "rule": "expo",
         "msg": "Bonne idée, mais non."
       }
-    ]
+    ],
+    "en": {
+      "title": "Countries that have hosted the Summer Olympics",
+      "hints": [
+        "A celebration that comes back regularly and draws huge crowds",
+        "Paris and London have each done it three times",
+        "There’s a flame",
+        "Think of the rings"
+      ],
+      "fact": "Paris (1900, 1924, 2024) and London (1908, 1948, 2012) have each hosted the Summer Games three times. Next up: Los Angeles, in 2028.",
+      "answers": [
+        "olymp sauf winter"
+      ],
+      "near": [
+        {
+          "rule": "winter",
+          "msg": "Close! But not in winter.",
+          "hot": true
+        },
+        {
+          "rule": "world cup/football/soccer",
+          "msg": "It’s sport, yes… but Finland has never won a World Cup."
+        },
+        {
+          "rule": "sport/games/competition/medal",
+          "msg": "Red hot! Which event?",
+          "hot": true
+        },
+        {
+          "rule": "expo",
+          "msg": "Good idea, but no."
+        }
+      ]
+    }
   },
   {
     "title": "Les pays traversés par le cercle polaire arctique",
@@ -438,6 +645,2427 @@
         "rule": "froid/neige/glace/hiver/nord/banquise",
         "msg": "Il y fait froid, oui… mais ils ont un point précis en commun."
       }
-    ]
+    ],
+    "en": {
+      "title": "Countries crossed by the Arctic Circle",
+      "hints": [
+        "Summer is very special here",
+        "Some of them get the northern lights",
+        "In June, it never really gets dark",
+        "Think of the midnight sun"
+      ],
+      "fact": "The Arctic Circle isn’t fixed: because of the wobble of Earth’s axis, it is currently drifting north by about 15 metres a year.",
+      "answers": [
+        "arctic/polar circle/midnight sun/north pole/66"
+      ],
+      "near": [
+        {
+          "rule": "aurora/northern light/boreal",
+          "msg": "Red hot! But think about the sun instead…",
+          "hot": true
+        },
+        {
+          "rule": "cold/snow/ice/winter/north",
+          "msg": "It’s cold, yes… but they share one precise thing."
+        }
+      ]
+    }
+  },
+  {
+    "title": "Les pays du G7",
+    "countries": [
+      "Canada",
+      "États-Unis",
+      "Royaume-Uni",
+      "France",
+      "Allemagne",
+      "Italie",
+      "Japon"
+    ],
+    "hints": [
+      "Ils se retrouvent chaque année autour d’une table",
+      "La Chine n’en fait pas partie",
+      "La Russie y a siégé, avant d’en être exclue en 2014",
+      "Un club de sept"
+    ],
+    "fact": "De 1997 à 2014, avec la Russie, on parlait du G8. L’Union européenne participe aussi aux sommets, sans en être membre.",
+    "start": "45, -20",
+    "answers": [
+      "g7/g 7/g sept/groupe des sept/groupe des 7/g8/g 8"
+    ],
+    "near": [
+      {
+        "rule": "g20/g 20",
+        "msg": "Brûlant ! Mais un club plus petit.",
+        "hot": true
+      },
+      {
+        "rule": "riche/puissan/econom/industri/developp/pib",
+        "msg": "Brûlant ! Ils forment un club. Lequel ?",
+        "hot": true
+      },
+      {
+        "rule": "otan/nato",
+        "msg": "Non : la Turquie et la Norvège seraient allumées."
+      },
+      {
+        "rule": "onu/conseil de securite/membre permanent",
+        "msg": "Non : la Chine serait allumée."
+      },
+      {
+        "rule": "democrat",
+        "msg": "Tu chauffes, mais l’Inde est éteinte. Pense à un club."
+      }
+    ],
+    "en": {
+      "title": "The G7 countries",
+      "hints": [
+        "They meet around a table every year",
+        "China isn’t one of them",
+        "Russia used to sit with them, until it was suspended in 2014",
+        "A club of seven"
+      ],
+      "fact": "From 1997 to 2014, with Russia, it was called the G8. The European Union also attends the summits without being a member.",
+      "answers": [
+        "g7/g 7/g seven/group of seven/group of 7/g8/g 8"
+      ],
+      "near": [
+        {
+          "rule": "g20/g 20",
+          "msg": "Red hot! But a smaller club.",
+          "hot": true
+        },
+        {
+          "rule": "rich/wealth/power/econom/industri/develop/gdp",
+          "msg": "Red hot! They form a club. Which one?",
+          "hot": true
+        },
+        {
+          "rule": "nato",
+          "msg": "No: Turkey and Norway would be lit."
+        },
+        {
+          "rule": "un/security council/permanent member",
+          "msg": "No: China would be lit."
+        },
+        {
+          "rule": "democra",
+          "msg": "Getting warmer, but India is dark. Think of a club."
+        }
+      ]
+    }
+  },
+  {
+    "title": "Les pays traversés par le Danube",
+    "countries": [
+      "Allemagne",
+      "Autriche",
+      "Slovaquie",
+      "Hongrie",
+      "Croatie",
+      "Serbie",
+      "Roumanie",
+      "Bulgarie",
+      "Moldavie",
+      "Ukraine"
+    ],
+    "hints": [
+      "Ça coule, de l’ouest vers l’est",
+      "Il naît en Forêt-Noire",
+      "Il finit dans la mer Noire",
+      "Une valse de Strauss lui est dédiée"
+    ],
+    "fact": "Le Danube traverse quatre capitales : Vienne, Bratislava, Budapest et Belgrade. Aucun autre fleuve au monde n’en traverse autant.",
+    "start": "46, 20",
+    "answers": [
+      "danub/donau/duna/dunav"
+    ],
+    "near": [
+      {
+        "rule": "fleuve/riviere/eau/cours d eau/delta",
+        "msg": "Brûlant ! Lequel ?",
+        "hot": true
+      },
+      {
+        "rule": "rhin",
+        "msg": "Pas le Rhin : la Hongrie est allumée."
+      },
+      {
+        "rule": "europe de l est/balkan/communis/sovieti",
+        "msg": "Non : l’Allemagne et l’Autriche sont allumées."
+      },
+      {
+        "rule": "mer noire",
+        "msg": "Tu chauffes ! Mais l’Allemagne n’a pas accès à la mer Noire. Qu’est-ce qui y coule ?"
+      }
+    ],
+    "en": {
+      "title": "Countries the Danube flows through",
+      "hints": [
+        "It flows, from west to east",
+        "It rises in the Black Forest",
+        "It ends in the Black Sea",
+        "Strauss wrote a waltz about it"
+      ],
+      "fact": "The Danube flows through four capitals: Vienna, Bratislava, Budapest and Belgrade. No other river in the world passes through as many.",
+      "answers": [
+        "danub/donau/duna/dunav"
+      ],
+      "near": [
+        {
+          "rule": "river/water/stream/delta",
+          "msg": "Red hot! Which one?",
+          "hot": true
+        },
+        {
+          "rule": "rhine",
+          "msg": "Not the Rhine: Hungary is lit."
+        },
+        {
+          "rule": "eastern europe/balkan/communis/soviet",
+          "msg": "No: Germany and Austria are lit."
+        },
+        {
+          "rule": "black sea",
+          "msg": "Getting warmer! But Germany has no Black Sea coast. What flows into it?"
+        }
+      ]
+    }
+  },
+  {
+    "title": "Les pays où le portugais est langue officielle",
+    "countries": [
+      "Portugal",
+      "Brésil",
+      "Angola",
+      "Mozambique",
+      "Cap-Vert",
+      "Guinée-Bissau",
+      "Sao Tomé-et-Principe",
+      "Timor-Leste",
+      "Guinée équatoriale",
+      "Macao"
+    ],
+    "hints": [
+      "Ça s’entend",
+      "Le Brésil est de loin le plus grand d’entre eux",
+      "Macao, en Chine, en fait partie",
+      "Obrigado !"
+    ],
+    "fact": "Il y a environ vingt fois plus de lusophones au Brésil qu’au Portugal : plus de 200 millions contre une dizaine de millions.",
+    "start": "0, -20",
+    "answers": [
+      "portug/lusophon"
+    ],
+    "near": [
+      {
+        "rule": "espagnol/castillan/hispan",
+        "msg": "Non : le Brésil est allumé et l’Espagne éteinte."
+      },
+      {
+        "rule": "langue/parl/idiome",
+        "msg": "Brûlant ! Laquelle ?",
+        "hot": true
+      },
+      {
+        "rule": "coloni/empire/explorat/navigat",
+        "msg": "Tu chauffes ! Ce qui les relie, ça s’entend."
+      }
+    ],
+    "en": {
+      "title": "Countries where Portuguese is an official language",
+      "hints": [
+        "You can hear it",
+        "Brazil is by far the biggest of them",
+        "Macau, in China, is one of them",
+        "Obrigado!"
+      ],
+      "fact": "There are about twenty times more Portuguese speakers in Brazil than in Portugal: over 200 million against around 10 million.",
+      "answers": [
+        "portug/lusophon"
+      ],
+      "near": [
+        {
+          "rule": "spanish/hispan/castilian",
+          "msg": "No: Brazil is lit and Spain is dark."
+        },
+        {
+          "rule": "language/speak/spoken/tongue",
+          "msg": "Red hot! Which one?",
+          "hot": true
+        },
+        {
+          "rule": "colon/empire/explor/navigat",
+          "msg": "Getting warmer! What links them, you can hear it."
+        }
+      ]
+    }
+  },
+  {
+    "title": "Les pays traversés par la cordillère des Andes",
+    "countries": [
+      "Venezuela",
+      "Colombie",
+      "Équateur",
+      "Pérou",
+      "Bolivie",
+      "Chili",
+      "Argentine"
+    ],
+    "hints": [
+      "C’est en relief",
+      "Ça longe tout un côté d’un continent",
+      "Le lama s’y sent chez lui",
+      "Le Machu Picchu s’y trouve"
+    ],
+    "fact": "Avec environ 7 000 km, c’est la plus longue chaîne de montagnes continentale du monde. Son point culminant, l’Aconcagua (6 961 m), est en Argentine.",
+    "start": "-15, -65",
+    "answers": [
+      "andes/andin/cordillere"
+    ],
+    "near": [
+      {
+        "rule": "montagne/relief/sommet/altitude/chaine/volcan",
+        "msg": "Brûlant ! Laquelle ?",
+        "hot": true
+      },
+      {
+        "rule": "pacifique",
+        "msg": "Pas le Pacifique : la Bolivie et le Venezuela n’y ont pas accès."
+      },
+      {
+        "rule": "amazon/foret",
+        "msg": "Non : le Chili et l’Argentine sont allumés."
+      },
+      {
+        "rule": "espagnol/hispan",
+        "msg": "Ils parlent espagnol… mais le Mexique est éteint."
+      }
+    ],
+    "en": {
+      "title": "Countries the Andes run through",
+      "hints": [
+        "It’s all about relief",
+        "It runs along a whole side of a continent",
+        "Llamas feel at home there",
+        "Machu Picchu is there"
+      ],
+      "fact": "At around 7,000 km, it is the longest continental mountain range in the world. Its highest point, Aconcagua (6,961 m), is in Argentina.",
+      "answers": [
+        "andes/andean/cordillera"
+      ],
+      "near": [
+        {
+          "rule": "mountain/relief/peak/altitude/range/volcan",
+          "msg": "Red hot! Which one?",
+          "hot": true
+        },
+        {
+          "rule": "pacific",
+          "msg": "Not the Pacific: Bolivia and Venezuela have no coast on it."
+        },
+        {
+          "rule": "amazon/forest/jungle",
+          "msg": "No: Chile and Argentina are lit."
+        },
+        {
+          "rule": "spanish/hispan",
+          "msg": "They speak Spanish… but Mexico is dark."
+        }
+      ]
+    }
+  },
+  {
+    "title": "Les pays qui ont un croissant de lune sur leur drapeau",
+    "countries": [
+      "Turquie",
+      "Tunisie",
+      "Algérie",
+      "Libye",
+      "Mauritanie",
+      "Comores",
+      "Pakistan",
+      "Ouzbékistan",
+      "Turkménistan",
+      "Azerbaïdjan",
+      "Malaisie",
+      "Singapour",
+      "Maldives"
+    ],
+    "hints": [
+      "Regarde leurs drapeaux",
+      "Il est souvent accompagné d’une ou plusieurs étoiles",
+      "On le voit aussi dans le ciel, certaines nuits",
+      "Une forme de lune"
+    ],
+    "fact": "Sur le drapeau de Singapour, le croissant ne représente pas une religion : il symbolise une jeune nation en pleine ascension.",
+    "start": "30, 40",
+    "answers": [
+      "croissant/lune/crescent/moon + drapeau/flag/embleme/etendard/symbole",
+      "croissant + etoile"
+    ],
+    "near": [
+      {
+        "rule": "croissant/lune",
+        "msg": "Brûlant ! Où ça ?",
+        "hot": true
+      },
+      {
+        "rule": "islam/musulman/mosquee/coran",
+        "msg": "Pas tout à fait : l’Indonésie, très musulmane, est éteinte."
+      },
+      {
+        "rule": "drapeau/flag/couleur/rouge/vert",
+        "msg": "Brûlant ! Qu’ont leurs drapeaux en commun ?",
+        "hot": true
+      },
+      {
+        "rule": "etoile",
+        "msg": "Presque ! L’étoile est souvent là, mais quelque chose l’accompagne.",
+        "hot": true
+      }
+    ],
+    "en": {
+      "title": "Countries with a crescent moon on their flag",
+      "hints": [
+        "Look at their flags",
+        "It often comes with one or more stars",
+        "You can also see it in the sky on some nights",
+        "A moon shape"
+      ],
+      "fact": "On Singapore’s flag, the crescent doesn’t stand for a religion: it symbolises a young nation on the rise.",
+      "answers": [
+        "crescent/moon + flag/emblem/banner/symbol",
+        "crescent + star"
+      ],
+      "near": [
+        {
+          "rule": "crescent/moon",
+          "msg": "Red hot! Where is it?",
+          "hot": true
+        },
+        {
+          "rule": "islam/muslim/mosque/koran/quran",
+          "msg": "Not quite: Indonesia, largely Muslim, is dark."
+        },
+        {
+          "rule": "flag/colour/color/red/green",
+          "msg": "Red hot! What do their flags have in common?",
+          "hot": true
+        },
+        {
+          "rule": "star",
+          "msg": "Close! The star is often there, but something comes with it.",
+          "hot": true
+        }
+      ]
+    }
+  },
+  {
+    "title": "Les pays bordés par la Méditerranée",
+    "countries": [
+      "Espagne",
+      "France",
+      "Monaco",
+      "Italie",
+      "Malte",
+      "Slovénie",
+      "Croatie",
+      "Bosnie-Herzégovine",
+      "Monténégro",
+      "Albanie",
+      "Grèce",
+      "Turquie",
+      "Chypre",
+      "Syrie",
+      "Liban",
+      "Israël",
+      "Palestine",
+      "Égypte",
+      "Libye",
+      "Tunisie",
+      "Algérie",
+      "Maroc"
+    ],
+    "hints": [
+      "Ils ont de l’eau en partage",
+      "Trois continents la bordent",
+      "Gibraltar en est la porte d’entrée",
+      "Les Romains l’appelaient Mare Nostrum"
+    ],
+    "fact": "La Méditerranée communique avec l’Atlantique par le détroit de Gibraltar, large d’à peine 14 km.",
+    "start": "38, 15",
+    "answers": [
+      "mediterran/mare nostrum"
+    ],
+    "near": [
+      {
+        "rule": "mer/cote/eau/littoral/plage/rive/bord",
+        "msg": "Brûlant ! Laquelle ?",
+        "hot": true
+      },
+      {
+        "rule": "soleil/chaud/olive/vin/climat",
+        "msg": "Le soleil, oui… mais ce qui les relie est bleu."
+      },
+      {
+        "rule": "romain/empire",
+        "msg": "Tu chauffes : les Romains l’appelaient « notre mer »."
+      }
+    ],
+    "en": {
+      "title": "Countries on the Mediterranean",
+      "hints": [
+        "They share some water",
+        "Three continents surround it",
+        "Gibraltar is its gateway",
+        "The Romans called it Mare Nostrum"
+      ],
+      "fact": "The Mediterranean connects to the Atlantic through the Strait of Gibraltar, barely 14 km wide.",
+      "answers": [
+        "mediterran/mare nostrum"
+      ],
+      "near": [
+        {
+          "rule": "sea/coast/water/shore/beach",
+          "msg": "Red hot! Which one?",
+          "hot": true
+        },
+        {
+          "rule": "sun/hot/olive/wine/climate",
+          "msg": "Sunny, yes… but what links them is blue."
+        },
+        {
+          "rule": "roman/empire",
+          "msg": "Getting warmer: the Romans called it “our sea”."
+        }
+      ]
+    }
+  },
+  {
+    "title": "Les pays qui ont « Guinée » dans leur nom",
+    "countries": [
+      "Guinée",
+      "Guinée-Bissau",
+      "Guinée équatoriale",
+      "Papouasie-Nouvelle-Guinée"
+    ],
+    "hints": [
+      "Ça se lit plus que ça ne se voit",
+      "Trois sont en Afrique, un en Océanie",
+      "Regarde leur nom",
+      "Un mot en commun"
+    ],
+    "fact": "Un explorateur espagnol a baptisé la Nouvelle-Guinée en 1545 parce que ses habitants lui rappelaient ceux de la côte de Guinée, en Afrique.",
+    "start": "0, 40",
+    "answers": [
+      "guin"
+    ],
+    "near": [
+      {
+        "rule": "nom/mot/appel/lettre",
+        "msg": "Brûlant ! Quel mot ?",
+        "hot": true
+      },
+      {
+        "rule": "afrique/coloni/franc/portug/espagnol",
+        "msg": "Pas l’histoire : regarde plutôt leur nom."
+      },
+      {
+        "rule": "tropi/equat/chaud/foret",
+        "msg": "Ils sont tous tropicaux… mais c’est autre chose. Lis bien."
+      }
+    ],
+    "en": {
+      "title": "Countries with “Guinea” in their name",
+      "hints": [
+        "You read it rather than see it",
+        "Three are in Africa, one in Oceania",
+        "Look at their names",
+        "A word in common"
+      ],
+      "fact": "A Spanish explorer named New Guinea in 1545 because its people reminded him of those on the Guinea coast of Africa.",
+      "answers": [
+        "guin"
+      ],
+      "near": [
+        {
+          "rule": "name/word/called/letter",
+          "msg": "Red hot! Which word?",
+          "hot": true
+        },
+        {
+          "rule": "africa/colon/french/portug/spanish",
+          "msg": "Not history: look at their names instead."
+        },
+        {
+          "rule": "tropic/equat/hot/forest",
+          "msg": "They’re all tropical… but it’s something else. Read carefully."
+        }
+      ]
+    }
+  },
+  {
+    "title": "Les pays de l’ex-URSS",
+    "countries": [
+      "Russie",
+      "Ukraine",
+      "Biélorussie",
+      "Moldavie",
+      "Estonie",
+      "Lettonie",
+      "Lituanie",
+      "Géorgie",
+      "Arménie",
+      "Azerbaïdjan",
+      "Kazakhstan",
+      "Ouzbékistan",
+      "Turkménistan",
+      "Kirghizistan",
+      "Tadjikistan"
+    ],
+    "hints": [
+      "Une affaire d’histoire",
+      "Ils ont eu la même capitale",
+      "Leur drapeau commun était rouge",
+      "Fin en 1991"
+    ],
+    "fact": "L’URSS a été dissoute le 26 décembre 1991. La Russie en couvrait à elle seule les trois quarts de la superficie.",
+    "start": "50, 60",
+    "answers": [
+      "urss/ussr/soviet/cccp"
+    ],
+    "near": [
+      {
+        "rule": "russ",
+        "msg": "Brûlant ! Mais quel lien avec la Russie ?",
+        "hot": true
+      },
+      {
+        "rule": "communis/rouge/marx/lenin/staline",
+        "msg": "Tu chauffes : la Chine est communiste, mais éteinte."
+      },
+      {
+        "rule": "slave",
+        "msg": "Non : le Kazakhstan n’est pas slave, la Pologne l’est."
+      },
+      {
+        "rule": "cyrill",
+        "msg": "Presque, mais l’Estonie écrit en alphabet latin."
+      }
+    ],
+    "en": {
+      "title": "The former Soviet republics",
+      "hints": [
+        "It’s a matter of history",
+        "They once shared a capital",
+        "Their shared flag was red",
+        "It ended in 1991"
+      ],
+      "fact": "The USSR was dissolved on 26 December 1991. Russia alone covered three quarters of its area.",
+      "answers": [
+        "ussr/urss/soviet/cccp"
+      ],
+      "near": [
+        {
+          "rule": "russia",
+          "msg": "Red hot! But what’s the link with Russia?",
+          "hot": true
+        },
+        {
+          "rule": "communis/red/marx/lenin/stalin",
+          "msg": "Getting warmer: China is communist, but dark."
+        },
+        {
+          "rule": "slav",
+          "msg": "No: Kazakhstan isn’t Slavic, Poland is."
+        },
+        {
+          "rule": "cyrill",
+          "msg": "Close, but Estonia uses the Latin alphabet."
+        }
+      ]
+    }
+  },
+  {
+    "title": "Les pays traversés par le tropique du Cancer",
+    "countries": [
+      "Mexique",
+      "Bahamas",
+      "Sahara occidental",
+      "Mauritanie",
+      "Mali",
+      "Algérie",
+      "Niger",
+      "Libye",
+      "Égypte",
+      "Arabie Saoudite",
+      "Émirats Arabes Unis",
+      "Oman",
+      "Inde",
+      "Bangladesh",
+      "Birmanie",
+      "Chine",
+      "Taïwan"
+    ],
+    "hints": [
+      "Trace un trait entre eux",
+      "Il passe en plein Sahara, puis traverse l’Inde",
+      "Le 21 juin à midi, le soleil y est exactement à la verticale",
+      "Vers 23° de latitude nord"
+    ],
+    "fact": "C’est la latitude la plus au nord où le soleil peut se trouver exactement au zénith, une fois par an, au solstice de juin.",
+    "start": "23, 20",
+    "answers": [
+      "cancer",
+      "tropique + nord",
+      "latitude + 23"
+    ],
+    "near": [
+      {
+        "rule": "capricorn",
+        "msg": "Mauvais hémisphère !",
+        "hot": true
+      },
+      {
+        "rule": "tropi",
+        "msg": "Brûlant ! Lequel ?",
+        "hot": true
+      },
+      {
+        "rule": "equat",
+        "msg": "Une ligne, oui… mais plus au nord."
+      },
+      {
+        "rule": "ligne/trait/latitude/parallele",
+        "msg": "Brûlant ! Laquelle ?",
+        "hot": true
+      },
+      {
+        "rule": "desert/sahara/chaud/sec",
+        "msg": "Tous ne sont pas désertiques… Cherche une ligne."
+      }
+    ],
+    "en": {
+      "title": "Countries crossed by the Tropic of Cancer",
+      "hints": [
+        "Draw a line between them",
+        "It runs right across the Sahara, then through India",
+        "At noon on 21 June, the sun is directly overhead there",
+        "About 23° north"
+      ],
+      "fact": "It is the northernmost latitude where the sun can be exactly overhead, once a year, at the June solstice.",
+      "answers": [
+        "cancer",
+        "tropic + north",
+        "latitude + 23"
+      ],
+      "near": [
+        {
+          "rule": "capricorn",
+          "msg": "Wrong hemisphere!",
+          "hot": true
+        },
+        {
+          "rule": "tropic",
+          "msg": "Red hot! Which one?",
+          "hot": true
+        },
+        {
+          "rule": "equat",
+          "msg": "A line, yes… but further north."
+        },
+        {
+          "rule": "line/latitude/parallel",
+          "msg": "Red hot! Which one?",
+          "hot": true
+        },
+        {
+          "rule": "desert/sahara/hot/dry",
+          "msg": "Not all of them are deserts… Look for a line."
+        }
+      ]
+    }
+  },
+  {
+    "title": "Les pays traversés par le Rhin",
+    "countries": [
+      "Suisse",
+      "Liechtenstein",
+      "Autriche",
+      "Allemagne",
+      "France",
+      "Pays-Bas"
+    ],
+    "hints": [
+      "Ça coule",
+      "Il sépare la France et l’Allemagne sur une partie de son cours",
+      "Il finit dans la mer du Nord",
+      "Strasbourg et Cologne le voient passer"
+    ],
+    "fact": "Le Rhin naît dans les Alpes suisses et se jette dans la mer du Nord près de Rotterdam, le premier port d’Europe.",
+    "start": "49, 8",
+    "answers": [
+      "rhin/rhine/rhein"
+    ],
+    "near": [
+      {
+        "rule": "fleuve/riviere/eau/cours d eau",
+        "msg": "Brûlant ! Lequel ?",
+        "hot": true
+      },
+      {
+        "rule": "danub",
+        "msg": "Pas le Danube : la France est allumée."
+      },
+      {
+        "rule": "alpe/montagne",
+        "msg": "La Suisse et l’Autriche, oui… mais les Pays-Bas sont tout plats !"
+      },
+      {
+        "rule": "germani/allemand",
+        "msg": "Pas la langue : la France et les Pays-Bas sont allumés."
+      }
+    ],
+    "en": {
+      "title": "Countries the Rhine flows through",
+      "hints": [
+        "It flows",
+        "It forms part of the border between France and Germany",
+        "It ends in the North Sea",
+        "Strasbourg and Cologne watch it go by"
+      ],
+      "fact": "The Rhine rises in the Swiss Alps and flows into the North Sea near Rotterdam, Europe’s largest port.",
+      "answers": [
+        "rhine/rhin/rhein"
+      ],
+      "near": [
+        {
+          "rule": "river/water/stream",
+          "msg": "Red hot! Which one?",
+          "hot": true
+        },
+        {
+          "rule": "danub",
+          "msg": "Not the Danube: France is lit."
+        },
+        {
+          "rule": "alps/alpine/mountain",
+          "msg": "Switzerland and Austria, yes… but the Netherlands is flat!"
+        },
+        {
+          "rule": "german",
+          "msg": "Not the language: France and the Netherlands are lit."
+        }
+      ]
+    }
+  },
+  {
+    "title": "Les pays et territoires dont le drapeau porte l’Union Jack",
+    "countries": [
+      "Royaume-Uni",
+      "Australie",
+      "Nouvelle-Zélande",
+      "Fidji",
+      "Îles Cook",
+      "Niué",
+      "Anguilla",
+      "Bermudes",
+      "Îles vierges britanniques",
+      "Îles Caïmans",
+      "Îles Malouines",
+      "Montserrat",
+      "Sainte-Hélène",
+      "Îles Turques-et-Caïques",
+      "Îles Pitcairn",
+      "Territoire britannique de l’océan Indien",
+      "Géorgie du Sud"
+    ],
+    "hints": [
+      "Regarde leurs drapeaux",
+      "Le Canada l’a retiré du sien en 1965",
+      "Rouge, blanc et bleu, avec des croix",
+      "Souvent dans le coin en haut à gauche"
+    ],
+    "fact": "Hawaï est le seul État des États-Unis dont le drapeau porte l’Union Jack, souvenir de ses liens avec les Britanniques au XIXe siècle.",
+    "start": "-25, 160",
+    "answers": [
+      "union jack/union flag",
+      "drapeau/flag + britanni/anglais/royaume/uk/angleterre/royaume uni"
+    ],
+    "near": [
+      {
+        "rule": "drapeau/flag/couleur",
+        "msg": "Brûlant ! Qu’ont leurs drapeaux en commun ?",
+        "hot": true
+      },
+      {
+        "rule": "britann/anglais/anglophon/commonwealth/coloni/empire/royaume/roi/reine/couronne",
+        "msg": "Tu chauffes ! Mais l’Inde est éteinte : regarde leurs symboles."
+      },
+      {
+        "rule": "ile/insul/ocean",
+        "msg": "Beaucoup d’îles, oui… mais regarde leurs drapeaux."
+      }
+    ],
+    "en": {
+      "title": "Countries and territories with the Union Jack on their flag",
+      "hints": [
+        "Look at their flags",
+        "Canada removed it from its own in 1965",
+        "Red, white and blue, with crosses",
+        "Often in the top left corner"
+      ],
+      "fact": "Hawaii is the only US state whose flag features the Union Jack, a reminder of its ties with Britain in the 19th century.",
+      "answers": [
+        "union jack/union flag",
+        "flag + british/britain/english/uk/england/united kingdom"
+      ],
+      "near": [
+        {
+          "rule": "flag/colour/color",
+          "msg": "Red hot! What do their flags have in common?",
+          "hot": true
+        },
+        {
+          "rule": "british/britain/english/commonwealth/colon/empire/kingdom/king/queen/crown",
+          "msg": "Getting warmer! But India is dark: look at their symbols."
+        },
+        {
+          "rule": "island/ocean",
+          "msg": "Lots of islands, yes… but look at their flags."
+        }
+      ]
+    }
+  },
+  {
+    "title": "Les pays qui ont une frontière avec la France",
+    "countries": [
+      "Belgique",
+      "Luxembourg",
+      "Allemagne",
+      "Suisse",
+      "Italie",
+      "Monaco",
+      "Espagne",
+      "Andorre",
+      "Brésil",
+      "Suriname",
+      "Sint Maarten"
+    ],
+    "hints": [
+      "Regarde le trou en plein milieu de l’Europe",
+      "Le Brésil est allumé, et ce n’est pas une erreur",
+      "Pense aux outre-mer",
+      "Ils ont tous le même voisin"
+    ],
+    "fact": "La plus longue frontière terrestre de la France n’est pas avec l’Espagne, mais avec le Brésil : environ 730 km, en Guyane.",
+    "start": "30, -20",
+    "answers": [
+      "france/francais/hexagone + frontiere/voisin/limitrophe/touch/bord/entour/frontalier/border"
+    ],
+    "near": [
+      {
+        "rule": "francophon/langue francaise",
+        "msg": "Pas la langue : le Brésil parle portugais."
+      },
+      {
+        "rule": "france/francais",
+        "msg": "Brûlant ! Quel lien avec la France ?",
+        "hot": true
+      },
+      {
+        "rule": "europe/ue/union",
+        "msg": "Le Brésil est allumé…"
+      },
+      {
+        "rule": "voisin/frontiere",
+        "msg": "Brûlant ! Voisins de qui ?",
+        "hot": true
+      }
+    ],
+    "en": {
+      "title": "Countries that share a border with France",
+      "hints": [
+        "Look at the hole right in the middle of Europe",
+        "Brazil is lit, and that’s not a mistake",
+        "Think of the overseas territories",
+        "They all have the same neighbour"
+      ],
+      "fact": "France’s longest land border isn’t with Spain but with Brazil: about 730 km, in French Guiana.",
+      "answers": [
+        "france/french + border/neighbo/touch/surround/adjacent"
+      ],
+      "near": [
+        {
+          "rule": "francophon/french speak/french language",
+          "msg": "Not the language: Brazil speaks Portuguese."
+        },
+        {
+          "rule": "france/french",
+          "msg": "Red hot! What’s the link with France?",
+          "hot": true
+        },
+        {
+          "rule": "europe/eu/union",
+          "msg": "Brazil is lit…"
+        },
+        {
+          "rule": "neighbo/border",
+          "msg": "Red hot! Whose neighbours?",
+          "hot": true
+        }
+      ]
+    }
+  },
+  {
+    "title": "Les pays traversés par l’Himalaya",
+    "countries": [
+      "Inde",
+      "Népal",
+      "Bhoutan",
+      "Chine",
+      "Pakistan"
+    ],
+    "hints": [
+      "C’est en relief",
+      "Le Bhoutan est le plus petit d’entre eux",
+      "On l’appelle le toit du monde",
+      "L’Everest s’y trouve"
+    ],
+    "fact": "L’Everest (8 849 m) est à la frontière entre le Népal et la Chine. L’Himalaya continue de s’élever de quelques millimètres par an.",
+    "start": "30, 82",
+    "answers": [
+      "himala"
+    ],
+    "near": [
+      {
+        "rule": "everest/toit du monde",
+        "msg": "Brûlant ! Dans quelle chaîne ?",
+        "hot": true
+      },
+      {
+        "rule": "montagne/sommet/relief/altitude/chaine/8000",
+        "msg": "Brûlant ! Laquelle ?",
+        "hot": true
+      },
+      {
+        "rule": "tibet",
+        "msg": "Tu chauffes, mais le Pakistan est allumé."
+      },
+      {
+        "rule": "asie",
+        "msg": "Trop vague !"
+      }
+    ],
+    "en": {
+      "title": "Countries the Himalayas run through",
+      "hints": [
+        "It’s all about relief",
+        "Bhutan is the smallest of them",
+        "It’s called the roof of the world",
+        "Everest is there"
+      ],
+      "fact": "Everest (8,849 m) sits on the border between Nepal and China. The Himalayas are still rising by a few millimetres a year.",
+      "answers": [
+        "himala"
+      ],
+      "near": [
+        {
+          "rule": "everest/roof of the world",
+          "msg": "Red hot! Which range?",
+          "hot": true
+        },
+        {
+          "rule": "mountain/peak/relief/altitude/range/8000",
+          "msg": "Red hot! Which one?",
+          "hot": true
+        },
+        {
+          "rule": "tibet",
+          "msg": "Getting warmer, but Pakistan is lit."
+        },
+        {
+          "rule": "asia",
+          "msg": "Too vague!"
+        }
+      ]
+    }
+  },
+  {
+    "title": "Les pays et territoires qui utilisent l’euro",
+    "countries": [
+      "Allemagne",
+      "Autriche",
+      "Belgique",
+      "Bulgarie",
+      "Chypre",
+      "Croatie",
+      "Espagne",
+      "Estonie",
+      "Finlande",
+      "France",
+      "Grèce",
+      "Irlande",
+      "Italie",
+      "Lettonie",
+      "Lituanie",
+      "Luxembourg",
+      "Malte",
+      "Pays-Bas",
+      "Portugal",
+      "Slovaquie",
+      "Slovénie",
+      "Monaco",
+      "Saint-Marin",
+      "Vatican",
+      "Andorre",
+      "Monténégro",
+      "Kosovo",
+      "Saint-Pierre-et-Miquelon",
+      "Saint-Martin",
+      "Saint-Barthélemy",
+      "Åland"
+    ],
+    "hints": [
+      "Ça passe de main en main",
+      "Le Danemark et la Suède sont éteints… par choix",
+      "La Bulgarie est la dernière arrivée, en 2026",
+      "Ça se compte"
+    ],
+    "fact": "La Bulgarie a adopté l’euro le 1er janvier 2026. Le Monténégro et le Kosovo l’utilisent sans faire partie de l’Union européenne.",
+    "start": "47, 12",
+    "answers": [
+      "euro sauf europ",
+      "monnaie/devise/argent/billet + europ/commun/unique"
+    ],
+    "near": [
+      {
+        "rule": "europ/ue/union",
+        "msg": "Pas l’Union européenne : le Danemark est éteint et le Monténégro allumé."
+      },
+      {
+        "rule": "monnaie/argent/devise/payer/billet/piece/cash",
+        "msg": "Brûlant ! Laquelle ?",
+        "hot": true
+      },
+      {
+        "rule": "schengen",
+        "msg": "Non : la Suisse serait allumée."
+      }
+    ],
+    "en": {
+      "title": "Countries and territories that use the euro",
+      "hints": [
+        "It changes hands",
+        "Denmark and Sweden are dark… by choice",
+        "Bulgaria is the latest to join, in 2026",
+        "You count it"
+      ],
+      "fact": "Bulgaria adopted the euro on 1 January 2026. Montenegro and Kosovo use it without being in the European Union.",
+      "answers": [
+        "euro sauf europ",
+        "currency/money/cash/coin/banknote + europ/common/single/shared"
+      ],
+      "near": [
+        {
+          "rule": "europ/eu/union",
+          "msg": "Not the European Union: Denmark is dark and Montenegro is lit."
+        },
+        {
+          "rule": "currency/money/cash/pay/coin/banknote",
+          "msg": "Red hot! Which one?",
+          "hot": true
+        },
+        {
+          "rule": "schengen",
+          "msg": "No: Switzerland would be lit."
+        }
+      ]
+    }
+  },
+  {
+    "title": "Les pays bordés par la mer Caspienne",
+    "countries": [
+      "Russie",
+      "Kazakhstan",
+      "Turkménistan",
+      "Iran",
+      "Azerbaïdjan"
+    ],
+    "hints": [
+      "Il y a de l’eau entre eux",
+      "Plus grand lac du monde, ou petite mer ?",
+      "Bakou, capitale de l’Azerbaïdjan, est sur ses rives",
+      "Le caviar vient de là"
+    ],
+    "fact": "Malgré son nom, la mer Caspienne est le plus grand lac du monde : elle n’a aucune liaison naturelle avec l’océan.",
+    "start": "42, 51",
+    "answers": [
+      "caspi"
+    ],
+    "near": [
+      {
+        "rule": "mer/lac/eau/cote/rive/bord",
+        "msg": "Brûlant ! Laquelle ?",
+        "hot": true
+      },
+      {
+        "rule": "mer noire",
+        "msg": "Pas la mer Noire : le Kazakhstan est allumé."
+      },
+      {
+        "rule": "petrol/gaz",
+        "msg": "Ils en ont, oui… mais ils partagent autre chose."
+      },
+      {
+        "rule": "sovieti/urss",
+        "msg": "L’Iran n’a jamais été soviétique."
+      }
+    ],
+    "en": {
+      "title": "Countries on the Caspian Sea",
+      "hints": [
+        "There’s water between them",
+        "The world’s biggest lake, or a small sea?",
+        "Baku, capital of Azerbaijan, is on its shore",
+        "Caviar comes from here"
+      ],
+      "fact": "Despite its name, the Caspian Sea is the world’s largest lake: it has no natural connection to the ocean.",
+      "answers": [
+        "caspi"
+      ],
+      "near": [
+        {
+          "rule": "sea/lake/water/coast/shore",
+          "msg": "Red hot! Which one?",
+          "hot": true
+        },
+        {
+          "rule": "black sea",
+          "msg": "Not the Black Sea: Kazakhstan is lit."
+        },
+        {
+          "rule": "oil/gas/petrol",
+          "msg": "They have it, yes… but they share something else."
+        },
+        {
+          "rule": "soviet/ussr",
+          "msg": "Iran was never Soviet."
+        }
+      ]
+    }
+  },
+  {
+    "title": "Les pays qui ont envoyé des humains dans l’espace avec leurs propres fusées",
+    "countries": [
+      "Russie",
+      "États-Unis",
+      "Chine"
+    ],
+    "hints": [
+      "Ils sont allés très haut",
+      "Le premier, c’était en 1961",
+      "La Chine est la dernière arrivée, en 2003",
+      "3, 2, 1… décollage !"
+    ],
+    "fact": "Youri Gagarine, pour l’URSS, a ouvert la voie le 12 avril 1961. Les États-Unis ont suivi la même année, puis la Chine en 2003, avec Yang Liwei.",
+    "start": "45, -100",
+    "answers": [
+      "espace/spatial/space/orbit + humain/homme/habite/equipage/envoy/vol/astronaut/cosmonaut/taikonaut",
+      "astronaut/cosmonaut/taikonaut/vol habite"
+    ],
+    "near": [
+      {
+        "rule": "lune/apollo",
+        "msg": "Seuls les États-Unis ont marché sur la Lune… Élargis un peu.",
+        "hot": true
+      },
+      {
+        "rule": "espace/spatial/fusee/satellite/nasa/orbit",
+        "msg": "Brûlant ! Mais qu’ont-ils envoyé là-haut ?",
+        "hot": true
+      },
+      {
+        "rule": "nucl/atom/bombe",
+        "msg": "Non : la France et l’Inde ont la bombe, et elles sont éteintes."
+      },
+      {
+        "rule": "grand/puissan/superpuiss/onu",
+        "msg": "Tu chauffes… pense plus haut."
+      }
+    ],
+    "en": {
+      "title": "Countries that have sent people into space on their own rockets",
+      "hints": [
+        "They went very high",
+        "The first time was in 1961",
+        "China is the latest, in 2003",
+        "3, 2, 1… lift-off!"
+      ],
+      "fact": "Yuri Gagarin, for the USSR, led the way on 12 April 1961. The United States followed the same year, then China in 2003, with Yang Liwei.",
+      "answers": [
+        "space/orbit + human/people/men/crew/manned/sent/flight/astronaut/cosmonaut",
+        "astronaut/cosmonaut/taikonaut/manned"
+      ],
+      "near": [
+        {
+          "rule": "moon/apollo",
+          "msg": "Only the United States has walked on the Moon… Think a bit wider.",
+          "hot": true
+        },
+        {
+          "rule": "space/rocket/satellite/nasa/orbit",
+          "msg": "Red hot! But what did they send up there?",
+          "hot": true
+        },
+        {
+          "rule": "nuclear/atomic/bomb",
+          "msg": "No: France and India have the bomb, and they are dark."
+        },
+        {
+          "rule": "big/power/superpower/un",
+          "msg": "Getting warmer… think higher."
+        }
+      ]
+    }
+  },
+  {
+    "title": "Les pays et territoires dont le drapeau porte une croix scandinave",
+    "countries": [
+      "Danemark",
+      "Norvège",
+      "Suède",
+      "Finlande",
+      "Islande",
+      "Îles Féroé",
+      "Åland"
+    ],
+    "hints": [
+      "Regarde leurs drapeaux",
+      "Le Danemark l’a eue en premier, les voisins ont suivi",
+      "Une forme qu’on trouve aussi dans les églises",
+      "Son centre est décalé vers la gauche"
+    ],
+    "fact": "Le Dannebrog danois serait le plus ancien drapeau national encore utilisé : selon la légende, il serait tombé du ciel en 1219.",
+    "start": "62, 10",
+    "answers": [
+      "croix + drapeau/flag/scandinav/nordique/decal",
+      "croix scandinave/croix nordique/nordic cross/scandinavian cross"
+    ],
+    "near": [
+      {
+        "rule": "croix",
+        "msg": "Brûlant ! Mais où se trouve cette croix ?",
+        "hot": true
+      },
+      {
+        "rule": "drapeau/flag/couleur",
+        "msg": "Brûlant ! Qu’ont leurs drapeaux en commun ?",
+        "hot": true
+      },
+      {
+        "rule": "scandinav/nordique/nord/viking/froid",
+        "msg": "Ils sont nordiques, oui… mais l’Estonie est éteinte. Regarde leurs symboles."
+      },
+      {
+        "rule": "chretien/protestant/luther/relig",
+        "msg": "Tu chauffes : ce symbole est sur leurs drapeaux."
+      }
+    ],
+    "en": {
+      "title": "Countries and territories with a Nordic cross flag",
+      "hints": [
+        "Look at their flags",
+        "Denmark had it first, the neighbours followed",
+        "A shape you also find in churches",
+        "Its centre is shifted to the left"
+      ],
+      "fact": "Denmark’s Dannebrog is said to be the oldest national flag still in use: legend has it that it fell from the sky in 1219.",
+      "answers": [
+        "cross + flag/scandinav/nordic/offset",
+        "nordic cross/scandinavian cross"
+      ],
+      "near": [
+        {
+          "rule": "cross",
+          "msg": "Red hot! But where is that cross?",
+          "hot": true
+        },
+        {
+          "rule": "flag/colour/color",
+          "msg": "Red hot! What do their flags have in common?",
+          "hot": true
+        },
+        {
+          "rule": "scandinav/nordic/north/viking/cold",
+          "msg": "They’re Nordic, yes… but Estonia is dark. Look at their symbols."
+        },
+        {
+          "rule": "christian/protestant/luther/religio",
+          "msg": "Getting warmer: that symbol is on their flags."
+        }
+      ]
+    }
+  },
+  {
+    "title": "Les pays où l’arabe est langue officielle",
+    "countries": [
+      "Algérie",
+      "Arabie Saoudite",
+      "Bahreïn",
+      "Comores",
+      "Djibouti",
+      "Égypte",
+      "Émirats Arabes Unis",
+      "Irak",
+      "Jordanie",
+      "Koweït",
+      "Liban",
+      "Libye",
+      "Maroc",
+      "Mauritanie",
+      "Oman",
+      "Palestine",
+      "Qatar",
+      "Somalie",
+      "Soudan",
+      "Syrie",
+      "Tchad",
+      "Tunisie",
+      "Yémen"
+    ],
+    "hints": [
+      "Ça s’entend, et ça s’écrit",
+      "Le Tchad et les Comores en font partie",
+      "Ça s’écrit de droite à gauche",
+      "Marhaba !"
+    ],
+    "fact": "L’arabe s’écrit de droite à gauche. Les chiffres que nous appelons « arabes » sont en réalité nés en Inde, puis ont été transmis à l’Europe par le monde arabe.",
+    "start": "25, 25",
+    "answers": [
+      "arab"
+    ],
+    "near": [
+      {
+        "rule": "islam/musulman/mosquee/coran",
+        "msg": "Pas la religion : l’Iran et la Turquie sont éteints."
+      },
+      {
+        "rule": "langue/parl/ecri/alphabet",
+        "msg": "Brûlant ! Laquelle ?",
+        "hot": true
+      },
+      {
+        "rule": "desert/petrol/chaud/sahara",
+        "msg": "Pas tous : les Comores sont des îles bien vertes."
+      },
+      {
+        "rule": "moyen orient/orient/maghreb",
+        "msg": "Tu chauffes, mais les Comores et le Tchad sont allumés. Écoute-les."
+      }
+    ],
+    "en": {
+      "title": "Countries where Arabic is an official language",
+      "hints": [
+        "You hear it, and you write it",
+        "Chad and the Comoros are among them",
+        "It’s written from right to left",
+        "Marhaba!"
+      ],
+      "fact": "Arabic is written from right to left. The digits we call “Arabic numerals” actually originated in India and reached Europe through the Arab world.",
+      "answers": [
+        "arab"
+      ],
+      "near": [
+        {
+          "rule": "islam/muslim/mosque/koran/quran",
+          "msg": "Not religion: Iran and Turkey are dark."
+        },
+        {
+          "rule": "language/speak/spoken/writ/alphabet/script",
+          "msg": "Red hot! Which one?",
+          "hot": true
+        },
+        {
+          "rule": "desert/oil/hot/sahara",
+          "msg": "Not all of them: the Comoros are lush green islands."
+        },
+        {
+          "rule": "middle east/orient/maghreb",
+          "msg": "Getting warmer, but the Comoros and Chad are lit. Listen to them."
+        }
+      ]
+    }
+  },
+  {
+    "title": "Les pays traversés par le méridien de Greenwich",
+    "countries": [
+      "Royaume-Uni",
+      "France",
+      "Espagne",
+      "Algérie",
+      "Mali",
+      "Burkina Faso",
+      "Togo",
+      "Ghana",
+      "Antarctique"
+    ],
+    "hints": [
+      "Trace un trait du nord au sud",
+      "Il passe près de Londres",
+      "Longitude 0°",
+      "L’heure du monde s’y règle"
+    ],
+    "fact": "Le méridien de Greenwich est devenu la référence mondiale en 1884. La France a gardé celui de Paris pour son heure légale jusqu’en 1911.",
+    "start": "30, 0",
+    "answers": [
+      "greenwich",
+      "meridien + 0/zero/origine/premier/reference",
+      "longitude + 0/zero",
+      "prime meridian"
+    ],
+    "near": [
+      {
+        "rule": "meridien/longitude/ligne/trait/vertical",
+        "msg": "Brûlant ! Laquelle ?",
+        "hot": true
+      },
+      {
+        "rule": "fuseau/heure/gmt/utc",
+        "msg": "Brûlant ! Quelle ligne les relie ?",
+        "hot": true
+      },
+      {
+        "rule": "equat/tropi",
+        "msg": "Une ligne, oui… mais celle-ci va du nord au sud."
+      },
+      {
+        "rule": "francophon/coloni",
+        "msg": "Non : le Royaume-Uni et le Ghana sont allumés."
+      }
+    ],
+    "en": {
+      "title": "Countries crossed by the Greenwich meridian",
+      "hints": [
+        "Draw a line from north to south",
+        "It passes near London",
+        "Longitude 0°",
+        "The world sets its clocks by it"
+      ],
+      "fact": "The Greenwich meridian became the world reference in 1884. France kept the Paris meridian for its legal time until 1911.",
+      "answers": [
+        "greenwich",
+        "prime meridian",
+        "meridian + 0/zero/prime",
+        "longitude + 0/zero"
+      ],
+      "near": [
+        {
+          "rule": "meridian/longitude/line/vertical",
+          "msg": "Red hot! Which one?",
+          "hot": true
+        },
+        {
+          "rule": "time zone/time/gmt/utc",
+          "msg": "Red hot! Which line links them?",
+          "hot": true
+        },
+        {
+          "rule": "equat/tropic",
+          "msg": "A line, yes… but this one runs north to south."
+        },
+        {
+          "rule": "french speak/francophon/colon",
+          "msg": "No: the United Kingdom and Ghana are lit."
+        }
+      ]
+    }
+  },
+  {
+    "title": "Les pays qui ont l’arme nucléaire",
+    "countries": [
+      "États-Unis",
+      "Russie",
+      "Royaume-Uni",
+      "France",
+      "Chine",
+      "Inde",
+      "Pakistan",
+      "Corée du Nord",
+      "Israël"
+    ],
+    "hints": [
+      "Ils pourraient faire très mal",
+      "Le dernier arrivé dans ce club est la Corée du Nord, en 2006",
+      "L’un d’eux n’a jamais confirmé en faire partie",
+      "Hiroshima, 1945"
+    ],
+    "fact": "Israël n’a jamais confirmé ni démenti posséder la bombe. L’Afrique du Sud est le seul pays à avoir fabriqué l’arme nucléaire puis à l’avoir démantelée de lui-même, au début des années 1990.",
+    "start": "35, 40",
+    "answers": [
+      "arme/bombe/ogive/missile/arsenal/dissuasion/puissance + nucl/atom",
+      "bombe a/bombe h/nuke"
+    ],
+    "near": [
+      {
+        "rule": "centrale/energie/electri/reacteur",
+        "msg": "Pas les centrales : la Belgique et le Japon en ont, et ils sont éteints."
+      },
+      {
+        "rule": "nucl/atom",
+        "msg": "Brûlant ! Mais quoi, le nucléaire ?",
+        "hot": true
+      },
+      {
+        "rule": "onu/conseil de securite/membre permanent",
+        "msg": "Pas seulement : l’Inde et le Pakistan sont allumés."
+      },
+      {
+        "rule": "armee/militaire/guerre/puissan/defense",
+        "msg": "Tu chauffes ! Quelle arme ?"
+      }
+    ],
+    "en": {
+      "title": "Countries with nuclear weapons",
+      "hints": [
+        "They could do a lot of damage",
+        "The latest to join this club was North Korea, in 2006",
+        "One of them has never confirmed it’s a member",
+        "Hiroshima, 1945"
+      ],
+      "fact": "Israel has never confirmed or denied having the bomb. South Africa is the only country to have built nuclear weapons and then dismantled them of its own accord, in the early 1990s.",
+      "answers": [
+        "weapon/bomb/warhead/missile/arsenal/deterr/arm/arms + nuclear/atomic",
+        "nuke/nukes/a bomb/h bomb"
+      ],
+      "near": [
+        {
+          "rule": "plant/energy/electric/reactor",
+          "msg": "Not power plants: Belgium and Japan have them, and they are dark."
+        },
+        {
+          "rule": "nuclear/atomic",
+          "msg": "Red hot! But what about nuclear?",
+          "hot": true
+        },
+        {
+          "rule": "un/security council/permanent member",
+          "msg": "Not only: India and Pakistan are lit."
+        },
+        {
+          "rule": "army/military/war/power/defence/defense",
+          "msg": "Getting warmer! Which weapon?"
+        }
+      ]
+    }
+  },
+  {
+    "title": "Les pays qui abritent la forêt amazonienne",
+    "countries": [
+      "Brésil",
+      "Pérou",
+      "Colombie",
+      "Venezuela",
+      "Équateur",
+      "Bolivie",
+      "Guyana",
+      "Suriname",
+      "France"
+    ],
+    "hints": [
+      "C’est vert, et c’est immense",
+      "La France est allumée… pour une bonne raison",
+      "On l’appelle parfois le poumon de la planète",
+      "Le fleuve le plus puissant du monde la traverse"
+    ],
+    "fact": "Grâce à la Guyane, la France abrite un morceau d’Amazonie : le Parc amazonien de Guyane est le plus grand parc national de l’Union européenne.",
+    "start": "-5, -60",
+    "answers": [
+      "amazon"
+    ],
+    "near": [
+      {
+        "rule": "foret/jungle/arbre/tropi/vert/pluie/poumon",
+        "msg": "Brûlant ! Laquelle ?",
+        "hot": true
+      },
+      {
+        "rule": "ande/montagne",
+        "msg": "Pas les Andes : le Brésil est allumé et l’Argentine éteinte."
+      },
+      {
+        "rule": "espagnol/hispan/amerique latine/amerique du sud",
+        "msg": "Non : la France est allumée, et le Chili éteint."
+      },
+      {
+        "rule": "fleuve/riviere",
+        "msg": "Tu chauffes ! Le fleuve a donné son nom à autre chose…",
+        "hot": true
+      }
+    ],
+    "en": {
+      "title": "Countries that share the Amazon rainforest",
+      "hints": [
+        "It’s green, and it’s huge",
+        "France is lit… for a good reason",
+        "It’s sometimes called the lungs of the planet",
+        "The world’s mightiest river runs through it"
+      ],
+      "fact": "Thanks to French Guiana, France has a piece of the Amazon: the Guiana Amazonian Park is the largest national park in the European Union.",
+      "answers": [
+        "amazon"
+      ],
+      "near": [
+        {
+          "rule": "forest/jungle/tree/tropic/green/rain/lung",
+          "msg": "Red hot! Which one?",
+          "hot": true
+        },
+        {
+          "rule": "andes/mountain",
+          "msg": "Not the Andes: Brazil is lit and Argentina is dark."
+        },
+        {
+          "rule": "spanish/hispan/latin america/south america",
+          "msg": "No: France is lit, and Chile is dark."
+        },
+        {
+          "rule": "river",
+          "msg": "Getting warmer! That river gave its name to something else…",
+          "hot": true
+        }
+      ]
+    }
+  },
+  {
+    "title": "Les pays de l’ex-Yougoslavie",
+    "countries": [
+      "Slovénie",
+      "Croatie",
+      "Bosnie-Herzégovine",
+      "Serbie",
+      "Monténégro",
+      "Macédoine du Nord",
+      "Kosovo"
+    ],
+    "hints": [
+      "Une affaire d’histoire",
+      "Ils ont eu la même capitale : Belgrade",
+      "Ils sont tous dans les Balkans",
+      "Tito"
+    ],
+    "fact": "La Yougoslavie a commencé à se disloquer en 1991. Le Kosovo, le dernier à proclamer son indépendance (2008), n’est pas reconnu par tous les pays.",
+    "start": "44, 19",
+    "answers": [
+      "yougo/yugo/jugo/tito"
+    ],
+    "near": [
+      {
+        "rule": "balkan",
+        "msg": "Brûlant ! Mais l’Albanie et la Bulgarie sont éteintes.",
+        "hot": true
+      },
+      {
+        "rule": "slave",
+        "msg": "Presque, mais la Bulgarie, slave elle aussi, est éteinte."
+      },
+      {
+        "rule": "communis/sovieti/urss",
+        "msg": "Communistes, oui, mais jamais soviétiques."
+      },
+      {
+        "rule": "guerre/conflit",
+        "msg": "Tu chauffes : ils étaient un seul pays avant cette guerre."
+      }
+    ],
+    "en": {
+      "title": "The former Yugoslav countries",
+      "hints": [
+        "It’s a matter of history",
+        "They once shared a capital: Belgrade",
+        "They’re all in the Balkans",
+        "Tito"
+      ],
+      "fact": "Yugoslavia began breaking up in 1991. Kosovo, the last to declare independence (2008), is not recognised by every country.",
+      "answers": [
+        "yugo/yougo/jugo/tito"
+      ],
+      "near": [
+        {
+          "rule": "balkan",
+          "msg": "Red hot! But Albania and Bulgaria are dark.",
+          "hot": true
+        },
+        {
+          "rule": "slav",
+          "msg": "Close, but Bulgaria, also Slavic, is dark."
+        },
+        {
+          "rule": "communis/soviet/ussr",
+          "msg": "Communist, yes, but never Soviet."
+        },
+        {
+          "rule": "war/conflict",
+          "msg": "Getting warmer: they were a single country before that war."
+        }
+      ]
+    }
+  },
+  {
+    "title": "Les pays de plus de 100 millions d’habitants",
+    "countries": [
+      "Inde",
+      "Chine",
+      "États-Unis",
+      "Indonésie",
+      "Pakistan",
+      "Nigéria",
+      "Brésil",
+      "Bangladesh",
+      "Russie",
+      "Éthiopie",
+      "Mexique",
+      "Japon",
+      "Égypte",
+      "Philippines",
+      "RD Congo",
+      "Viêt Nam"
+    ],
+    "hints": [
+      "C’est une question de nombre",
+      "Le Japon y est encore, mais sa population baisse",
+      "L’Inde a pris la tête en 2023",
+      "Compte les gens"
+    ],
+    "fact": "Ces 16 pays réunissent près des deux tiers de l’humanité. L’Inde est devenue le pays le plus peuplé du monde en 2023, devant la Chine.",
+    "start": "20, 80",
+    "answers": [
+      "100/cent + million",
+      "peupl/population/habitant/demograph + plus/grand/fort/beaucoup/nombreu/million/enorme/gros"
+    ],
+    "near": [
+      {
+        "rule": "peupl/population/habitant/demograph/gens",
+        "msg": "Brûlant ! Combien ?",
+        "hot": true
+      },
+      {
+        "rule": "grand/superficie/taille/vaste",
+        "msg": "Pas la taille : le Canada et l’Australie sont éteints."
+      },
+      {
+        "rule": "pauvre/developp/emergent",
+        "msg": "Non : les États-Unis et le Japon sont allumés."
+      },
+      {
+        "rule": "brics",
+        "msg": "Tu chauffes, mais l’Afrique du Sud est éteinte et le Japon allumé."
+      }
+    ],
+    "en": {
+      "title": "Countries with more than 100 million people",
+      "hints": [
+        "It’s a numbers game",
+        "Japan is still in, but its population is shrinking",
+        "India took the top spot in 2023",
+        "Count the people"
+      ],
+      "fact": "These 16 countries are home to nearly two thirds of humanity. India became the world’s most populous country in 2023, ahead of China.",
+      "answers": [
+        "100/hundred + million",
+        "populous/populat/people/inhabitant/demograph + most/high/large/big/million/many/huge"
+      ],
+      "near": [
+        {
+          "rule": "populat/people/inhabitant/demograph/crowd",
+          "msg": "Red hot! How many?",
+          "hot": true
+        },
+        {
+          "rule": "big/size/area/large/vast",
+          "msg": "Not size: Canada and Australia are dark."
+        },
+        {
+          "rule": "poor/develop/emerging",
+          "msg": "No: the United States and Japan are lit."
+        },
+        {
+          "rule": "brics",
+          "msg": "Getting warmer, but South Africa is dark and Japan is lit."
+        }
+      ]
+    }
+  },
+  {
+    "title": "Les pays bordés par la mer Baltique",
+    "countries": [
+      "Suède",
+      "Finlande",
+      "Russie",
+      "Estonie",
+      "Lettonie",
+      "Lituanie",
+      "Pologne",
+      "Allemagne",
+      "Danemark",
+      "Åland"
+    ],
+    "hints": [
+      "Ils ont de l’eau en partage",
+      "Trois petits pays allumés portent son nom",
+      "Son eau est à peine salée",
+      "L’ambre s’y ramasse sur les plages"
+    ],
+    "fact": "La Baltique est l’une des mers les moins salées du monde : l’eau douce des fleuves s’y mélange à une eau de mer qui entre difficilement par les détroits danois.",
+    "start": "58, 20",
+    "answers": [
+      "baltiq/balte"
+    ],
+    "near": [
+      {
+        "rule": "mer/cote/eau/littoral/rive/plage",
+        "msg": "Brûlant ! Laquelle ?",
+        "hot": true
+      },
+      {
+        "rule": "nord/scandinav/nordique",
+        "msg": "Tu chauffes, mais la Norvège est éteinte."
+      },
+      {
+        "rule": "ue/europ/union",
+        "msg": "Non : la Russie est allumée."
+      },
+      {
+        "rule": "mer du nord",
+        "msg": "Pas celle-là : la Norvège est éteinte."
+      }
+    ],
+    "en": {
+      "title": "Countries on the Baltic Sea",
+      "hints": [
+        "They share some water",
+        "Three small lit countries are named after it",
+        "Its water is barely salty",
+        "You can find amber on its beaches"
+      ],
+      "fact": "The Baltic is one of the least salty seas in the world: river water mixes with seawater that struggles to get in through the Danish straits.",
+      "answers": [
+        "baltic"
+      ],
+      "near": [
+        {
+          "rule": "sea/coast/water/shore/beach",
+          "msg": "Red hot! Which one?",
+          "hot": true
+        },
+        {
+          "rule": "north sea",
+          "msg": "Not that one: Norway is dark."
+        },
+        {
+          "rule": "north/scandinav/nordic",
+          "msg": "Getting warmer, but Norway is dark."
+        },
+        {
+          "rule": "eu/europ/union",
+          "msg": "No: Russia is lit."
+        }
+      ]
+    }
+  },
+  {
+    "title": "Les pays du bassin du Nil",
+    "countries": [
+      "Égypte",
+      "Soudan",
+      "Soudan du Sud",
+      "Éthiopie",
+      "Érythrée",
+      "Ouganda",
+      "Kenya",
+      "Tanzanie",
+      "Rwanda",
+      "Burundi",
+      "RD Congo"
+    ],
+    "hints": [
+      "Ils partagent quelque chose qui coule",
+      "L’Égypte en dépend presque entièrement",
+      "Il se jette dans la Méditerranée",
+      "Les pharaons lui devaient tout"
+    ],
+    "fact": "Le Nil Blanc et le Nil Bleu se rejoignent à Khartoum, au Soudan. Le Nil Bleu, venu d’Éthiopie, apporte l’essentiel de l’eau.",
+    "start": "5, 32",
+    "answers": [
+      "nil/nile"
+    ],
+    "near": [
+      {
+        "rule": "fleuve/riviere/bassin/eau",
+        "msg": "Brûlant ! Lequel ?",
+        "hot": true
+      },
+      {
+        "rule": "victoria/lac",
+        "msg": "Brûlant ! Ce lac alimente quelque chose de plus grand.",
+        "hot": true
+      },
+      {
+        "rule": "desert/sahara",
+        "msg": "Pas le désert : l’Ouganda est tout vert."
+      },
+      {
+        "rule": "afrique de l est/est africain",
+        "msg": "Tu chauffes, mais l’Égypte est allumée. Qu’est-ce qui les relie du sud au nord ?"
+      }
+    ],
+    "en": {
+      "title": "Countries of the Nile basin",
+      "hints": [
+        "They share something that flows",
+        "Egypt depends on it almost entirely",
+        "It flows into the Mediterranean",
+        "The pharaohs owed it everything"
+      ],
+      "fact": "The White Nile and the Blue Nile meet in Khartoum, Sudan. The Blue Nile, coming from Ethiopia, supplies most of the water.",
+      "answers": [
+        "nile/nil"
+      ],
+      "near": [
+        {
+          "rule": "river/basin/water",
+          "msg": "Red hot! Which one?",
+          "hot": true
+        },
+        {
+          "rule": "victoria/lake",
+          "msg": "Red hot! That lake feeds something bigger.",
+          "hot": true
+        },
+        {
+          "rule": "desert/sahara",
+          "msg": "Not the desert: Uganda is lush green."
+        },
+        {
+          "rule": "east africa",
+          "msg": "Getting warmer, but Egypt is lit. What links them from south to north?"
+        }
+      ]
+    }
+  },
+  {
+    "title": "Les pays qui ont une frontière avec la Chine",
+    "countries": [
+      "Afghanistan",
+      "Bhoutan",
+      "Inde",
+      "Kazakhstan",
+      "Corée du Nord",
+      "Kirghizistan",
+      "Laos",
+      "Mongolie",
+      "Birmanie",
+      "Népal",
+      "Pakistan",
+      "Russie",
+      "Tadjikistan",
+      "Viêt Nam"
+    ],
+    "hints": [
+      "Regarde le grand vide au milieu",
+      "Ils ont tous le même voisin",
+      "Ce voisin est le deuxième pays le plus peuplé du monde",
+      "Pense à la Grande Muraille"
+    ],
+    "fact": "Avec 14 voisins terrestres, la Chine partage le record mondial avec la Russie. Elle n’utilise pourtant qu’un seul fuseau horaire.",
+    "start": "35, 95",
+    "answers": [
+      "chin + frontiere/voisin/limitrophe/touch/bord/entour/frontalier/border"
+    ],
+    "near": [
+      {
+        "rule": "chin",
+        "msg": "Brûlant ! Quel lien avec la Chine ?",
+        "hot": true
+      },
+      {
+        "rule": "voisin/frontiere",
+        "msg": "Brûlant ! Voisins de qui ?",
+        "hot": true
+      },
+      {
+        "rule": "asie",
+        "msg": "Trop vague !"
+      },
+      {
+        "rule": "communis",
+        "msg": "Non : l’Inde est allumée."
+      }
+    ],
+    "en": {
+      "title": "Countries that share a border with China",
+      "hints": [
+        "Look at the big empty space in the middle",
+        "They all have the same neighbour",
+        "That neighbour is the second most populous country in the world",
+        "Think of the Great Wall"
+      ],
+      "fact": "With 14 land neighbours, China shares the world record with Russia. Yet it uses a single time zone.",
+      "answers": [
+        "china/chinese + border/neighbo/touch/surround/adjacent"
+      ],
+      "near": [
+        {
+          "rule": "china/chinese",
+          "msg": "Red hot! What’s the link with China?",
+          "hot": true
+        },
+        {
+          "rule": "neighbo/border",
+          "msg": "Red hot! Whose neighbours?",
+          "hot": true
+        },
+        {
+          "rule": "asia",
+          "msg": "Too vague!"
+        },
+        {
+          "rule": "communis",
+          "msg": "No: India is lit."
+        }
+      ]
+    }
+  },
+  {
+    "title": "Les pays traversés par le tropique du Capricorne",
+    "countries": [
+      "Chili",
+      "Argentine",
+      "Paraguay",
+      "Brésil",
+      "Namibie",
+      "Botswana",
+      "Afrique du Sud",
+      "Mozambique",
+      "Madagascar",
+      "Australie"
+    ],
+    "hints": [
+      "Trace un trait entre eux",
+      "Il traverse le sud de Madagascar et le centre de l’Australie",
+      "Le 21 décembre à midi, le soleil y est exactement à la verticale",
+      "Vers 23° de latitude sud"
+    ],
+    "fact": "C’est la latitude la plus au sud où le soleil peut se trouver exactement au zénith, une fois par an, au solstice de décembre.",
+    "start": "-23, 20",
+    "answers": [
+      "capricorn",
+      "tropique + sud",
+      "latitude + 23"
+    ],
+    "near": [
+      {
+        "rule": "cancer",
+        "msg": "Mauvais hémisphère !",
+        "hot": true
+      },
+      {
+        "rule": "tropi",
+        "msg": "Brûlant ! Lequel ?",
+        "hot": true
+      },
+      {
+        "rule": "equat",
+        "msg": "Une ligne, oui… mais plus au sud."
+      },
+      {
+        "rule": "ligne/trait/latitude/parallele",
+        "msg": "Brûlant ! Laquelle ?",
+        "hot": true
+      },
+      {
+        "rule": "hemisphere sud/austral/sud",
+        "msg": "Tu chauffes ! Mais ils ont une ligne précise en commun."
+      }
+    ],
+    "en": {
+      "title": "Countries crossed by the Tropic of Capricorn",
+      "hints": [
+        "Draw a line between them",
+        "It crosses southern Madagascar and central Australia",
+        "At noon on 21 December, the sun is directly overhead there",
+        "About 23° south"
+      ],
+      "fact": "It is the southernmost latitude where the sun can be exactly overhead, once a year, at the December solstice.",
+      "answers": [
+        "capricorn",
+        "tropic + south",
+        "latitude + 23"
+      ],
+      "near": [
+        {
+          "rule": "cancer",
+          "msg": "Wrong hemisphere!",
+          "hot": true
+        },
+        {
+          "rule": "tropic",
+          "msg": "Red hot! Which one?",
+          "hot": true
+        },
+        {
+          "rule": "equat",
+          "msg": "A line, yes… but further south."
+        },
+        {
+          "rule": "line/latitude/parallel",
+          "msg": "Red hot! Which one?",
+          "hot": true
+        },
+        {
+          "rule": "southern/south",
+          "msg": "Getting warmer! But they share one precise line."
+        }
+      ]
+    }
+  },
+  {
+    "title": "Les pays des Alpes",
+    "countries": [
+      "France",
+      "Monaco",
+      "Italie",
+      "Suisse",
+      "Liechtenstein",
+      "Allemagne",
+      "Autriche",
+      "Slovénie"
+    ],
+    "hints": [
+      "C’est en relief, au cœur de l’Europe",
+      "Monaco en fait partie, de justesse",
+      "Heidi y gardait ses chèvres",
+      "Le mont Blanc s’y trouve"
+    ],
+    "fact": "Le mont Blanc (4 805 m) en est le point culminant. Sous les Alpes suisses, le tunnel de base du Saint-Gothard est le plus long tunnel ferroviaire du monde : 57 km.",
+    "start": "46, 10",
+    "answers": [
+      "alpe/alpin/alps"
+    ],
+    "near": [
+      {
+        "rule": "mont blanc/cervin/matterhorn",
+        "msg": "Brûlant ! Dans quelle chaîne ?",
+        "hot": true
+      },
+      {
+        "rule": "montagne/sommet/ski/relief/neige/altitude/chaine",
+        "msg": "Brûlant ! Laquelle ?",
+        "hot": true
+      },
+      {
+        "rule": "germani/allemand",
+        "msg": "Non : l’Italie et la Slovénie sont allumées."
+      },
+      {
+        "rule": "europe",
+        "msg": "Trop vague !"
+      }
+    ],
+    "en": {
+      "title": "The Alpine countries",
+      "hints": [
+        "It’s all about relief, in the heart of Europe",
+        "Monaco just about makes it",
+        "Heidi herded her goats here",
+        "Mont Blanc is there"
+      ],
+      "fact": "Mont Blanc (4,805 m) is its highest point. Beneath the Swiss Alps, the Gotthard Base Tunnel is the longest railway tunnel in the world: 57 km.",
+      "answers": [
+        "alps/alpine/alpe"
+      ],
+      "near": [
+        {
+          "rule": "mont blanc/matterhorn",
+          "msg": "Red hot! Which range?",
+          "hot": true
+        },
+        {
+          "rule": "mountain/peak/ski/relief/snow/altitude/range",
+          "msg": "Red hot! Which one?",
+          "hot": true
+        },
+        {
+          "rule": "german",
+          "msg": "No: Italy and Slovenia are lit."
+        },
+        {
+          "rule": "europe",
+          "msg": "Too vague!"
+        }
+      ]
+    }
+  },
+  {
+    "title": "Les pays traversés par le Mékong",
+    "countries": [
+      "Chine",
+      "Birmanie",
+      "Laos",
+      "Thaïlande",
+      "Cambodge",
+      "Viêt Nam"
+    ],
+    "hints": [
+      "Ça coule",
+      "Il naît sur le plateau tibétain",
+      "Il finit en delta, au sud du Viêt Nam",
+      "Le Laos lui doit presque tout"
+    ],
+    "fact": "Au Viêt Nam, le delta du Mékong est surnommé le « fleuve aux neuf dragons », à cause de ses nombreux bras.",
+    "start": "17, 102",
+    "answers": [
+      "mekong"
+    ],
+    "near": [
+      {
+        "rule": "fleuve/riviere/eau/delta",
+        "msg": "Brûlant ! Lequel ?",
+        "hot": true
+      },
+      {
+        "rule": "riz/riziere",
+        "msg": "Tu chauffes : ce qui arrose le riz ici coule sur des milliers de kilomètres."
+      },
+      {
+        "rule": "bouddh",
+        "msg": "Presque tous, oui… mais ce qui les relie coule."
+      },
+      {
+        "rule": "communis",
+        "msg": "Pas la politique : la Thaïlande est un royaume."
+      },
+      {
+        "rule": "asie du sud est/indochine",
+        "msg": "Tu chauffes, mais la Chine est allumée et la Malaisie éteinte."
+      }
+    ],
+    "en": {
+      "title": "Countries the Mekong flows through",
+      "hints": [
+        "It flows",
+        "It rises on the Tibetan Plateau",
+        "It ends in a delta in southern Vietnam",
+        "Laos owes it almost everything"
+      ],
+      "fact": "In Vietnam, the Mekong Delta is nicknamed the “River of Nine Dragons” because of its many branches.",
+      "answers": [
+        "mekong"
+      ],
+      "near": [
+        {
+          "rule": "river/water/delta",
+          "msg": "Red hot! Which one?",
+          "hot": true
+        },
+        {
+          "rule": "rice/paddy",
+          "msg": "Getting warmer: what waters the rice here flows for thousands of kilometres."
+        },
+        {
+          "rule": "buddh",
+          "msg": "Almost all, yes… but what links them flows."
+        },
+        {
+          "rule": "communis",
+          "msg": "Not politics: Thailand is a kingdom."
+        },
+        {
+          "rule": "southeast asia/south east asia/indochina",
+          "msg": "Getting warmer, but China is lit and Malaysia is dark."
+        }
+      ]
+    }
+  },
+  {
+    "title": "Les pays du Sahara",
+    "countries": [
+      "Algérie",
+      "Égypte",
+      "Libye",
+      "Mali",
+      "Mauritanie",
+      "Maroc",
+      "Niger",
+      "Soudan",
+      "Tchad",
+      "Tunisie",
+      "Sahara occidental"
+    ],
+    "hints": [
+      "Il y fait très sec",
+      "Il couvre près d’un tiers de l’Afrique",
+      "Le sable n’en couvre qu’une petite partie",
+      "Pense aux dunes"
+    ],
+    "fact": "Le Sahara est le plus grand désert chaud du monde, presque aussi vaste que les États-Unis. Le plus grand désert tout court est l’Antarctique.",
+    "start": "22, 10",
+    "answers": [
+      "sahar"
+    ],
+    "near": [
+      {
+        "rule": "desert/sable/dune/sec/aride/chaud",
+        "msg": "Brûlant ! Lequel ?",
+        "hot": true
+      },
+      {
+        "rule": "arab/islam/musulman",
+        "msg": "Pas tout à fait : l’Arabie saoudite est éteinte."
+      },
+      {
+        "rule": "afrique",
+        "msg": "Trop vague : le Kenya est éteint."
+      },
+      {
+        "rule": "sahel",
+        "msg": "Tout proche ! Mais un peu plus au nord.",
+        "hot": true
+      }
+    ],
+    "en": {
+      "title": "The Saharan countries",
+      "hints": [
+        "It’s very dry there",
+        "It covers nearly a third of Africa",
+        "Sand covers only a small part of it",
+        "Think of dunes"
+      ],
+      "fact": "The Sahara is the largest hot desert in the world, almost as big as the United States. The largest desert of all is Antarctica.",
+      "answers": [
+        "sahara"
+      ],
+      "near": [
+        {
+          "rule": "desert/sand/dune/dry/arid/hot",
+          "msg": "Red hot! Which one?",
+          "hot": true
+        },
+        {
+          "rule": "arab/islam/muslim",
+          "msg": "Not quite: Saudi Arabia is dark."
+        },
+        {
+          "rule": "africa",
+          "msg": "Too vague: Kenya is dark."
+        },
+        {
+          "rule": "sahel",
+          "msg": "Very close! But a bit further north.",
+          "hot": true
+        }
+      ]
+    }
   }
 ]

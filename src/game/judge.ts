@@ -38,33 +38,27 @@ export interface NearRule {
   hot?: boolean;
 }
 
+/** Messages vides : game.ts met un message par défaut dans la langue choisie. */
 export type Verdict =
   | { k: 'empty' }
   | { k: 'right' }
   | { k: 'hot'; msg: string }
   | { k: 'near'; msg: string }
-  | { k: 'wrong'; msg: string };
+  | { k: 'wrong' };
 
-export interface Judge {
-  (guess: string, nth?: number): Verdict;
-}
-
-const WRONG = ['Raté.', 'Non, pas ça.', 'Froid.', 'Ce n’est pas ça.', 'Toujours pas.'];
+export type Judge = (guess: string) => Verdict;
 
 export function makeJudge(answers: string[], near: NearRule[]): Judge {
   const right = answers.map(compileRule).filter((t): t is Test => t !== null);
   const close = near
     .map((x) => ({ ...x, test: compileRule(x.rule) }))
     .filter((x): x is NearRule & { test: Test } => x.test !== null);
-  return (guess, nth = 0) => {
+  return (guess) => {
     const n = norm(guess);
     if (n.length < 2) return { k: 'empty' };
     if (right.some((t) => t(n))) return { k: 'right' };
     const hit = close.find((x) => x.test(n));
-    if (hit)
-      return hit.hot
-        ? { k: 'hot', msg: hit.msg || 'Brûlant ! Précise un peu.' }
-        : { k: 'near', msg: hit.msg || 'Tu chauffes…' };
-    return { k: 'wrong', msg: WRONG[nth % WRONG.length] };
+    if (hit) return { k: hit.hot ? 'hot' : 'near', msg: hit.msg };
+    return { k: 'wrong' };
   };
 }
