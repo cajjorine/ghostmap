@@ -1,104 +1,443 @@
 [
   {
-    "answer": "Japon",
-    "clues": [
-      "Ce pays compte plus de 14 000 îles selon le recensement officiel de 2023.",
-      "Son parlement s'appelle la Diète.",
-      "On y circule à gauche.",
-      "Sa monnaie est le yen.",
-      "Sa capitale est Tokyo."
+    "title": "Les pays où l'on roule à gauche",
+    "countries": [
+      "Royaume-Uni",
+      "Irlande",
+      "Malte",
+      "Chypre",
+      "Île de Man",
+      "Jersey",
+      "Guernesey",
+      "Japon",
+      "Inde",
+      "Pakistan",
+      "Bangladesh",
+      "Sri Lanka",
+      "Népal",
+      "Bhoutan",
+      "Thaïlande",
+      "Malaisie",
+      "Singapour",
+      "Indonésie",
+      "Brunei",
+      "Timor-Leste",
+      "Maldives",
+      "Hong Kong",
+      "Macao",
+      "Australie",
+      "Nouvelle-Zélande",
+      "Papouasie-Nouvelle-Guinée",
+      "Fidji",
+      "Îles Salomon",
+      "Samoa",
+      "Tonga",
+      "Kiribati",
+      "Nauru",
+      "Îles Cook",
+      "Niué",
+      "Île Norfolk",
+      "Île Christmas",
+      "Afrique du Sud",
+      "Namibie",
+      "Botswana",
+      "Zimbabwe",
+      "Zambie",
+      "Malawi",
+      "Mozambique",
+      "Tanzanie",
+      "Kenya",
+      "Ouganda",
+      "Lesotho",
+      "Eswatini",
+      "Maurice",
+      "Seychelles",
+      "Sainte-Hélène",
+      "Jamaïque",
+      "Bahamas",
+      "Barbade",
+      "Trinité-et-Tobago",
+      "Guyana",
+      "Suriname",
+      "Antigua-et-Barbuda",
+      "Dominique",
+      "Grenade",
+      "Saint-Kitts-et-Nevis",
+      "Sainte-Lucie",
+      "Saint-Vincent-et-les-Grenadines",
+      "Bermudes",
+      "Îles Caïmans",
+      "Îles Turques-et-Caïques",
+      "Îles vierges britanniques",
+      "Îles vierges américaines",
+      "Anguilla",
+      "Montserrat",
+      "Îles Malouines"
+    ],
+    "hints": [
+      "Ça concerne le quotidien de presque tout le monde",
+      "Beaucoup de ces pays ont un lien historique avec l’Empire britannique… mais pas le Japon",
+      "Ça se voit dans la rue",
+      "Pense aux voitures"
+    ],
+    "fact": "Environ 35 % de l’humanité roule à gauche. La Suède est passée à droite d’un coup, le 3 septembre 1967 (le « Dagen H »), et les Samoa ont fait l’inverse en 2009.",
+    "start": "18, 22",
+    "answers": [
+      "gauche + roul/condui/circul/volant/voiture/route/trafic/sens/auto/cote/chaussee/voie",
+      "volant + droit",
+      "left + drive/driving/traffic/hand"
+    ],
+    "near": [
+      {
+        "rule": "droit + roul/condui/circul/voiture/route/sens/auto",
+        "msg": "Pile l’inverse… Regarde bien : la France est éteinte.",
+        "hot": true
+      },
+      {
+        "rule": "gauche",
+        "msg": "Brûlant ! Mais à gauche… de quoi ?",
+        "hot": true
+      },
+      {
+        "rule": "voiture/route/condui/circul/volant/trafic/auto/permis/rue",
+        "msg": "Brûlant ! Qu’ont-ils de particulier sur la route ?",
+        "hot": true
+      },
+      {
+        "rule": "commonwealth/britann/anglais/anglophon/angleterre/royaume/coloni/empire/reine/roi/monarch",
+        "msg": "Tu chauffes… mais le Japon n’a jamais été britannique."
+      },
+      {
+        "rule": "prise/electri/voltage/courant",
+        "msg": "Pas les prises. Mais c’est aussi un détail du quotidien."
+      },
+      {
+        "rule": "ile/iles/insul/mer/ocean/cote/littoral",
+        "msg": "Beaucoup sont des îles… mais pas le Népal ni le Botswana."
+      },
+      {
+        "rule": "the/cricket/rugby/sport",
+        "msg": "Bien vu pour certains… mais le Japon et l’Indonésie ne collent pas."
+      }
     ]
   },
   {
-    "answer": "Canada",
-    "clues": [
-      "C'est l'un des pays qui ont le plus long littoral au monde.",
-      "Il a deux langues officielles au niveau fédéral.",
-      "Le roi Charles III en est le chef d'État.",
-      "Une feuille d'érable figure sur son drapeau.",
-      "Sa capitale est Ottawa."
+    "title": "Les pays sans accès à la mer",
+    "countries": [
+      "Andorre",
+      "Autriche",
+      "Biélorussie",
+      "Tchéquie",
+      "Hongrie",
+      "Kosovo",
+      "Liechtenstein",
+      "Luxembourg",
+      "Moldavie",
+      "Macédoine du Nord",
+      "Saint-Marin",
+      "Serbie",
+      "Slovaquie",
+      "Suisse",
+      "Vatican",
+      "Afghanistan",
+      "Arménie",
+      "Azerbaïdjan",
+      "Bhoutan",
+      "Kazakhstan",
+      "Kirghizistan",
+      "Laos",
+      "Mongolie",
+      "Népal",
+      "Tadjikistan",
+      "Turkménistan",
+      "Ouzbékistan",
+      "Botswana",
+      "Burkina Faso",
+      "Burundi",
+      "Centrafrique",
+      "Tchad",
+      "Eswatini",
+      "Éthiopie",
+      "Lesotho",
+      "Malawi",
+      "Mali",
+      "Niger",
+      "Rwanda",
+      "Soudan du Sud",
+      "Ouganda",
+      "Zambie",
+      "Zimbabwe",
+      "Bolivie",
+      "Paraguay"
+    ],
+    "hints": [
+      "Rien à voir avec l’histoire : c’est de la géographie pure",
+      "Regarde leurs frontières… et ce qu’il n’y a jamais autour",
+      "Pour aller à la plage, il faut passer une frontière",
+      "Pense à la mer"
+    ],
+    "fact": "Le Liechtenstein et l’Ouzbékistan sont « doublement enclavés » : il faut traverser au moins deux frontières pour atteindre la mer.",
+    "start": "30, 30",
+    "answers": [
+      "enclav/landlock",
+      "sans/pas/aucun/prive/depourvu/jamais/loin/zero + mer/ocean/littoral/cote/plage/maritime/port",
+      "interieur des terres/milieu des terres/frontieres terrestres",
+      "entour + terre"
+    ],
+    "near": [
+      {
+        "rule": "mer/ocean/cote/littoral/plage/port/maritime",
+        "msg": "Brûlant ! Mais quoi, avec la mer ?",
+        "hot": true
+      },
+      {
+        "rule": "montagne/altitude/sommet/alpes/himalaya",
+        "msg": "Certains, oui… mais pas le Tchad ni le Paraguay."
+      },
+      {
+        "rule": "pauvre/developpement/riche",
+        "msg": "Non : la Suisse et le Luxembourg sont allumés."
+      },
+      {
+        "rule": "petit/taille/superficie",
+        "msg": "Pas la taille : le Kazakhstan est immense."
+      }
     ]
   },
   {
-    "answer": "Égypte",
-    "aliases": ["Egypte"],
-    "clues": [
-      "Ce pays est à cheval sur deux continents.",
-      "Le canal qui le traverse relie la Méditerranée à la mer Rouge.",
-      "Son territoire est en très grande partie désertique.",
-      "Le plus long fleuve d'Afrique le traverse.",
-      "On y trouve les pyramides de Gizeh."
+    "title": "Les pays champions du monde de football",
+    "countries": [
+      "Uruguay",
+      "Italie",
+      "Allemagne",
+      "Brésil",
+      "Royaume-Uni",
+      "Argentine",
+      "France",
+      "Espagne"
+    ],
+    "hints": [
+      "Ça revient tous les quatre ans",
+      "Le Brésil en a cinq, et l’Espagne vient de décrocher son deuxième",
+      "À onze contre onze",
+      "Pense au foot"
+    ],
+    "fact": "En juillet 2026, l’Espagne a battu l’Argentine 1-0 après prolongation et rejoint la France et l’Uruguay avec deux titres. L’Angleterre, sacrée en 1966, allume tout le Royaume-Uni.",
+    "start": "20, -30",
+    "answers": [
+      "coupe du monde/mondial/world cup/champion du monde/champions du monde/vainqueur de la coupe/vainqueurs de la coupe sauf rugby/hand/basket",
+      "foot/soccer + gagn/vainq/champion/titre/remport/coupe/sacre sauf rugby"
+    ],
+    "near": [
+      {
+        "rule": "rugby",
+        "msg": "Pas le rugby : l’Uruguay et l’Espagne n’ont jamais gagné."
+      },
+      {
+        "rule": "foot/soccer/ballon/coupe",
+        "msg": "Brûlant ! Mais qu’ont-ils gagné ?",
+        "hot": true
+      },
+      {
+        "rule": "olymp/jo",
+        "msg": "C’est du sport… mais l’Uruguay n’a jamais accueilli les JO."
+      },
+      {
+        "rule": "sport/champion/gagn",
+        "msg": "Tu chauffes ! Quel sport, quelle compétition ?",
+        "hot": true
+      }
     ]
   },
   {
-    "answer": "Brésil",
-    "aliases": ["Bresil"],
-    "clues": [
-      "C'est le pays lusophone le plus peuplé du monde.",
-      "Sa capitale a été construite de toutes pièces dans les années 1950.",
-      "Il partage une frontière avec presque tous les pays d'Amérique du Sud.",
-      "La plus grande partie de la forêt amazonienne se trouve sur son territoire.",
-      "On y célèbre le carnaval de Rio."
+    "title": "Les pays où l’espagnol est langue officielle",
+    "countries": [
+      "Espagne",
+      "Mexique",
+      "Guatemala",
+      "Honduras",
+      "El Salvador",
+      "Nicaragua",
+      "Costa Rica",
+      "Panama",
+      "Cuba",
+      "République dominicaine",
+      "Porto Rico",
+      "Colombie",
+      "Venezuela",
+      "Équateur",
+      "Pérou",
+      "Bolivie",
+      "Chili",
+      "Argentine",
+      "Uruguay",
+      "Paraguay",
+      "Guinée équatoriale"
+    ],
+    "hints": [
+      "Ça s’entend avant de se voir",
+      "La Guinée équatoriale est la seule en Afrique",
+      "Souvent la deuxième langue apprise au collège",
+      "¡Hola!"
+    ],
+    "fact": "Le Mexique compte plus de deux fois plus d’hispanophones que l’Espagne.",
+    "start": "5, -60",
+    "answers": [
+      "espagnol/castillan/hispan/spanish/espanol"
+    ],
+    "near": [
+      {
+        "rule": "portugais",
+        "msg": "Le Brésil est éteint, pourtant…"
+      },
+      {
+        "rule": "langue/parl/idiome/dialecte/linguist",
+        "msg": "Brûlant ! Mais laquelle ?",
+        "hot": true
+      },
+      {
+        "rule": "latin/amerique",
+        "msg": "Regarde : le Brésil est éteint et l’Espagne allumée."
+      },
+      {
+        "rule": "coloni/conquist/empire",
+        "msg": "Tu chauffes ! Ce qui les relie, ça s’entend."
+      },
+      {
+        "rule": "catholi/relig/chretien",
+        "msg": "Pas la religion : la Pologne serait allumée."
+      }
     ]
   },
   {
-    "answer": "Australie",
-    "clues": [
-      "Ce pays est aussi un continent.",
-      "Sa capitale n'est pas sa plus grande ville.",
-      "Il abrite la plus grande barrière de corail du monde.",
-      "Le kangourou figure sur ses armoiries.",
-      "On y trouve l'opéra de Sydney."
+    "title": "Les pays traversés par l’équateur",
+    "countries": [
+      "Équateur",
+      "Colombie",
+      "Brésil",
+      "Sao Tomé-et-Principe",
+      "Gabon",
+      "Congo",
+      "RD Congo",
+      "Ouganda",
+      "Kenya",
+      "Somalie",
+      "Maldives",
+      "Indonésie",
+      "Kiribati"
+    ],
+    "hints": [
+      "Il y fait chaud presque toute l’année",
+      "Trace un trait entre eux",
+      "Le jour et la nuit y durent presque toujours 12 heures",
+      "Latitude 0°"
+    ],
+    "fact": "À cause du renflement de la Terre, le sommet du Chimborazo, en Équateur, est le point le plus éloigné du centre de la planète, plus encore que l’Everest.",
+    "start": "0, -40",
+    "answers": [
+      "equat",
+      "latitude + 0/zero"
+    ],
+    "near": [
+      {
+        "rule": "ligne/milieu/centre/hemisph/trait/latitude",
+        "msg": "Brûlant ! Quelle ligne ?",
+        "hot": true
+      },
+      {
+        "rule": "tropi/chaud/chaleur/jungle/foret/amazon/pluie/soleil",
+        "msg": "Il y fait chaud, oui… mais sois plus précis."
+      }
     ]
   },
   {
-    "answer": "Islande",
-    "clues": [
-      "Ce pays est traversé par la dorsale médio-atlantique.",
-      "Son parlement, l'Althing, est l'un des plus anciens du monde.",
-      "Il n'a pas d'armée permanente.",
-      "Les geysers tirent leur nom d'une source de ce pays.",
-      "Sa capitale est Reykjavik."
+    "title": "Les pays qui ont accueilli les JO d’été",
+    "countries": [
+      "Grèce",
+      "France",
+      "États-Unis",
+      "Royaume-Uni",
+      "Suède",
+      "Belgique",
+      "Pays-Bas",
+      "Allemagne",
+      "Finlande",
+      "Australie",
+      "Italie",
+      "Japon",
+      "Mexique",
+      "Canada",
+      "Russie",
+      "Corée du Sud",
+      "Espagne",
+      "Chine",
+      "Brésil"
+    ],
+    "hints": [
+      "Une fête qui revient régulièrement et déplace des foules",
+      "Paris et Londres l’ont fait trois fois chacune",
+      "Il y a une flamme",
+      "Pense aux anneaux"
+    ],
+    "fact": "Paris (1900, 1924, 2024) et Londres (1908, 1948, 2012) ont chacune accueilli les Jeux d’été trois fois. Prochain rendez-vous : Los Angeles, en 2028.",
+    "start": "35, 0",
+    "answers": [
+      "olymp/jo/j o/jeux d ete sauf hiver"
+    ],
+    "near": [
+      {
+        "rule": "hiver",
+        "msg": "Presque ! Mais pas en hiver.",
+        "hot": true
+      },
+      {
+        "rule": "coupe du monde/mondial/foot",
+        "msg": "C’est du sport, oui… mais la Finlande n’a jamais gagné de Coupe du monde."
+      },
+      {
+        "rule": "sport/jeux/competition/medaill",
+        "msg": "Brûlant ! Quel événement ?",
+        "hot": true
+      },
+      {
+        "rule": "expo",
+        "msg": "Bonne idée, mais non."
+      }
     ]
   },
   {
-    "answer": "Mexique",
-    "clues": [
-      "C'est le pays hispanophone le plus peuplé du monde.",
-      "La vanille est originaire de ce pays.",
-      "Un aigle dévorant un serpent figure sur son drapeau.",
-      "On y trouve la pyramide de Chichén Itzá.",
-      "Sa capitale porte le même nom que le pays."
-    ]
-  },
-  {
-    "answer": "Italie",
-    "clues": [
-      "Ce pays entoure complètement deux États souverains.",
-      "On y trouve trois volcans actifs célèbres, dont l'Etna.",
-      "Il a été unifié au XIXe siècle.",
-      "Son territoire a la forme d'une botte.",
-      "Sa capitale est Rome."
-    ]
-  },
-  {
-    "answer": "Inde",
-    "clues": [
-      "C'est le pays le plus peuplé du monde.",
-      "Sa Constitution est l'une des plus longues du monde.",
-      "Une roue à 24 rayons figure au centre de son drapeau.",
-      "Le Taj Mahal s'y trouve.",
-      "Sa capitale est New Delhi."
-    ]
-  },
-  {
-    "answer": "Maroc",
-    "clues": [
-      "Ce pays est bordé à la fois par l'Atlantique et par la Méditerranée.",
-      "La chaîne de l'Atlas le traverse.",
-      "Une étoile verte à cinq branches figure sur son drapeau rouge.",
-      "Marrakech et Fès comptent parmi ses villes.",
-      "Sa capitale est Rabat."
+    "title": "Les pays traversés par le cercle polaire arctique",
+    "countries": [
+      "Norvège",
+      "Suède",
+      "Finlande",
+      "Russie",
+      "États-Unis",
+      "Canada",
+      "Groenland",
+      "Islande"
+    ],
+    "hints": [
+      "Ici, l’été est très spécial",
+      "Certains y voient des aurores",
+      "En juin, il n’y fait jamais vraiment nuit",
+      "Pense au soleil de minuit"
+    ],
+    "fact": "Le cercle polaire n’est pas fixe : avec l’oscillation de l’axe terrestre, il remonte actuellement d’environ 15 mètres par an vers le nord.",
+    "start": "62, 10",
+    "answers": [
+      "cercle polaire/cercle arctique/arctique/polaire/soleil de minuit/pole nord/66"
+    ],
+    "near": [
+      {
+        "rule": "aurore/boreal",
+        "msg": "Brûlant ! Mais pense plutôt au soleil…",
+        "hot": true
+      },
+      {
+        "rule": "froid/neige/glace/hiver/nord/banquise",
+        "msg": "Il y fait froid, oui… mais ils ont un point précis en commun."
+      }
     ]
   }
 ]

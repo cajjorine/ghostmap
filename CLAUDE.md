@@ -20,7 +20,8 @@ Hébergé sur Cloudflare Workers (static assets), déployé automatiquement à c
 4. **Ne modifie pas le socle commun** sauf demande explicite : `src/engine/`, `src/ui/`, `src/main.ts`,
    `src/vite-env.d.ts`, `vite.config.ts`, `.github/workflows/`. Il est partagé entre tous les jeux et écrasé
    par `./sync-shared.sh --engine`. Si une capacité manque au socle, signale-le au lieu de bricoler localement.
-5. **Zéro dépendance runtime.** Les devDependencies doivent rester minimales.
+5. ~~Zéro dépendance runtime.~~ **Exception temporaire pour Ghostmap** : `globe.gl` et `three` (globe 3D).
+   Pas d'autre dépendance runtime. Les devDependencies doivent rester minimales.
 
 ## Commandes
 - `npm run dev` : serveur local

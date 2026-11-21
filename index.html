@@ -4,11 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="light dark" />
-    <meta name="theme-color" content="#1f7a4d" />
+    <meta name="theme-color" content="#03050b" />
     <title>Ghostmap</title>
-    <meta name="description" content="Un défi par jour, en moins de 5 minutes. Sans compte, sans inscription." />
+    <meta name="description" content="Un globe 3D sans aucun nom, des pays qui s’allument quand on les découvre : devine ce qu’ils ont en commun en 5 essais." />
     <meta property="og:title" content="Ghostmap" />
-    <meta property="og:description" content="Un défi par jour, en moins de 5 minutes." />
+    <meta property="og:description" content="Un globe sans aucun nom, des pays qui s’allument : devine ce qu’ils ont en commun en 5 essais." />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   </head>
   <body>
@@ -23,17 +23,14 @@
     <dialog id="rules-modal" class="modal" aria-labelledby="rules-title">
       <button class="modal-close" data-close type="button" aria-label="Fermer">×</button>
       <div class="modal-body">
-        <h2 id="rules-title">Comment jouer</h2>
-        <p>Trouve le pays du jour en <strong>5 essais</strong> maximum.</p>
-        <ul>
-          <li>Tu commences avec un seul indice.</li>
-          <li>Chaque mauvaise réponse débloque un indice supplémentaire, de plus en plus révélateur.</li>
-          <li>« Indice suivant » passe ton tour et compte comme un essai.</li>
-          <li>Les accents et les majuscules n'ont pas d'importance.</li>
-        </ul>
-        <p>Un nouveau défi chaque jour à minuit. Partage ton score sans rien dévoiler :</p>
-        <p class="example">🟥🟥🟩⬜⬜</p>
-        <button class="btn primary block" data-close type="button">Jouer</button>
+        <h2 id="rules-title">Une carte, aucun nom.</h2>
+        <ol class="steps">
+          <li><svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="16" fill="#0c2c4c" stroke="#3c5f86"/><path d="M12 18c5 2 8-3 12 0s2 6 7 7" stroke="#5d7a99" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="28" cy="15" r="4" fill="#ff6a3d"/></svg><span><b>Fais tourner la Terre.</b> Des pays s’allument quand tu les découvres. Trouve-les tous.</span></li>
+          <li><svg viewBox="0 0 44 44" aria-hidden="true"><rect x="6" y="12" width="32" height="20" rx="7" fill="none" stroke="#ff6a3d" stroke-width="2.5"/><path d="M13 22h12" stroke="#eef3f9" stroke-width="2.5" stroke-linecap="round"/><path d="M28 18v8" stroke="#ff6a3d" stroke-width="2.5" stroke-linecap="round"/></svg><span><b>Devine ce qu’ils ont en commun.</b> Écris-le avec tes mots, pas besoin de la formule exacte.</span></li>
+          <li><svg viewBox="0 0 44 44" aria-hidden="true"><g fill="none" stroke-width="2.5"><circle cx="8" cy="22" r="4" fill="#56677d" stroke="#56677d"/><circle cx="18" cy="22" r="4" fill="#ffb49b" stroke="#ffb49b"/><circle cx="28" cy="22" r="4" stroke="#ff6a3d"/><circle cx="38" cy="22" r="4" stroke="#3c5f86"/></g></svg><span><b>5 essais.</b> Chaque erreur débloque un indice. Une réponse « brûlante » n’est pas décomptée. Une nouvelle carte chaque jour à minuit.</span></li>
+        </ol>
+        <button class="btn primary block" data-close type="button">C’est parti</button>
+        <p class="small">Glisse pour tourner, pince ou molette pour zoomer.</p>
       </div>
     </dialog>
 
