@@ -90,6 +90,12 @@ const fr = {
   findMissing: 'Manquants : {list}',
   findMore: 'et {n} autres',
   findStat: '{n}/{goal} trouvés · {e} erreur(s)',
+  psHead: 'Tous les joueurs ({n})',
+  psWon: '<b>{p} %</b> ont trouvé cette carte',
+  psAvg: '{a} essais en moyenne',
+  psBetter: 'Ton score fait mieux que <b>{p} %</b> des joueurs',
+  psWrong: 'Réponse fausse la plus fréquente : <b>« {w} »</b>',
+  psToday: '{n} parties jouées aujourd’hui',
 };
 
 type Key = keyof typeof fr;
@@ -178,6 +184,12 @@ const en: Record<Key, string> = {
   findMissing: 'Missing: {list}',
   findMore: 'and {n} more',
   findStat: '{n}/{goal} found · {e} mistake(s)',
+  psHead: 'All players ({n})',
+  psWon: '<b>{p}%</b> solved this map',
+  psAvg: '{a} guesses on average',
+  psBetter: 'Your score beats <b>{p}%</b> of players',
+  psWrong: 'Most common wrong answer: <b>“{w}”</b>',
+  psToday: '{n} games played today',
 };
 
 const DICT: Record<Lang, Record<Key, string>> = { fr, en };

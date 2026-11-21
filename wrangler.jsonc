@@ -2,10 +2,16 @@
   // @routes (managed by new-game.sh / attach-domain.sh: do not remove this line)
   "name": "ghostmap",
   "compatibility_date": "2026-11-21",
+  // statistiques de tous les joueurs : seul /api/* passe par le Worker, le reste est servi tel quel
+  "main": "worker/index.ts",
   "assets": {
     "directory": "./dist",
-    "not_found_handling": "single-page-application"
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
   },
+  // base D1 : à brancher avec l'identifiant renvoyé par « npx wrangler d1 create ghostmap-stats »
+  // "d1_databases": [{ "binding": "DB", "database_name": "ghostmap-stats", "database_id": "…" }],
   "workers_dev": true,
   "preview_urls": false
 }

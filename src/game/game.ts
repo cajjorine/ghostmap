@@ -17,6 +17,7 @@ import countriesUrl from '../data/geo/countries.json?url';
 import landBinUrl from '../data/geo/land.bin?url';
 import landMetaUrl from '../data/geo/land.json?url';
 import { createFind } from './find';
+import { fetchStats, sendResult, statsHtml } from './stats';
 import { createWorld, webglAvailable, type Feature, type LandMeta, type LatLng, type World } from './globe';
 import { getLang, setLang, t, wrongMsg, type Lang } from './i18n';
 import { makeJudge, norm, type Judge, type NearRule } from './judge';
@@ -482,6 +483,7 @@ export const game: GameModule<Puzzle, State> = {
         <p class="kicker ${won ? 'ok' : 'ko'}">${cardLabel()}${head}</p>
         <h2>${esc(tx.title)}</h2>
         ${scoreHtml(c)}
+        ${classic ? `<div data-pstats></div>` : ''}
         ${placesHtml()}
         ${tx.fact ? `<p class="fact">${esc(tx.fact)}</p>` : ''}
         ${rankingHtml()}
@@ -490,7 +492,7 @@ export const game: GameModule<Puzzle, State> = {
           last
             ? `<p class="daydone">${N > 1 ? t('dayDone', { w: wins, total: N }) + '<br>' : ''}${t('dayTotal', { n: dayTotal(), max: N * 100 })}${
                 best ? ` · ${t('best', { n: best, max: N * 100 })}` : ''
-              }</p>`
+              }${classic ? '<span data-ptoday></span>' : ''}</p>`
             : ''
         }
         <div class="acts">${
@@ -507,6 +509,26 @@ export const game: GameModule<Puzzle, State> = {
       ui.done.querySelector('[data-next]')?.addEventListener('click', nextCard);
       const sc = ui.done.querySelector<HTMLElement>('[data-score]');
       if (fresh && sc && c.score && !reduced) countUp(sc, c.score.total);
+      if (classic) playerStats(D.st.cur, c);
+    }
+
+    /** Classique : envoie le résultat de la carte (une seule fois), puis affiche les chiffres de tous les joueurs. */
+    function playerStats(slot: number, c: CardState) {
+      const won = c.status === 'won';
+      sendResult(ctx.dayNumber, slot, {
+        won,
+        tries: won ? c.guesses.length : MAX,
+        score: c.score?.total ?? 0,
+        ms: Math.round(c.ms ?? 0),
+        wrongs: c.guesses.filter((g) => g.k !== 'right').map((g) => g.t),
+      });
+      fetchStats(ctx.dayNumber, slot).then((s) => {
+        if (!s || mode !== 'classic' || D.kind !== 'classic' || D.st.cur !== slot || card().status === 'playing') return;
+        const box = ui.done.querySelector<HTMLElement>('[data-pstats]');
+        if (box) box.innerHTML = statsHtml(s, { won, tries: c.guesses.length, score: c.score?.total ?? null }, fmt);
+        const today = ui.done.querySelector<HTMLElement>('[data-ptoday]');
+        if (today && s.today > 0) today.innerHTML = '<br>' + t('psToday', { n: fmt(s.today) });
+      });
     }
 
     /** Le score compte de 0 à sa valeur, avec un petit tic. */

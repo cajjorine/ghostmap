@@ -1383,6 +1383,72 @@ html[lang='en'] [data-lang='fr'] {
   color: #a9c6e6;
 }
 
+/* ---------- statistiques de tous les joueurs ---------- */
+.pstats {
+  margin: 0 0 14px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  font-size: 14px;
+  color: #c3d0df;
+  animation: fade 0.4s;
+}
+
+.pstats p {
+  margin: 0 0 4px;
+}
+
+.pstats b {
+  color: var(--text);
+}
+
+.ps-head {
+  font-weight: 700;
+  color: var(--muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.ps-dist {
+  list-style: none;
+  margin: 8px 0 6px;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.ps-dist li {
+  display: grid;
+  grid-template-columns: 16px 1fr 44px;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.ps-dist i {
+  display: block;
+  height: 10px;
+  width: max(3px, var(--w));
+  border-radius: 5px;
+  background: var(--ko);
+}
+
+.ps-dist li.me i {
+  background: var(--coral);
+}
+
+.ps-dist b {
+  text-align: right;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.ps-wrong {
+  margin-top: 6px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

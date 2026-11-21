@@ -169,10 +169,55 @@ Au-delà du jour 5, elles recommencent au début : **à compléter**.
 
 ---
 
+## 6. Statistiques de tous les joueurs
+
+> Exception à la règle « 100 % statique » de CLAUDE.md, validée le 21 novembre 2026.
+
+### Ce qui s'affiche en fin de carte (Classique)
+- « Tous les joueurs (1 234) », puis « 62 % ont trouvé cette carte · 2,8 essais en moyenne ».
+- « Ton score fait mieux que 78 % des joueurs » (si la carte est gagnée ; les perdants comptent comme en dessous).
+- La répartition des résultats : barres de 1 à 5 essais, plus « X », avec ta barre en corail.
+- La réponse fausse la plus fréquente.
+- Sur la dernière carte du jour : « 1 234 parties jouées aujourd'hui ».
+
+### Fonctionnement
+- **Envoi** : quand le panneau de fin d'une carte Classique s'affiche, le navigateur envoie une seule fois
+  `card` (`c<jour>.<place>`, par exemple `c12.0`), gagné ou perdu, essais, score, durée de jeu et réponses
+  fausses (raccourcies à 40 caractères, sans accents côté serveur). Il retient ensuite qu'il l'a envoyé
+  (clé `sent`). Rien n'est envoyé depuis `npm run dev` : seulement depuis l'adresse publiée.
+- **Serveur** : `worker/index.ts`, branché dans `wrangler.jsonc`. Seules les adresses `/api/*` passent par lui
+  (`run_worker_first`) ; le reste du site est servi comme avant. Base Cloudflare D1, tables créées
+  automatiquement au premier appel.
+  - `POST /api/result` : valide et enregistre (essais 1–5, score 0–100, durée plafonnée à 1 h, 5 réponses fausses au plus).
+  - `GET /api/stats?card=c12.0` : chiffres agrégés, mis en cache une minute.
+- **Panne** : si l'API ne répond pas en 5 secondes, ou si la base n'est pas branchée (503), le bloc ne s'affiche pas.
+
+### Garde-fous
+- **Pas de pourcentages sous 30 joueurs** sur une carte.
+- **Réponse fausse affichée** seulement si au moins 20 joueurs l'ont donnée, et si elle ne contient aucun mot
+  de la liste interdite (`BANNED` dans `worker/index.ts`).
+- **Anti-abus** : 20 envois par minute au plus par adresse. Le compteur est tenu en mémoire du Worker, sur une
+  empreinte de l'adresse jamais écrite en base ; c'est une limite approximative (par instance).
+- **Vie privée** : ni compte, ni identifiant joueur, ni adresse IP en base. Une phrase l'explique dans les règles.
+
+### Bonus : régler les mots-clés des cartes
+Les réponses refusées les plus fréquentes d'une carte :
+```
+npx wrangler d1 execute ghostmap-stats --remote --command "SELECT guess, n FROM wrongs WHERE card = 'c12.0' ORDER BY n DESC LIMIT 30"
+```
+Sur toutes les cartes : retirer le `WHERE` et ajouter `card` au `SELECT`.
+
+### Mise en service
+Voir [TODO.md](TODO.md) : la base doit être créée et son identifiant ajouté à `wrangler.jsonc`.
+
+---
+
 ## Fichiers
 - `src/game/game.ts` : menu des modes, Classique et Points, score, chronomètre, enchaînement de la fin de carte,
   cartes en dégradé (niveaux, légende, classement).
 - `src/game/find.ts` : le mode Retrouve-les.
+- `src/game/stats.ts` : envoi des résultats et bloc des statistiques de tous les joueurs.
+- `worker/index.ts` : l'API des statistiques (Worker + D1) ; `wrangler.jsonc` la branche.
 - `src/game/globe.ts` : hauteurs et couleurs par niveau, couleur de défaite, tournée de la caméra, étiquettes, pulsation,
   pays touché, clignotement d'erreur, pays manquants, colonnes de lumière des lieux.
 - `src/game/i18n.ts` : nouveaux textes FR/EN.
