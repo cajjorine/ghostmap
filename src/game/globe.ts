@@ -38,10 +38,22 @@ export interface WorldHooks {
   onIgnite(name: string, silent: boolean, combo: number): void;
 }
 
+export interface TourOptions {
+  won: boolean;
+  /** Nom affiché d'un pays (clé Natural Earth), dans la langue du joueur. */
+  name(n: string): string;
+  /** Appelé à chaque arrêt de la tournée. */
+  onStop?(i: number): void;
+}
+
 export interface World {
-  setTargets(targets: Feature[], companions: Map<string, string>): void;
+  /** `levels` (0 à 4) : carte en dégradé, chaque pays monte à la hauteur de son niveau. */
+  setTargets(targets: Feature[], companions: Map<string, string>, levels?: Map<string, number>): void;
   ignite(name: string, opts?: { silent?: boolean }): void;
-  reveal(animated: boolean): void;
+  /** Fin de carte sans spectacle (partie déjà terminée) : tout s'allume. */
+  reveal(animated: boolean, won: boolean): void;
+  /** Fin de carte en spectacle : onde, tournée de la caméra avec les noms, pulsation. `skip` y met fin. */
+  tour(opts: TourOptions): { done: Promise<void>; skip(): void };
   intro(start: LatLng, ms?: number): void;
   lookAt(start: LatLng, ms: number): void;
   litCount(): number;
@@ -57,7 +69,13 @@ const COL = {
   win: '#ff7448',
   litSide: '#b8381a',
   litStroke: 'rgba(255,214,196,0.95)',
+  miss: '#8fb4d9',
+  missSide: '#3f5f80',
+  missStroke: 'rgba(225,238,252,0.85)',
+  /** Niveaux des cartes en dégradé, du plus faible au plus fort. */
+  levels: ['#9c3f27', '#cf4e2c', '#ff6236', '#ff8f62', '#ffc6a8'],
 };
+const LEVEL_ALT = [0.02, 0.045, 0.07, 0.095, 0.12];
 const R = 100;
 const TRANS = reduced ? 0 : 900;
 
@@ -178,13 +196,13 @@ function landParts(meta: LandMeta[], bin: ArrayBuffer) {
       }
       const pos = nrm.map((v) => v * R);
       caps.push({ pos, idx: tri, nrm });
-      // flancs (de 0,95 R à R, pour rester ancrés dans le globe quand le pays monte) et contours
+      // flancs (de 0,85 R à R, pour rester ancrés dans le globe même quand le pays monte haut) et contours
       const nc = p.rings.reduce((a, b) => a + b, 0);
       const sp = new Float32Array(nc * 6);
       const si = new Uint32Array(nc * 6);
       const li = new Uint32Array(nc * 2);
       sp.set(pos.subarray(0, nc * 3));
-      for (let i = 0; i < nc * 3; i++) sp[nc * 3 + i] = pos[i] * 0.95;
+      for (let i = 0; i < nc * 3; i++) sp[nc * 3 + i] = pos[i] * 0.85;
       let k = 0;
       let start = 0;
       for (const len of p.rings) {
@@ -307,9 +325,11 @@ interface Raised {
   from: number;
   to: number;
   t0: number;
+  /** Début de la pulsation de fin (0 : aucune). */
+  bump0: number;
 }
 
-type Kind = 'base' | 'lit' | 'win';
+type Kind = 'base' | 'lit' | 'win' | 'miss' | 'g0' | 'g1' | 'g2' | 'g3' | 'g4';
 
 export function createWorld(
   el: HTMLElement,
@@ -328,10 +348,16 @@ export function createWorld(
   const litSideMat = new THREE.MeshBasicMaterial({ color: COL.litSide, side: THREE.DoubleSide });
   const strokeMat = lineMat(COL.stroke);
   const litStrokeMat = lineMat(COL.litStroke);
+  const missMat = new THREE.MeshBasicMaterial({ color: COL.miss });
+  const missSideMat = new THREE.MeshBasicMaterial({ color: COL.missSide, side: THREE.DoubleSide });
+  const missStrokeMat = lineMat(COL.missStroke);
+  const lvl = (i: number) => ({ alt: LEVEL_ALT[i], cap: new THREE.MeshBasicMaterial({ color: COL.levels[i] }), side: litSideMat, line: litStrokeMat });
   const KIND: Record<Kind, { alt: number; cap: THREE.Material; side: THREE.Material; line: THREE.Material }> = {
     base: { alt: 0.005, cap: landMat, side: sideMat, line: strokeMat },
     lit: { alt: 0.022, cap: litMat, side: litSideMat, line: litStrokeMat },
     win: { alt: 0.04, cap: winMat, side: litSideMat, line: litStrokeMat },
+    miss: { alt: 0.035, cap: missMat, side: missSideMat, line: missStrokeMat },
+    g0: lvl(0), g1: lvl(1), g2: lvl(2), g3: lvl(3), g4: lvl(4),
   };
   const glowTex = radial([
     [0, 'rgba(255,255,255,1)'],
@@ -342,8 +368,10 @@ export function createWorld(
 
   let targets: Feature[] = [];
   let companions = new Map<string, string>();
+  let levels = new Map<string, number>();
   const litSet = new Set<string>();
   let solved = false;
+  let won = true;
   let scanOn = false;
   const glows: Glow[] = [];
   let rings: LatLng[] = [];
@@ -399,7 +427,7 @@ export function createWorld(
       [g, cap, side, line].forEach((o) => { o.renderOrder = 1; });
       g.add(cap, side, line);
       land.root.add(g);
-      r = { g, cap, side, line, kind: 'base', alt: KIND.base.alt, from: 0, to: KIND.base.alt, t0: 0 };
+      r = { g, cap, side, line, kind: 'base', alt: KIND.base.alt, from: 0, to: KIND.base.alt, t0: 0, bump0: 0 };
       g.scale.setScalar(1 + r.alt);
       land.raised.set(n, r);
     }
@@ -416,23 +444,38 @@ export function createWorld(
 
   function animateLand(now: number) {
     for (const [n, r] of land.raised) {
+      let moved = false;
       if (r.alt !== r.to) {
         const k = TRANS ? Math.min(1, (now - r.t0) / TRANS) : 1;
         const e = k < 0.5 ? 2 * k * k : 1 - (2 - 2 * k) ** 2 / 2;
         r.alt = k >= 1 ? r.to : r.from + (r.to - r.from) * e;
-        r.g.scale.setScalar(1 + r.alt);
+        moved = true;
       }
-      if (r.alt === r.to && r.kind === 'base') {
+      let extra = 0;
+      if (r.bump0) {
+        const k = (now - r.bump0) / 650;
+        if (k >= 1) r.bump0 = 0;
+        else if (k > 0) extra = 0.035 * Math.sin(Math.PI * k);
+        moved = true;
+      }
+      if (moved) r.g.scale.setScalar(1 + r.alt + extra);
+      if (r.alt === r.to && r.kind === 'base' && !r.bump0) {
         land.root?.remove(r.g);
         land.raised.delete(n);
       }
     }
   }
 
+  function kindOf(n: string): Kind {
+    const lv = levels.get(n) ?? levels.get(companions.get(n) ?? '');
+    if (lv !== undefined) return `g${lv}` as Kind;
+    return solved ? (won ? 'win' : 'miss') : 'lit';
+  }
+
   function refreshPolys() {
     if (!land.root) return;
     const want = new Map<string, Kind>();
-    litSet.forEach((n) => want.set(n, solved ? 'win' : 'lit'));
+    litSet.forEach((n) => want.set(n, kindOf(n)));
     for (const n of land.raised.keys()) if (!want.has(n)) raise(n, 'base');
     for (const [n, k] of want) raise(n, k);
   }
@@ -469,6 +512,61 @@ export function createWorld(
     addRing(t);
     refreshPolys();
     hooks.onIgnite(t.n, silent, combo);
+  }
+
+  // ---------- fin de carte : arrêts de la tournée et pulsation ----------
+  /** Regroupe les pays par proximité, garde au plus 4 groupes importants et éloignés, dans l'ordre du trajet. */
+  function tourStops(from: LatLng) {
+    type Cluster = LatLng & { w: number; items: Feature[] };
+    const weight = (f: Feature) => Math.sqrt(f.a) + 0.5;
+    const clusters: Cluster[] = [];
+    for (const f of targets.slice().sort((a, b) => weight(b) - weight(a))) {
+      const p = { lat: f.c[1], lng: f.c[0] };
+      const c = clusters.find((k) => angDist(k, p) < 28);
+      if (c) {
+        c.items.push(f);
+        c.w += weight(f);
+      } else clusters.push({ ...p, w: weight(f), items: [f] });
+    }
+    const pool = clusters.sort((a, b) => b.w - a.w);
+    const chosen: Cluster[] = pool.length ? [pool.shift()!] : [];
+    while (chosen.length < 4 && pool.length) {
+      let best = -1;
+      let bi = -1;
+      pool.forEach((c, i) => {
+        const d = Math.min(...chosen.map((k) => angDist(k, c)));
+        const sc = c.w * Math.min(1, d / 60);
+        if (sc > best) {
+          best = sc;
+          bi = i;
+        }
+      });
+      if (bi < 0 || best < chosen[0].w * 0.08) break;
+      chosen.push(pool.splice(bi, 1)[0]);
+    }
+    // trajet : toujours le groupe le plus proche de la position courante
+    const path: Cluster[] = [];
+    let cur: LatLng = from;
+    while (chosen.length) {
+      chosen.sort((a, b) => angDist(cur, a) - angDist(cur, b));
+      cur = chosen.shift()!;
+      path.push(cur as Cluster);
+    }
+    return path.map((c) => ({ lat: c.lat, lng: c.lng, names: c.items.slice(0, 5) }));
+  }
+
+  /** Une vague de soulèvement court de pays en pays, depuis l'endroit regardé. */
+  function pulse() {
+    const pov = world.pointOfView();
+    const now = performance.now();
+    [...litSet]
+      .map((n) => byName.get(n))
+      .filter((f): f is Feature => !!f)
+      .sort((a, b) => angDist(pov, { lat: a.c[1], lng: a.c[0] }) - angDist(pov, { lat: b.c[1], lng: b.c[0] }))
+      .forEach((f, i) => {
+        const r = land.raised.get(f.n);
+        if (r) r.bump0 = now + i * 35;
+      });
   }
 
   // ---------- cadrage : le globe se centre dans l'espace laissé libre par le panneau ----------
@@ -700,6 +798,15 @@ export function createWorld(
       const g = d as Glow;
       Object.assign(obj.position, world.getCoords(g.lat, g.lng, 0.05));
     })
+    .htmlLat('lat')
+    .htmlLng('lng')
+    .htmlAltitude(0.07)
+    .htmlElement((d: object) => {
+      const el = document.createElement('div');
+      el.className = 'gm-label';
+      el.textContent = (d as { text: string }).text;
+      return el;
+    })
     .enablePointerInteraction(false);
 
   const gm = world.globeMaterial() as THREE.MeshPhongMaterial;
@@ -757,6 +864,7 @@ export function createWorld(
     warm.add(
       new THREE.Mesh(tri, litMat),
       new THREE.Mesh(tri, winMat),
+      new THREE.Mesh(tri, missMat),
       new THREE.Mesh(tri, litSideMat),
       new THREE.LineSegments(seg, litStrokeMat),
       new THREE.Sprite(tmp[0] as THREE.SpriteMaterial),
@@ -901,9 +1009,12 @@ export function createWorld(
 
   return {
     // Nouvelle carte : tout s'éteint (pays, halos, file d'allumage) avant de poser les nouvelles cibles.
-    setTargets(t, comps) {
+    setTargets(t, comps, lv) {
       targets = t;
       companions = comps;
+      levels = lv ?? new Map();
+      won = true;
+      world.htmlElementsData([]);
       litSet.clear();
       queue.length = 0;
       glows.length = 0;
@@ -917,8 +1028,9 @@ export function createWorld(
       const f = byName.get(name);
       if (f) ignite(f, { silent });
     },
-    reveal(animated) {
+    reveal(animated, w) {
       solved = true;
+      won = w;
       scanOn = true;
       refreshPolys();
       const pov = world.pointOfView();
@@ -940,6 +1052,56 @@ export function createWorld(
     },
     lookAt(s, ms) {
       world.pointOfView({ lat: s.lat, lng: s.lng, altitude: view.alt }, reduced ? 0 : ms);
+    },
+    tour(opts) {
+      solved = true;
+      won = opts.won;
+      refreshPolys();
+      const pov0 = world.pointOfView();
+      const rest = () =>
+        targets
+          .filter((t) => !litSet.has(t.n))
+          .sort((a, b) => angDist(pov0, { lat: a.c[1], lng: a.c[0] }) - angDist(pov0, { lat: b.c[1], lng: b.c[0] }));
+      if (reduced) {
+        rest().forEach((t) => ignite(t, { silent: true }));
+        return { done: Promise.resolve(), skip() {} };
+      }
+      // onde : les lumières restantes s'allument depuis l'endroit regardé
+      queue.push(...rest().filter((t) => !queue.includes(t)));
+
+      const stops = tourStops(pov0);
+      const timers: number[] = [];
+      let over = false;
+      let resolve!: () => void;
+      const done = new Promise<void>((r) => (resolve = r));
+      const end = () => {
+        if (over) return;
+        over = true;
+        timers.forEach((id) => clearTimeout(id));
+        world.htmlElementsData([]);
+        queue.length = 0;
+        rest().forEach((t) => ignite(t, { silent: true }));
+        const p = world.pointOfView();
+        world.pointOfView({ lat: p.lat, lng: p.lng, altitude: view.alt }, 900);
+        setTimeout(pulse, 500);
+        ctr.autoRotate = true;
+        setTimeout(() => { ctr.autoRotate = false; }, 7000);
+        resolve();
+      };
+      let at = 450;
+      stops.forEach((s, i) => {
+        timers.push(window.setTimeout(() => {
+          world.htmlElementsData([]);
+          world.pointOfView({ lat: s.lat, lng: s.lng, altitude: Math.max(0.45, view.alt * 0.72) }, 900);
+        }, at));
+        timers.push(window.setTimeout(() => {
+          world.htmlElementsData(s.names.map((f) => ({ lat: f.c[1], lng: f.c[0], text: opts.name(f.n) })));
+          opts.onStop?.(i);
+        }, at + 900));
+        at += 1400;
+      });
+      timers.push(window.setTimeout(end, at + 200));
+      return { done, skip: end };
     },
     litCount: () => targets.filter((t) => litSet.has(t.n)).length,
   };

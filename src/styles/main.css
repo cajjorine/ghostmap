@@ -977,6 +977,174 @@ h2 {
   }
 }
 
+/* fin de carte : flash, panneau effacé pendant la tournée, étiquettes des pays */
+.gm-flash {
+  position: fixed;
+  inset: 0;
+  z-index: 39;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 45%, rgba(255, 236, 224, 0.55), rgba(255, 236, 224, 0) 70%);
+  opacity: 0;
+}
+
+.gm-flash.on {
+  animation: gm-flash 0.6s ease-out;
+}
+
+@keyframes gm-flash {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.panel {
+  transition:
+    opacity 0.45s ease,
+    translate 0.45s ease;
+}
+
+.panel.touring {
+  opacity: 0;
+  translate: 0 40px;
+  pointer-events: none;
+}
+
+.gm-label {
+  pointer-events: none;
+  padding: 3px 8px;
+  border-radius: 8px;
+  background: rgba(7, 13, 26, 0.72);
+  border: 1px solid rgba(255, 190, 160, 0.35);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
+  animation: gm-label-in 0.35s ease-out both;
+}
+
+@keyframes gm-label-in {
+  from {
+    opacity: 0;
+    scale: 0.85;
+  }
+}
+
+/* score */
+.score {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin: 2px 0 6px;
+  font-family: var(--font-title);
+}
+
+.score b {
+  font-size: 44px;
+  line-height: 1;
+  color: var(--coral);
+  font-variant-numeric: tabular-nums;
+}
+
+.score span {
+  color: var(--muted);
+  font-size: 17px;
+}
+
+.score.lost b {
+  color: var(--ko);
+}
+
+.breakdown {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.breakdown b {
+  margin-left: 5px;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+/* cartes en dégradé : légende et classement */
+.legend {
+  position: fixed;
+  z-index: 9;
+  left: 50%;
+  top: calc(112px + env(safe-area-inset-top));
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 10px;
+  border-radius: 10px;
+  background: rgba(7, 13, 26, 0.62);
+  border: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.legend[hidden] {
+  display: none;
+}
+
+.legend i {
+  width: 90px;
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #9c3f27, #cf4e2c, #ff6236, #ff8f62, #ffc6a8);
+}
+
+.ranking {
+  margin: 0 0 14px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+}
+
+.rk-head {
+  margin: 0 0 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--coral2);
+}
+
+.ranking ol {
+  margin: 0;
+  padding-left: 22px;
+  display: grid;
+  gap: 2px;
+  font-size: 14px;
+}
+
+.ranking li span {
+  display: inline-block;
+  min-width: 60%;
+}
+
+.ranking li b {
+  font-variant-numeric: tabular-nums;
+}
+
+.rk-src {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
 /* langue */
 .lang {
   position: fixed;

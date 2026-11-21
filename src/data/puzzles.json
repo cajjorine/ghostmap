@@ -363,6 +363,268 @@
     }
   },
   {
+    "type": "gradient",
+    "title": "Les 16 plus grands pays du monde, par superficie",
+    "values": {
+      "Russie": 17.1,
+      "Canada": 9.98,
+      "États-Unis": 9.83,
+      "Chine": 9.6,
+      "Brésil": 8.52,
+      "Australie": 7.74,
+      "Inde": 3.29,
+      "Argentine": 2.78,
+      "Kazakhstan": 2.72,
+      "Algérie": 2.38,
+      "RD Congo": 2.34,
+      "Arabie Saoudite": 2.15,
+      "Mexique": 1.96,
+      "Indonésie": 1.9,
+      "Soudan": 1.86,
+      "Libye": 1.76
+    },
+    "scale": "log",
+    "unit": "millions de km²",
+    "source": "CIA World Factbook (superficie totale, terres et eaux intérieures)",
+    "hints": [
+      "Plus un pays est haut, plus il en a",
+      "La Russie écrase tout le monde",
+      "Le Groenland est éteint : ce n’est pas un pays indépendant",
+      "Ça se mesure en km²"
+    ],
+    "fact": "La Russie couvre à elle seule plus de 11 % des terres émergées. Le Groenland (2,17 millions de km²) serait 12e s’il était indépendant.",
+    "start": "40, 60",
+    "answers": [
+      "superficie/surface/aire/taille/etendue/km/territoire",
+      "grand/vaste/immense/gros + pays/plus/monde/territoire"
+    ],
+    "near": [
+      {
+        "rule": "population/peupl/habitant",
+        "msg": "Pas la population : le Canada et l’Australie sont tout en haut."
+      },
+      {
+        "rule": "riche/pib/econom/petrol",
+        "msg": "Non : la Libye et le Soudan sont allumés."
+      },
+      {
+        "rule": "grand/vaste",
+        "msg": "Brûlant ! Grand comment ?",
+        "hot": true
+      }
+    ],
+    "en": {
+      "title": "The 16 largest countries in the world, by area",
+      "hints": [
+        "The higher a country, the more it has",
+        "Russia dwarfs everyone",
+        "Greenland is dark: it isn’t an independent country",
+        "It’s measured in km²"
+      ],
+      "fact": "Russia alone covers more than 11% of the world’s land. Greenland (2.17 million km²) would rank 12th if it were independent.",
+      "unit": "million km²",
+      "source": "CIA World Factbook (total area, land and inland water)",
+      "answers": [
+        "area/size/surface/km/square/territor",
+        "big/large/largest/biggest/vast/huge + country/countries/world/territor"
+      ],
+      "near": [
+        {
+          "rule": "population/populous/people/inhabitant",
+          "msg": "Not population: Canada and Australia are near the top."
+        },
+        {
+          "rule": "rich/gdp/econom/oil",
+          "msg": "No: Libya and Sudan are lit."
+        },
+        {
+          "rule": "big/large/vast/huge",
+          "msg": "Red hot! Big in what way?",
+          "hot": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "gradient",
+    "title": "Les vainqueurs de la Coupe du monde de rugby",
+    "values": {
+      "Afrique du Sud": 4,
+      "Nouvelle-Zélande": 3,
+      "Australie": 2,
+      "Royaume-Uni": 1
+    },
+    "unit": "titres",
+    "source": "World Rugby, éditions de 1987 à 2023",
+    "hints": [
+      "Plus un pays est haut, plus il en a gagné",
+      "L’Afrique du Sud est tout en haut, avec quatre",
+      "Le ballon n’est pas rond",
+      "Le trophée s’appelle la coupe Webb-Ellis"
+    ],
+    "fact": "L’Afrique du Sud a gagné en 1995, 2007, 2019 et 2023. La France a perdu trois finales (1987, 1999, 2011) sans jamais soulever le trophée. Le titre anglais de 2003 allume tout le Royaume-Uni.",
+    "start": "-30, 150",
+    "answers": [
+      "rugby + coupe/mondial/champion/titre/gagn/vainq/world cup/sacre/trophee/victoire",
+      "webb ellis"
+    ],
+    "near": [
+      {
+        "rule": "rugby/ovale/ballon ovale/all blacks/springbok",
+        "msg": "Brûlant ! Mais qu’est-ce qui est compté ?",
+        "hot": true
+      },
+      {
+        "rule": "foot/soccer",
+        "msg": "Pas le foot : la Nouvelle-Zélande n’a jamais rien gagné en foot."
+      },
+      {
+        "rule": "cricket",
+        "msg": "Pas le cricket, mais tu chauffes : un autre sport à ballon."
+      },
+      {
+        "rule": "commonwealth/britann/anglophon/coloni",
+        "msg": "Tu chauffes : mais pourquoi l’Afrique du Sud est-elle la plus haute ?"
+      },
+      {
+        "rule": "sport/coupe du monde/champion",
+        "msg": "Tu chauffes ! Quel sport ?",
+        "hot": true
+      }
+    ],
+    "en": {
+      "title": "Rugby World Cup winners",
+      "hints": [
+        "The higher a country, the more it has won",
+        "South Africa is at the top, with four",
+        "The ball isn’t round",
+        "The trophy is called the Webb Ellis Cup"
+      ],
+      "fact": "South Africa won in 1995, 2007, 2019 and 2023. France has lost three finals (1987, 1999, 2011) without ever lifting the trophy. England’s 2003 title lights up the whole United Kingdom.",
+      "unit": "titles",
+      "source": "World Rugby, tournaments from 1987 to 2023",
+      "answers": [
+        "rugby + cup/world/champion/title/win/won/winner/trophy/victor",
+        "webb ellis"
+      ],
+      "near": [
+        {
+          "rule": "rugby/oval/all blacks/springbok",
+          "msg": "Red hot! But what’s being counted?",
+          "hot": true
+        },
+        {
+          "rule": "football/soccer",
+          "msg": "Not football: New Zealand has never won anything in football."
+        },
+        {
+          "rule": "cricket",
+          "msg": "Not cricket, but getting warmer: another ball sport."
+        },
+        {
+          "rule": "commonwealth/british/english speak/colon",
+          "msg": "Getting warmer: but why is South Africa the highest?"
+        },
+        {
+          "rule": "sport/world cup/champion",
+          "msg": "Getting warmer! Which sport?",
+          "hot": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "gradient",
+    "title": "Les médailles d’or aux JO de Paris 2024 (pays en ayant gagné au moins 5)",
+    "values": {
+      "États-Unis": 40,
+      "Chine": 40,
+      "Japon": 20,
+      "Australie": 18,
+      "France": 16,
+      "Pays-Bas": 15,
+      "Royaume-Uni": 14,
+      "Corée du Sud": 13,
+      "Italie": 12,
+      "Allemagne": 12,
+      "Nouvelle-Zélande": 10,
+      "Canada": 9,
+      "Ouzbékistan": 8,
+      "Hongrie": 6,
+      "Espagne": 5
+    },
+    "unit": "médailles d’or",
+    "source": "CIO, tableau des médailles des Jeux de Paris 2024",
+    "hints": [
+      "Plus un pays est haut, plus il en a",
+      "C’était en France, à l’été 2024",
+      "Les États-Unis et la Chine sont à égalité tout en haut",
+      "Ça brille, et c’est la plus belle des trois"
+    ],
+    "fact": "Les États-Unis et la Chine ont fini à égalité, avec 40 médailles d’or chacun. Les États-Unis passent devant au total, avec 126 médailles.",
+    "start": "35, 20",
+    "answers": [
+      "or/gold/dore + medaill/jo/olymp/paris/2024/jeux/titre",
+      "medaill + paris/2024/olymp/jo/jeux"
+    ],
+    "near": [
+      {
+        "rule": "olymp/jo/jeux/paris 2024",
+        "msg": "Brûlant ! Mais qu’est-ce qui est compté ?",
+        "hot": true
+      },
+      {
+        "rule": "medaill",
+        "msg": "Brûlant ! Où ça, et lesquelles ?",
+        "hot": true
+      },
+      {
+        "rule": "riche/pib/population",
+        "msg": "Non : la Nouvelle-Zélande est haute, l’Inde éteinte."
+      },
+      {
+        "rule": "sport/champion",
+        "msg": "Tu chauffes : quelle compétition ?"
+      }
+    ],
+    "en": {
+      "title": "Gold medals at the Paris 2024 Olympics (countries with at least 5)",
+      "hints": [
+        "The higher a country, the more it has",
+        "It happened in France, in the summer of 2024",
+        "The United States and China are tied at the top",
+        "It shines, and it’s the best of the three"
+      ],
+      "fact": "The United States and China finished level on 40 gold medals each. The United States came out ahead on the total, with 126 medals.",
+      "unit": "gold medals",
+      "source": "IOC, Paris 2024 medal table",
+      "answers": [
+        "gold + medal/olymp/paris/2024/games/title",
+        "medal + paris/2024/olymp/games"
+      ],
+      "near": [
+        {
+          "rule": "olymp/games/paris 2024",
+          "msg": "Red hot! But what’s being counted?",
+          "hot": true
+        },
+        {
+          "rule": "medal",
+          "msg": "Red hot! Where, and which ones?",
+          "hot": true
+        },
+        {
+          "rule": "rich/gdp/population",
+          "msg": "No: New Zealand is high and India is dark."
+        },
+        {
+          "rule": "sport/champion",
+          "msg": "Getting warmer: which competition?"
+        }
+      ]
+    }
+  },
+  {
     "title": "Les pays où l’espagnol est langue officielle",
     "countries": [
       "Espagne",
